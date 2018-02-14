@@ -10,7 +10,7 @@ public class MasterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
 
-        // this is develop br
+        // this is master br
     }
 
     public void t1M()

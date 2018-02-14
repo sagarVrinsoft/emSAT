@@ -1,9 +1,9 @@
-*.iml
+# Built application files
+
 .gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
 /build
-/captures
-.externalNativeBuild
+/.idea
+*.iml
+local.properties
+.DS_Store 
+/keys/debug.keystore

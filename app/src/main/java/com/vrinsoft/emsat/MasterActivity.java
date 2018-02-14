@@ -11,5 +11,6 @@ public class MasterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_master);
 
         // this is develop br
+        // hurre
     }
 }

@@ -12,4 +12,9 @@ public class MasterActivity extends AppCompatActivity {
 
         // this is develop br
     }
+
+    public void t1M()
+    {
+
+    }
 }

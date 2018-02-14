@@ -17,4 +17,9 @@ public class MasterActivity extends AppCompatActivity {
     {
 
     }
+
+    public void testDev()
+    {
+
+    }
 }

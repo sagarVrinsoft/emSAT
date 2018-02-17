@@ -21,12 +21,14 @@ import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.vrinsoft.emsat.activity.Home;
+import com.vrinsoft.emsat.activity.signin.SignIn;
 import com.vrinsoft.emsat.databinding.ActivityMasterBinding;
 import com.vrinsoft.emsat.navigation_drawer.FragmentDrawer;
 import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.ConnectivityReceiver;
+import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.widget.CustomTextView;
 
 import java.util.ArrayList;
@@ -85,7 +87,7 @@ public abstract class MasterActivity extends AppCompatActivity
             // To make work while going back to home
             // As nothing is triggered from SlideMenuUtils when back pressed
             // and activity changes.
-            AppConstants.cur_sel_pos = AppConstants.MENU_ITEM.MENU_ITEM_RIDE_NOW;
+            AppConstants.cur_sel_pos = AppConstants.MENU_ITEM.MENU_ITEM_HOME;
         }
     }
 
@@ -174,7 +176,8 @@ public abstract class MasterActivity extends AppCompatActivity
     public void signOutCofirmation() {
         final AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(mActivity, android.R.style.Theme_Material_Dialog_Alert);
+//            builder = new AlertDialog.Builder(mActivity, android.R.style.Theme_Material_Dialog_Alert);
+            builder = new AlertDialog.Builder(mActivity, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
         } else {
             builder = new AlertDialog.Builder(mActivity);
         }
@@ -183,6 +186,7 @@ public abstract class MasterActivity extends AppCompatActivity
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 //                        signOut();
+                        NavigationUtils.startActivityWithClearStack(mActivity, SignIn.class, null);
                         dialog.dismiss();
                     }
                 })

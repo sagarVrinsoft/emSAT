@@ -41,7 +41,7 @@ public class AppConstants {
     public static final int ETA_RIDE_ACCEPT = 0x248;
     public static String OTP_CODE = "";
     public static int preDefaultListPosition = -1;
-    public static int cur_sel_pos = MENU_ITEM.MENU_ITEM_RIDE_NOW;
+    public static int cur_sel_pos = MENU_ITEM.MENU_ITEM_HOME;
     public static boolean isUserPreferedLogOut = false;
     public static int CANCEL_REASON_DEFAULT = -1;
     public static String PUSH_NOTIFICATION_INTENT_KEY = "notification_key";
@@ -211,18 +211,11 @@ public class AppConstants {
     }
 
     public interface MENU_ITEM {
-        public static int MENU_ITEM_RIDE_NOW = 0;
-        public static int MENU_ITEM_PLAN_RIDE = 1;
-        public static int MENU_ITEM_SHARE_RIDE_INFO = 2;
-        public static int MENU_ITEM_RIDE_HISTORY = 3;
-        public static int MENU_ITEM_FAV_SPOTS = 4;
-        public static int MENU_ITEM_SHARE = 5;
-        public static int MENU_ITEM_FAQ = 6;
-        public static int MENU_ITEM_CONTACT_US = 7;
-        public static int MENU_ITEM_SETTINGS = 8;
-        public static int MENU_ITEM_SIGN_OUT = 9;
-        public final static int MENU_ITEM_PROFILE = 101;
-        public final static int MENU_ITEM_WALLET = 102;
+        public static int MENU_ITEM_HOME = 0;
+        public static int MENU_ITEM_PROFILE = 1;
+        public static int MENU_ITEM_MY_TEST = 2;
+        public static int MENU_ITEM_HELP = 3;
+        public static int MENU_ITEM_SIGN_OUT = 4;
     }
 
     public interface GENDER {

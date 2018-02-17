@@ -11,6 +11,7 @@ import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.utils.Pref;
 import com.vrinsoft.emsat.utils.Validator;
+import com.vrinsoft.emsat.utils.ViewUtils;
 
 
 /**
@@ -29,18 +30,27 @@ public class Director {
     public void directTo(int position, Bundle bundle) {
 
         if (position == AppConstants.MENU_ITEM.MENU_ITEM_SIGN_OUT) {
-//            ((MasterActivity) context).signOutCofirmation();
+            ((MasterActivity) context).signOutCofirmation();
         } else if (position != AppConstants.cur_sel_pos) {
             AppConstants.cur_sel_pos = position;
             switch (position) {
 
-                case AppConstants.MENU_ITEM.MENU_ITEM_WALLET:
+                case AppConstants.MENU_ITEM.MENU_ITEM_PROFILE:
 //                    NavigationUtils.startActivity(context, AhoyWallet.class, bundle);
+                    ViewUtils.showToast(context, "Profile", null);
+                    break;
+                case AppConstants.MENU_ITEM.MENU_ITEM_MY_TEST:
+//                    NavigationUtils.startActivity(context, AhoyWallet.class, bundle);
+                    ViewUtils.showToast(context, "My Test", null);
+                    break;
+                case AppConstants.MENU_ITEM.MENU_ITEM_HELP:
+//                    NavigationUtils.startActivity(context, AhoyWallet.class, bundle);
+                    ViewUtils.showToast(context, "Help", null);
                     break;
             }
 
             if (!(context instanceof Home)) {
-//                NavigationUtils.finishCurrentActivity(context);
+                NavigationUtils.finishCurrentActivity(context);
             }
         }
     }

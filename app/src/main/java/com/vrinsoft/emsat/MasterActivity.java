@@ -30,7 +30,7 @@ import com.vrinsoft.emsat.utils.ConnectivityReceiver;
 import com.vrinsoft.emsat.widget.CustomTextView;
 
 import java.util.ArrayList;
-
+// Master br
 public abstract class MasterActivity extends AppCompatActivity
         implements ConnectivityReceiver.ConnectivityReceiverListener,
         FragmentDrawer.FragmentDrawerListener, SharedPreferences.OnSharedPreferenceChangeListener, DrawerLayout.DrawerListener {

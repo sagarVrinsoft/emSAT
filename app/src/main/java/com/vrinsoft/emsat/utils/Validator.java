@@ -44,7 +44,9 @@ public class Validator {
         return false;
     }
 
-    public static boolean checkValidation(Activity mActivity, CustomEditTextView editTextView, String validationMsg) {
+    public static boolean checkValidation(Activity mActivity,
+                                          CustomEditTextView editTextView,
+                                          String validationMsg) {
         if (Validator.isEmptyStr(editTextView.getText().toString().trim())) {
             ViewUtils.showToast(mActivity, validationMsg, null);
             editTextView.requestFocus();

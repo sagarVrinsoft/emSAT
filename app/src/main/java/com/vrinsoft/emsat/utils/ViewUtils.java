@@ -362,4 +362,9 @@ public class ViewUtils {
             }
         }
     }
+
+    // Edit Text Background For Float Label
+    public static Drawable getEtBackground(Activity mActivity) {
+        return mActivity.getResources().getDrawable(R.drawable.bg_edit_text_text_input);
+    }
 }

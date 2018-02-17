@@ -14,7 +14,7 @@ import com.vrinsoft.emsat.utils.NavigationUtils;
 
 public class Home extends MasterActivity
 {
-    // Develop
+    // Master
     ActivityHomeBinding binding;
     Activity mActivity;
 

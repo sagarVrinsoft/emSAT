@@ -6,13 +6,16 @@
         android:id="@+id/llItemRow1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
         android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/rlMenuItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:background="@color/black"
             android:padding="@dimen/_10sdp">
 
             <RelativeLayout
@@ -41,7 +44,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_toRightOf="@+id/rlMenuImg"
                 android:text="@string/app_name"
-                android:textColor="@color/hint_label_color"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp"
                 app:fontTextStyle="1" />
 

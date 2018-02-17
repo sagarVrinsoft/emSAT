@@ -35,6 +35,10 @@
             android:name=".activity.signin.SignIn"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.signup.Register"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

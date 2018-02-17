@@ -70,15 +70,14 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.txtSignIn:
-
                 if (validation()) {
                     ViewUtils.showDialog(mActivity, false);
                     NavigationUtils.startActivityWithClearStack(mActivity, Home.class, null);
-
                 }
                 break;
             case R.id.txtForgotPassword:
                 showForgotPasswordDialog();
+                break;
             case R.id.txtSignUpNavigation:
                 NavigationUtils.startActivity(this, Register.class, null);
                 break;

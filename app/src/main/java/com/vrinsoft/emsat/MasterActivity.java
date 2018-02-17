@@ -47,7 +47,6 @@ public abstract class MasterActivity extends AppCompatActivity
     public Director director;
     public ActivityMasterBinding masterBinding;
     SharedPreferences pref;
-    private FrameLayout mContainer;
     Bundle b = null;
     private FragmentDrawer drawerFragment;
     private Handler mHandler = new Handler();

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/app_bg"
+        android:orientation="vertical"
+        tools:context="com.vrin.ui.welcome.Welcome">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
+
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_20sdp"
+                android:src="@drawable/ic_welcome_logo" />
+
+            <LinearLayout
+                android:id="@+id/llSignIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgLogo"
+                android:layout_margin="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp">
+
+                        <LinearLayout
+                            android:id="@+id/llEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_7sdp"
+                            android:orientation="vertical">
+
+                            <com.vrinsoft.emsat.widget.CustomEditTextView
+                                android:id="@+id/etEmail"
+                                style="@style/BoxEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_40sdp"
+                                android:hint="@string/email_hint"
+                                android:inputType="textEmailAddress"
+                                app:fontTextStyle="1" />
+
+                            <View
+                                android:id="@+id/vEmail"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                android:background="@android:color/darker_gray" />
+                        </LinearLayout>
+
+                        <com.vrinsoft.emsat.widget.CustomTextView
+                            android:id="@+id/txtEmail"
+                            style="@style/BoxEditTextLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/email_hint"
+                            android:visibility="gone"
+                            app:fontTextStyle="1" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_15sdp">
+
+                    <LinearLayout
+                        android:id="@+id/llPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:orientation="vertical">
+
+                        <com.vrinsoft.emsat.widget.CustomEditTextView
+                            android:id="@+id/etPassword"
+                            style="@style/BoxEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:digits="1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@.,- "
+                            android:hint="@string/password"
+                            android:inputType="textWebPassword"
+                            android:maxLength="12"
+                            app:fontTextStyle="1" />
+
+                        <View
+                            android:id="@+id/vPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:background="@android:color/darker_gray" />
+                    </LinearLayout>
+
+                    <com.vrinsoft.emsat.widget.CustomTextView
+                        android:id="@+id/txtPassword"
+                        style="@style/BoxEditTextLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/password"
+                        android:visibility="gone"
+                        app:fontTextStyle="1" />
+
+                </RelativeLayout>
+
+                <com.vrinsoft.emsat.widget.CustomTextView
+                    android:id="@+id/txtForgotPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtSignIn"
+                    android:layout_gravity="right"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/forgot_password"
+                    android:textColor="@color/hint_text_color"
+                    android:textSize="@dimen/_12ssp"
+                    app:fontTextStyle="1" />
+
+                <com.vrinsoft.emsat.widget.CustomTextView
+                    android:id="@+id/txtSignIn"
+                    style="@style/ButtonBlueStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_below="@+id/llSignIn"
+                    android:text="@string/sign_in"
+                    app:fontTextStyle="1" />
+
+                <!--<com.vrinsoft.emsat.widget.CustomTextView
+                    android:id="@+id/txtForgotPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtSignIn"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/forgot_password"
+                    android:textColor="@color/hint_text_color"
+                    android:textSize="@dimen/_12ssp"
+                    app:fontTextStyle="1" />-->
+
+            </LinearLayout>
+
+            <com.vrinsoft.emsat.widget.CustomTextView
+                android:id="@+id/txtSignUpNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="@dimen/_11sdp"
+                android:text="@string/signup_msg"
+                android:textColor="@color/hint_label_color"
+                android:textSize="@dimen/_14ssp"
+                app:fontTextStyle="1" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

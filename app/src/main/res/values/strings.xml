@@ -3,6 +3,7 @@
     <string name="menu_sign_out">Sign Out</string>
     <string name="are_you_sure_you_want_to_sign_out">Are You sure You want to Sign out?</string>
     <string name="internal_storage">Internal storage</string>
+
     <string name="permission_contacts_rationale">Contact permissions is required to Call. Requesting permission.</string>
     <string name="permission_read_contacts_rationale">Read Contact permissions is required to fetch Contact List. Requesting permission.</string>
     <string name="permission_read_contacts_settings">Read Contact permissions is not granted. You can grant it from Settings >> Permissions</string>
@@ -10,8 +11,18 @@
     <string name="permission_location_settings">Location permissions is not granted. You can grant it from Settings >> Permissions</string>
     <string name="permission_camera_rationale">Camera permissions is required for capturing pictures. Requesting permission.</string>
     <string name="permission_camera_settings">Camera permissions is not granted. You can grant it from Settings >> Permissions</string>
-
     <string name="permission_storage_rationale">Storage permissions is required for accessing pictures. Requesting permission.</string>
     <string name="permission_storage_settings">Storage permissions is not granted. You can grant it from Settings >> Permissions</string>
+
+    <string name="email_hint">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="signup_msg">Dont have an account? Sign Up</string>
+    <string name="forgot_password">Forget Password?</string>
+    <string name="please_enter_mobile_no">Please enter Mobile No</string>
+    <string name="please_enter_password">Please enter Password</string>
+    <string name="please_enter_email">Please enter Email</string>
+    <string name="please_enter_name">Please enter name</string>
+    <string name="please_enter_valid_email">Please enter valid email id</string>
     <string name="ok">OK</string>
 </resources>

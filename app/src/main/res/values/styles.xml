@@ -8,4 +8,126 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Theme" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="Theme.emsat.Base" parent="Theme">
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/white</item>
+
+    </style>
+
+    <style name="Theme.Emsat" parent="Theme.emsat.Base" />
+
+    <style name="ActionBarPopupThemeOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ActionBarThemeOverlay" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
+    </style>
+
+    <style name="ScreenTitle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="CheckedTextViewStyle">
+        <item name="android:drawableLeft">@drawable/bg_radio_btn_selector_</item>
+        <item name="android:drawablePadding">@dimen/_10sdp</item>
+        <item name="android:padding">@dimen/_10sdp</item>
+        <item name="android:checkMark">@null</item>
+        <item name="android:textColor">@color/hint_text_color</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+    </style>
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/white</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="BoxEditText">
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@null</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:paddingLeft">@dimen/_14sdp</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textColorHint">@color/hint_text_color</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="BoxEditText_Confirmation">
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/hint_text_color</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">1</item>
+    </style>
+
+    <style name="TextLabel" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/hint_text_color</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/black</item>
+        <item name="colorControlNormal">@color/black</item>
+        <item name="colorControlActivated">@color/black</item>
+    </style>
+
+    <style name="BoxEditTextLabel">
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingLeft">@dimen/_5sdp</item>
+        <item name="android:paddingRight">@dimen/_5sdp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+    </style>
+
+    <style name="CheckedTextViewStyleSetting">
+        <item name="android:drawableLeft">@drawable/bg_setting_check_box_selector</item>
+        <item name="android:drawablePadding">@dimen/_5sdp</item>
+        <item name="android:padding">@dimen/_5sdp</item>
+        <item name="android:checkMark">@null</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+    </style>
+
+    <style name="CheckedTextViewStyleNav">
+        <item name="android:drawableLeft">@drawable/bg_setting_check_box_selector</item>
+        <item name="android:drawablePadding">@dimen/_5sdp</item>
+        <item name="android:padding">@dimen/_5sdp</item>
+        <item name="android:checkMark">@null</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+
+    <style name="CustomDialogStyle">
+        <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+
+    <style name="CustomDialogStyle2">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+    <style name="ForgotPasswordDialogAnim">
+        <item name="android:windowEnterAnimation">@anim/up_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/bottom_from_up</item>
+    </style>
+    <style name="AppTheme.Picker" parent="Base.Theme.AppCompat.Dialog" >
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 </resources>

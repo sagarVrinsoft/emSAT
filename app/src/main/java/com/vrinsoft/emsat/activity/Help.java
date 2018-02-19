@@ -8,6 +8,7 @@ import android.view.View;
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.cms.CMS;
+import com.vrinsoft.emsat.activity.cms.faq.Faq;
 import com.vrinsoft.emsat.databinding.ActivityHelpBinding;
 import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.AppConstants;
@@ -20,6 +21,7 @@ import com.vrinsoft.emsat.utils.NavigationUtils;
 public class Help extends MasterActivity implements View.OnClickListener {
     ActivityHelpBinding helpBinding;
     Activity mActivity;
+    Bundle b = new Bundle();
     @Override
     public Activity getActivity() {
         return this;
@@ -35,11 +37,42 @@ public class Help extends MasterActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mActivity = this;
         setUIListener();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setToolBarConfig();
+    }
+
+    public void setToolBarConfig() {
+        masterBinding.toolbar.txtTitle.setVisibility(View.VISIBLE);
+        masterBinding.toolbar.txtTitle.setText(getString(R.string.menu_help));
+        masterBinding.toolbar.imgHome.setVisibility(View.GONE);
+        masterBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
+        masterBinding.toolbar.rlNotification.setVisibility(View.GONE);
+        masterBinding.toolbar.imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavigationUtils.finishCurrentActivity(Help.this);
+            }
+        });
+        masterBinding.toolbar.rlNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                NavigationUtils.startActivity(mActivity, Notification.class, null);
+            }
+        });
+        //setNotificationBadgeCount(mActivity);
     }
 
     private void setUIListener() {
         helpBinding.txtAboutUs.setOnClickListener(this);
+        helpBinding.txtPrivacy.setOnClickListener(this);
+        helpBinding.txtTerms.setOnClickListener(this);
+        helpBinding.txtFaqs.setOnClickListener(this);
     }
 
     @Override
@@ -47,16 +80,28 @@ public class Help extends MasterActivity implements View.OnClickListener {
         switch (v.getId())
         {
             case R.id.txtAboutUs:
-                Bundle b = new Bundle();
+                b = new Bundle();
                 b.putString(Director.CMS_TITLE, getString(R.string.about_us));
-                b.putString(CMS.KEY_CMS_ID, AppConstants.CMS.TERMS_CONDITIONS);
+                b.putString(CMS.KEY_CMS_ID, AppConstants.CMS.DISCLOSURE);
                 NavigationUtils.startActivity(mActivity, CMS.class, b);
                 break;
             case R.id.txtPrivacy:
+                b = new Bundle();
+                b.putString(Director.CMS_TITLE, getString(R.string.privacy_policy));
+                b.putString(CMS.KEY_CMS_ID, AppConstants.CMS.PRIVACY_POLICY);
+                NavigationUtils.startActivity(mActivity, CMS.class, b);
                 break;
             case R.id.txtTerms:
+                b = new Bundle();
+                b.putString(Director.CMS_TITLE, getString(R.string.terms));
+                b.putString(CMS.KEY_CMS_ID, AppConstants.CMS.TERMS_CONDITIONS);
+                NavigationUtils.startActivity(mActivity, CMS.class, b);
                 break;
             case R.id.txtFaqs:
+//                b = new Bundle();
+//                b.putString(Director.CMS_TITLE, getString(R.string.about_us));
+//                b.putString(CMS.KEY_CMS_ID, AppConstants.CMS.TERMS_CONDITIONS);
+                NavigationUtils.startActivity(mActivity, Faq.class, b);
                 break;
         }
     }

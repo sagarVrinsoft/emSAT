@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
+
+        <ImageView
+            android:id="@+id/imgBlurred"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/colorAccent" />
+
+        <!--<android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">-->
+
+        <com.nirhart.parallaxscroll.views.ParallaxScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:inner_parallax_factor="1.9">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/rlTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_30sdp">
+
+                    <ImageView
+                        android:id="@+id/imgTop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:src="@drawable/ic_user_profile"
+                        android:textSize="45sp" />
+
+                    <ImageView
+                        android:id="@+id/imgTop2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/imgTop"
+                        android:layout_alignRight="@id/imgTop"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginRight="-8dp"
+                        android:gravity="center"
+                        android:src="@drawable/ic_heart_white"
+                        android:textSize="45sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/rlTop"
+                    android:orientation="vertical">
+                    <!--android:background="@color/black"-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <com.vrinsoft.emsat.widget.CustomTextView
+                            style="@style/BoxEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/grey_bg_title"
+                            android:padding="@dimen/_10sdp"
+                            android:text="@string/profile_info"
+                            app:fontTextStyle="5" />
+
+                        <LinearLayout
+                            android:id="@+id/llSignIn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_20sdp"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:id="@+id/llFN"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_8sdp"
+                                    android:orientation="vertical">
+
+                                    <com.vrinsoft.emsat.widget.CustomEditTextView
+                                        android:id="@+id/etFN"
+                                        style="@style/BoxEditText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="@string/name"
+                                        android:inputType="textCapSentences"
+                                        android:maxLength="30"
+                                        app:fontTextStyle="1" />
+
+                                    <View
+                                        android:id="@+id/vFN"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_1sdp"
+                                        android:layout_marginTop="@dimen/_2sdp"
+                                        android:background="@android:color/darker_gray" />
+                                </LinearLayout>
+
+                                <com.vrinsoft.emsat.widget.CustomTextView
+                                    android:id="@+id/txtFN"
+                                    style="@style/BoxEditTextLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentTop="true"
+                                    android:text="@string/name"
+                                    android:visibility="gone"
+                                    app:fontTextStyle="1" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp">
+
+                                <LinearLayout
+                                    android:id="@+id/llMobileNo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_8sdp"
+                                    android:orientation="vertical">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <com.vrinsoft.emsat.widget.CustomTextView
+                                            android:id="@+id/txtMobileCode"
+                                            style="@style/BoxEditText"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:gravity="center_vertical"
+                                            android:hint="@string/country_code"
+                                            android:inputType="number|phone"
+                                            android:maxLength="4"
+                                            android:text="+971"
+                                            android:textSize="@dimen/_12ssp"
+                                            app:fontTextStyle="1" />
+
+                                        <com.vrinsoft.emsat.widget.CustomEditTextView
+                                            android:id="@+id/etMobileNo"
+                                            style="@style/BoxEditText"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:layout_toRightOf="@+id/txtMobileCode"
+                                            android:autoText="false"
+                                            android:digits="1234567890"
+                                            android:hint="@string/mobile_no"
+                                            android:inputType="phone"
+                                            android:maxLength="10"
+                                            android:paddingLeft="@dimen/_1sdp"
+                                            app:fontTextStyle="1" />
+                                    </RelativeLayout>
+
+                                    <View
+                                        android:id="@+id/vMobileNo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_1sdp"
+                                        android:layout_marginTop="@dimen/_2sdp"
+                                        android:background="@android:color/darker_gray" />
+                                </LinearLayout>
+
+                                <com.vrinsoft.emsat.widget.CustomTextView
+                                    android:id="@+id/txtMobileNo"
+                                    style="@style/BoxEditTextLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/mobile_no"
+                                    android:visibility="gone"
+                                    app:fontTextStyle="1" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp">
+
+                                <LinearLayout
+                                    android:id="@+id/llEmail"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_7sdp"
+                                    android:orientation="vertical">
+
+                                    <com.vrinsoft.emsat.widget.CustomEditTextView
+                                        android:id="@+id/etEmail"
+                                        style="@style/BoxEditText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:hint="@string/email_hint"
+                                        android:inputType="textEmailAddress"
+                                        app:fontTextStyle="1" />
+
+                                    <View
+                                        android:id="@+id/vEmail"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_1sdp"
+                                        android:layout_marginTop="@dimen/_2sdp"
+                                        android:background="@android:color/darker_gray" />
+                                </LinearLayout>
+
+                                <com.vrinsoft.emsat.widget.CustomTextView
+                                    android:id="@+id/txtEmail"
+                                    style="@style/BoxEditTextLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/email_hint"
+                                    android:visibility="gone"
+                                    app:fontTextStyle="1" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp">
+
+                                <LinearLayout
+                                    android:id="@+id/llDOB"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_7sdp"
+                                    android:orientation="vertical">
+
+                                    <com.vrinsoft.emsat.widget.CustomTextView
+                                        android:id="@+id/txtDOB"
+                                        style="@style/BoxEditText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:enabled="false"
+                                        android:focusable="true"
+                                        android:focusableInTouchMode="true"
+                                        android:hint="@string/date_of_birth"
+                                        android:imeOptions="actionNext"
+                                        android:padding="@dimen/_10sdp"
+                                        app:fontTextStyle="1">
+
+                                        <requestFocus />
+
+                                    </com.vrinsoft.emsat.widget.CustomTextView>
+
+                                    <View
+                                        android:id="@+id/vDOB"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_1sdp"
+                                        android:layout_marginTop="@dimen/_2sdp"
+                                        android:background="@android:color/darker_gray" />
+                                </LinearLayout>
+
+                                <com.vrinsoft.emsat.widget.CustomTextView
+                                    android:id="@+id/txtLabelDOB"
+                                    style="@style/BoxEditTextLabel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/date_of_birth"
+                                    android:visibility="gone"
+                                    app:fontTextStyle="1" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="@dimen/_10sdp">
+
+                                <com.vrinsoft.emsat.widget.CustomTextView
+                                    android:id="@+id/txtGender"
+                                    style="@style/BoxEditText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/gender"
+                                    android:visibility="visible"
+                                    app:fontTextStyle="3" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/txtGender"
+                                    android:orientation="horizontal"
+                                    android:paddingLeft="@dimen/_8sdp">
+
+                                    <com.vrinsoft.emsat.widget.CustomCheckedTextView
+                                        android:id="@+id/ctRider"
+                                        style="@style/CheckedTextViewStyle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:checked="true"
+                                        android:gravity="center"
+                                        android:padding="@dimen/_5sdp"
+                                        android:text="@string/male"
+                                        app:fontTextStyle="1" />
+
+                                    <com.vrinsoft.emsat.widget.CustomCheckedTextView
+                                        android:id="@+id/ctDriver"
+                                        style="@style/CheckedTextViewStyle"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:padding="@dimen/_5sdp"
+                                        android:text="@string/female"
+                                        app:fontTextStyle="1" />
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <com.vrinsoft.emsat.widget.CustomTextView
+                            style="@style/BoxEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/grey_bg_title"
+                            android:padding="@dimen/_10sdp"
+                            android:text="@string/change_password"
+                            app:fontTextStyle="5" />
+
+                        <RelativeLayout
+                            android:id="@+id/rlChangePwd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:padding="@dimen/_10sdp">
+
+                            <RelativeLayout
+                                android:id="@+id/rlChangePwdChild"
+                                android:layout_width="@dimen/_25sdp"
+                                android:layout_height="@dimen/_25sdp"
+                                android:background="@drawable/bg_notification_date">
+
+                                <ImageView
+                                    android:id="@+id/imgChangePwd"
+                                    android:layout_width="@dimen/_24sdp"
+                                    android:layout_height="@dimen/_24sdp"
+                                    android:layout_centerInParent="true"
+                                    android:layout_centerVertical="true"
+                                    android:contentDescription="@null"
+                                    android:padding="@dimen/_5sdp"
+                                    android:src="@drawable/ic_heart_white" />
+
+                            </RelativeLayout>
+
+                            <com.vrinsoft.emsat.widget.CustomTextView
+                                android:id="@+id/txtMenuItem"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:layout_toLeftOf="@+id/imgArrowRyt"
+                                android:layout_toRightOf="@+id/rlChangePwdChild"
+                                android:text="@string/change_password"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14ssp"
+                                app:fontTextStyle="2" />
+
+                            <ImageView
+                                android:id="@+id/imgArrowRyt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerInParent="true"
+                                android:layout_centerVertical="true"
+                                android:contentDescription="@null"
+                                android:src="@drawable/arrow_ryt_black" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_2sdp"
+                            android:background="@color/grey_line" />
+
+                        <com.vrinsoft.emsat.widget.CustomTextView
+                            android:id="@+id/txtSignIn"
+                            style="@style/ButtonBlueStyle"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_50sdp"
+                            android:layout_below="@+id/llSignIn"
+                            android:text="@string/save"
+                            app:fontTextStyle="1" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+            <!--            </android.support.v4.widget.NestedScrollView>-->
+        </com.nirhart.parallaxscroll.views.ParallaxScrollView>
+    </RelativeLayout>
+
+</layout>

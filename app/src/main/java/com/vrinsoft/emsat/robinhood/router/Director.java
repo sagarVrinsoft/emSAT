@@ -7,6 +7,7 @@ import android.util.Log;
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.activity.Help;
 import com.vrinsoft.emsat.activity.Home;
+import com.vrinsoft.emsat.activity.profile.ProfileActivity;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.NavigationUtils;
@@ -37,11 +38,9 @@ public class Director {
             switch (position) {
 
                 case AppConstants.MENU_ITEM.MENU_ITEM_PROFILE:
-//                    NavigationUtils.startActivity(context, AhoyWallet.class, bundle);
-                    ViewUtils.showToast(context, "Profile", null);
+                    NavigationUtils.startActivity(context, ProfileActivity.class, bundle);
                     break;
                 case AppConstants.MENU_ITEM.MENU_ITEM_MY_TEST:
-//                    NavigationUtils.startActivity(context, AhoyWallet.class, bundle);
                     ViewUtils.showToast(context, "My Test", null);
                     break;
                 case AppConstants.MENU_ITEM.MENU_ITEM_HELP:

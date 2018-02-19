@@ -51,6 +51,10 @@
             android:name=".activity.cms.faq.Faq"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.profile.ProfileActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

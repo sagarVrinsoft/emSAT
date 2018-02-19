@@ -26,27 +26,27 @@
                 android:background="@color/colorPrimary"
                 android:drawableRight="@drawable/arrow_right_white"
                 android:gravity="center_vertical"
-                android:padding="@dimen/_10sdp"
+                android:padding="@dimen/_12sdp"
                 android:text="@string/about_us"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
-                app:fontTextStyle="5" />
+                app:fontTextStyle="3" />
 
             <com.vrinsoft.emsat.widget.CustomTextView
                 android:id="@+id/txtPrivacy"
                 style="@style/BoxEditTextLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:drawableRight="@drawable/arrow_right_white"
                 android:gravity="center_vertical"
-                android:padding="@dimen/_10sdp"
+                android:padding="@dimen/_12sdp"
                 android:text="@string/privacy_policy"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
-                app:fontTextStyle="5" />
+                app:fontTextStyle="3" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,27 +67,28 @@
                 android:background="@color/colorPrimary"
                 android:drawableRight="@drawable/arrow_right_white"
                 android:gravity="center_vertical"
-                android:padding="@dimen/_10sdp"
+                android:padding="@dimen/_12sdp"
                 android:text="@string/terms"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
-                app:fontTextStyle="5" />
+                app:fontTextStyle="3" />
+
 
             <com.vrinsoft.emsat.widget.CustomTextView
                 android:id="@+id/txtFaqs"
                 style="@style/BoxEditTextLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:drawableRight="@drawable/arrow_right_white"
                 android:gravity="center_vertical"
-                android:padding="@dimen/_10sdp"
+                android:padding="@dimen/_12sdp"
                 android:text="@string/faqs"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
-                app:fontTextStyle="5" />
+                app:fontTextStyle="3" />
         </LinearLayout>
     </LinearLayout>
 </layout>

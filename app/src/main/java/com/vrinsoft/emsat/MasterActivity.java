@@ -38,10 +38,6 @@ public abstract class MasterActivity extends AppCompatActivity
         FragmentDrawer.FragmentDrawerListener, SharedPreferences.OnSharedPreferenceChangeListener, DrawerLayout.DrawerListener {
 
     public final String TAG = MasterActivity.this.getClass().getSimpleName();
-    public Toolbar mToolbar;
-    public ImageView mmToolbarimgMenu, mmToolbarimgBack, mmToolbarimgDone;
-    public CustomTextView mmToolbartxtTitle, mmtxtRider, mmtxtDriver, mmtxtNotificationCount;
-    //    public SlidingRootNav slideMenuUtils;
     public boolean isConnectedToInternet = false;
     public Gson gson = new Gson();
     public Director director;
@@ -91,6 +87,12 @@ public abstract class MasterActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(connectivityReceiver);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         pref.unregisterOnSharedPreferenceChangeListener(this);
@@ -115,12 +117,12 @@ public abstract class MasterActivity extends AppCompatActivity
 
     public void setDrawerVisible(boolean isDrawer) {
         if (isDrawer) {
-            mmToolbarimgMenu.setVisibility(View.VISIBLE);
-            mmToolbarimgBack.setVisibility(View.GONE);
+            masterBinding.toolbar.imgHome.setVisibility(View.VISIBLE);
+            masterBinding.toolbar.imgBack.setVisibility(View.GONE);
             masterBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         } else {
-            mmToolbarimgMenu.setVisibility(View.GONE);
-            mmToolbarimgBack.setVisibility(View.VISIBLE);
+            masterBinding.toolbar.imgHome.setVisibility(View.GONE);
+            masterBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
             masterBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
     }

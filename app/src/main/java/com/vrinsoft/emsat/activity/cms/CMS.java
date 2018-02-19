@@ -83,6 +83,8 @@ public class CMS extends AppCompatActivity implements View.OnClickListener {
         mBinding.toolBar.txtTitle.setText(title);
         mBinding.toolBar.imgBack.setVisibility(View.VISIBLE);
         mBinding.toolBar.imgBack.setOnClickListener(this);
+        mBinding.toolBar.imgHome.setVisibility(View.GONE);
+        mBinding.toolBar.rlNotification.setVisibility(View.GONE);
     }
 
     @Override

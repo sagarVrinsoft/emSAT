@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.vrinsoft.emsat.MasterActivity;
+import com.vrinsoft.emsat.activity.Help;
 import com.vrinsoft.emsat.activity.Home;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
@@ -44,8 +45,7 @@ public class Director {
                     ViewUtils.showToast(context, "My Test", null);
                     break;
                 case AppConstants.MENU_ITEM.MENU_ITEM_HELP:
-//                    NavigationUtils.startActivity(context, AhoyWallet.class, bundle);
-                    ViewUtils.showToast(context, "Help", null);
+                    NavigationUtils.startActivity(context, Help.class, bundle);
                     break;
             }
 

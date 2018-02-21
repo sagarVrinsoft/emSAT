@@ -20,12 +20,6 @@
             app:startAngle="0"
             app:strokeWidth="21dp" />
 
-        <animated-rotate
-            android:pivotX="50%"
-            android:pivotY="50%"
-            android:drawable="@drawable/ic_loading"
-            android:duration="500" />
-
         <TextView
             android:layout_marginTop="@dimen/_10sdp"
             android:padding="@dimen/_10sdp"

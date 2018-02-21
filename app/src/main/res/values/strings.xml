@@ -50,4 +50,17 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="date_of_birth">Date of Birth</string>
+    <string name="new_password_star">New Password*</string>
+    <string name="confirm_password_star">Confirm Password*</string>
+    <string name="password_star">Password*</string>
+    <string name="update">Update</string>
+    <string name="password_must_contains_atleast_8_characters">Passsword must contain atleast 8 characters</string>
+    <string name="old_password_must_contains_atleast_8_characters">Old Passsword must contain atleast 8 characters</string>
+    <string name="new_password_must_contains_atleast_8_characters">New Passsword must contain atleast 8 characters</string>
+    <string name="confirm_password_must_contains_atleast_8_characters">Confirm Passsword must contain atleast 8 characters</string>
+    <string name="new_password_confirm_password_must_be_same">Passwords dont match</string>
+    <string name="password_confirm_password_must_be_same">Passwords dont match</string>
+    <string name="password_invalid">Invalid Password</string>
+    <string name="please_enter_new_password">Please enter new password</string>
+    <string name="please_enter_confirm_password">Please enter confirm password</string>
 </resources>

@@ -30,9 +30,14 @@
         </activity>
 
         <activity
-            android:name=".activity.Home"
+            android:name=".activity.home.Home"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.subcategory.SubCategory"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".activity.signin.SignIn"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -42,7 +47,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".activity.Help"
+            android:name=".activity.cms.Help"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"></activity>
         <activity

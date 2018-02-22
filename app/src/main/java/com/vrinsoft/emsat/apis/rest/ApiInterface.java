@@ -1,11 +1,11 @@
 package com.vrinsoft.emsat.apis.rest;
 
 
+import com.vrinsoft.emsat.activity.subcategory.model.BeanNotificationList;
 import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
 import com.vrinsoft.emsat.apis.model.cms.BeanCMS;
 import com.vrinsoft.emsat.apis.model.faqs.BeanFaqs;
 import com.vrinsoft.emsat.apis.model.forgot_password.BeanForgotPwd;
-import com.vrinsoft.emsat.apis.model.notification_list.BeanNotificationList;
 import com.vrinsoft.emsat.apis.model.register.BeanRegister;
 import com.vrinsoft.emsat.apis.model.sign_out.BeanLogOut;
 import com.vrinsoft.emsat.apis.model.signin.BeanLogin;

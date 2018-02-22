@@ -1,8 +1,7 @@
-package com.vrinsoft.emsat.apis.api.notification_list;
+package com.vrinsoft.emsat.apis.api.subcategory_list;
 
 
-import com.vrinsoft.emsat.apis.model.notification_list.BeanNotificationList;
-import com.vrinsoft.emsat.apis.model.notification_list.read_notification.BeanReadNotification;
+import com.vrinsoft.emsat.activity.subcategory.model.BeanNotificationList;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
 
@@ -12,9 +11,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NotificationListApiHandler {
+public class SubCategoryListApiHandler {
 
-    public void fetchNotificationData(String userId, String token, int pageNo, int userType, final OnNotificationList onNotificationList) {
+    public void fetchSubCatData(String userId, String token, int pageNo, int userType, final OnSubCatList onSubCatList) {
 
         Call<ArrayList<BeanNotificationList>> listCall =
                 ApiClient.getApiInterface().fetchNotificationList(userId, token, pageNo, userType);
@@ -23,12 +22,12 @@ public class NotificationListApiHandler {
             @Override
             public void onResponse(Call<ArrayList<BeanNotificationList>> call, Response<ArrayList<BeanNotificationList>> response) {
                 ArrayList<BeanNotificationList> beanNotificationLists = response.body();
-                onNotificationList.getResponse(true, beanNotificationLists, null);
+                onSubCatList.getResponse(true, beanNotificationLists, null);
             }
 
             @Override
             public void onFailure(Call<ArrayList<BeanNotificationList>> call, Throwable t) {
-                onNotificationList.getResponse(false, null, ApiErrorUtils.getErrorMsg(t));
+                onSubCatList.getResponse(false, null, ApiErrorUtils.getErrorMsg(t));
             }
         });
     }

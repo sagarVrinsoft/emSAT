@@ -10,7 +10,6 @@ import android.widget.ExpandableListView;
 
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.activity.Help;
 import com.vrinsoft.emsat.activity.cms.faq.adapter.FAQExListAdapter;
 import com.vrinsoft.emsat.apis.api.faqs.FAQApiHandler;
 import com.vrinsoft.emsat.apis.api.faqs.OnFAQ;

@@ -1,8 +1,6 @@
 package com.vrinsoft.emsat;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -14,13 +12,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.google.gson.Gson;
-import com.vrinsoft.emsat.activity.Home;
+import com.vrinsoft.emsat.activity.home.Home;
 import com.vrinsoft.emsat.activity.signin.SignIn;
 import com.vrinsoft.emsat.databinding.ActivityMasterBinding;
 import com.vrinsoft.emsat.navigation_drawer.FragmentDrawer;
@@ -29,9 +24,6 @@ import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.ConnectivityReceiver;
 import com.vrinsoft.emsat.utils.NavigationUtils;
-import com.vrinsoft.emsat.widget.CustomTextView;
-
-import java.util.ArrayList;
 
 public abstract class MasterActivity extends AppCompatActivity
         implements ConnectivityReceiver.ConnectivityReceiverListener,

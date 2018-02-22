@@ -50,6 +50,7 @@ public class AppConstants {
     public static boolean isFromPickUp;
     public static boolean isNearByUsersAvailFirstTime = false;
     public static final String ignore_declined = "declined";
+    public static boolean isTestModeOn = true;
 
     public static String currencySymbol = "$";
 

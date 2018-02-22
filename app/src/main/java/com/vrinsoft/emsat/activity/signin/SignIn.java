@@ -10,11 +10,9 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.activity.Home;
+import com.vrinsoft.emsat.activity.home.Home;
 import com.vrinsoft.emsat.activity.signup.Register;
 import com.vrinsoft.emsat.databinding.DialogForgotPasswordBinding;
 import com.vrinsoft.emsat.databinding.SignInBinding;
@@ -22,8 +20,6 @@ import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.utils.Validator;
 import com.vrinsoft.emsat.utils.ViewUtils;
-import com.vrinsoft.emsat.widget.CustomEditTextView;
-import com.vrinsoft.emsat.widget.CustomTextView;
 
 import static com.vrinsoft.emsat.utils.NavigationUtils.finishCurrentActivity;
 import static com.vrinsoft.emsat.utils.Validator.checkValidation;

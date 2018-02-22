@@ -1,4 +1,4 @@
-package com.vrinsoft.emsat.activity;
+package com.vrinsoft.emsat.activity.home;
 
 import android.app.Activity;
 import android.app.Notification;

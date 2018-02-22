@@ -1,4 +1,4 @@
-package com.vrinsoft.emsat.activity;
+package com.vrinsoft.emsat.activity.cms;
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.activity.cms.CMS;
 import com.vrinsoft.emsat.activity.cms.faq.Faq;
 import com.vrinsoft.emsat.databinding.ActivityHelpBinding;
 import com.vrinsoft.emsat.robinhood.router.Director;

@@ -2,17 +2,13 @@ package com.vrinsoft.emsat.robinhood.router;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.vrinsoft.emsat.MasterActivity;
-import com.vrinsoft.emsat.activity.Help;
-import com.vrinsoft.emsat.activity.Home;
+import com.vrinsoft.emsat.activity.cms.Help;
+import com.vrinsoft.emsat.activity.home.Home;
 import com.vrinsoft.emsat.activity.profile.ProfileActivity;
 import com.vrinsoft.emsat.utils.AppConstants;
-import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.NavigationUtils;
-import com.vrinsoft.emsat.utils.Pref;
-import com.vrinsoft.emsat.utils.Validator;
 import com.vrinsoft.emsat.utils.ViewUtils;
 
 

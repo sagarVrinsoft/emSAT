@@ -5,11 +5,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.activity.Home;
 import com.vrinsoft.emsat.activity.signin.SignIn;
-import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.NavigationUtils;
-import com.vrinsoft.emsat.utils.Pref;
 
 public class Splash extends AppCompatActivity {
 

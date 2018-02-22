@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/ic_launcher_background"
-        tools:context=".activity.Home">
+        tools:context=".activity.home.Home">
 
     </android.support.constraint.ConstraintLayout>
 </layout>

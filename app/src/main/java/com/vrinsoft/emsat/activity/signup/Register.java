@@ -10,7 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.activity.Home;
+import com.vrinsoft.emsat.activity.home.Home;
 import com.vrinsoft.emsat.databinding.RegisterBinding;
 import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.utils.ViewUtils;

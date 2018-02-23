@@ -22,6 +22,7 @@ import java.util.Date;
 
 public class AppConstants {
 
+    public static final String INTENT_NAME = "name";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static DecimalFormat decimalFormat = new DecimalFormat("0.00");
     public static final String PREF_FILE = BuildConfig.APPLICATION_ID+"_PREF";

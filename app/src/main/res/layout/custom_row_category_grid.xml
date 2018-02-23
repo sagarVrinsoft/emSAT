@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/rlRootView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/llMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_14ssp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgLockUnlock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_user_profile" />
+
+            <TextView
+                android:id="@+id/txtCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/sample"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llRightVerticalSeperator"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/llMain"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/llMain"
+            android:paddingBottom="@dimen/_10ssp"
+            android:background="@color/black"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/llLeftVerticalSeperator2"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/llMain"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/llMain"
+            android:paddingBottom="@dimen/_10ssp"
+            android:background="@color/black"
+            android:orientation="vertical"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:id="@+id/llBottomSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/llMain"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/black"
+            android:orientation="vertical" />
+    </RelativeLayout>
+
+</layout>

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public class SubCategory extends MasterActivity
 {
+    String mTitle = "";
     private static int PERCENT = 0;
     ActivitySubcategoryBinding binding;
     Activity mActivity;
@@ -71,12 +72,17 @@ public class SubCategory extends MasterActivity
     @Override
     protected void onResume() {
         super.onResume();
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null && bundle.containsKey(AppConstants.INTENT_NAME))
+        {
+            mTitle = bundle.getString(AppConstants.INTENT_NAME);
+        }
         setToolBarConfig();
     }
 
     public void setToolBarConfig() {
         masterBinding.toolbar.txtTitle.setVisibility(View.VISIBLE);
-        masterBinding.toolbar.txtTitle.setText("Unit-1");
+        masterBinding.toolbar.txtTitle.setText(mTitle);
         masterBinding.toolbar.imgHome.setVisibility(View.GONE);
         masterBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
         masterBinding.toolbar.rlNotification.setVisibility(View.GONE);

@@ -101,6 +101,15 @@ public interface ApiInterface {
                                                                 @Field("page_no") int page_no,
                                                                 @Field("login_roll") int login_roll
     );
+
+    // region Notification List
+    @FormUrlEncoded
+    @POST("notifications_list.php")
+    Call<ArrayList<com.vrinsoft.emsat.activity.home.model.category.BeanNotificationList>> fetchCategoryList(@Field("user_id") String user_id,
+                                                                                                            @Field("token") String token,
+                                                                                                            @Field("page_no") int page_no,
+                                                                                                            @Field("login_roll") int login_roll
+    );
     //endregion
 
     // region FAQS

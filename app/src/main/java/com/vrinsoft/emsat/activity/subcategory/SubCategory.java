@@ -49,6 +49,7 @@ public class SubCategory extends MasterActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
+        setDrawerVisible(false);
         director = new Director(this);
         subCategoryListApiHandler = new SubCategoryListApiHandler();
         setUIConfig();

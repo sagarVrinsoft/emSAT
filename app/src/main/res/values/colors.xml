@@ -12,4 +12,6 @@
     <color name="insider_circle_color">#B99C4E</color>
     <color name="grey_bg_title">#D3D3D3</color>
     <color name="grey_line">#E5E5E5</color>
+    <color name="wrong_color">#F91F39</color>
+    <color name="correct_color">#00D62D</color>
 </resources>

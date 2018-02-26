@@ -183,9 +183,10 @@ public class ViewUtils {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setCancelable(false);
         alertDialog.create();
-        if(!Validator.isNullEmpty(title))
+
+        if (!Validator.isNullEmpty(title))
             alertDialog.setTitle(title);
-        if(!Validator.isNullEmpty(message))
+        if (!Validator.isNullEmpty(message))
             alertDialog.setMessage(message);
         alertDialog.setPositiveButton(btnText, onClickListener);
         alertDialog.show();

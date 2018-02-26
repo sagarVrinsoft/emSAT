@@ -38,4 +38,6 @@ dependencies {
     compile 'com.github.nirhart:parallaxscroll:1.0'
     compile 'com.timqi.sectorprogressview:library:2.0.1'
     compile 'com.github.andreilisun:circular-layout:1.0'
+    compile 'com.daimajia.swipelayout:library:1.2.0@aar'
+    compile 'com.daimajia.androidanimations:library:1.1.2@aar'
 }

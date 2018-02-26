@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.daimajia.swipe.SwipeLayout xmlns:swipe="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        swipe:leftEdgeSwipeOffset="0dp"
+        swipe:rightEdgeSwipeOffset="0dp">
+
+        <LinearLayout
+            android:id="@+id/llRetakeQuiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/_15sdp">
+
+            <ImageView
+                android:id="@+id/imgDelete"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:padding="@dimen/_7sdp"
+                android:src="@drawable/ic_heart_white" />
+
+            <TextView
+                android:id="@+id/txtRetakeQuiz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/retake_quiz"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp">
+
+                    <com.timqi.sectorprogressview.SectorProgressView
+                        android:id="@+id/progressBar_BgOnly"
+                        android:layout_width="@dimen/_68sdp"
+                        android:layout_height="@dimen/_68sdp"
+                        android:layout_centerHorizontal="true"
+                        app:bgColor="@color/grey_line"
+                        app:fgColor="@color/transparent"
+                        app:percent="0"
+                        app:startAngle="0"
+                        app:strokeWidth="2dp" />
+
+                    <com.timqi.sectorprogressview.ColorfulRingProgressView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/progressScore"
+                        android:layout_width="@dimen/_68sdp"
+                        android:layout_height="@dimen/_68sdp"
+                        app:bgColor="@color/grey_line"
+                        app:fgColorEnd="@color/black"
+                        app:fgColorStart="@color/black"
+                        app:percent="70"
+                        app:startAngle="0"
+                        app:strokeWidth="2dp" />
+
+                    <TextView
+                        android:id="@+id/txtProgress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/progressScore"
+                        android:layout_alignEnd="@+id/progressScore"
+                        android:layout_alignStart="@+id/progressScore"
+                        android:layout_alignTop="@+id/progressScore"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="80/100"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/llTextLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_4sdp">
+
+                    <TextView
+                        android:id="@+id/txtCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unit-2"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16ssp" />
+
+                    <TextView
+                        android:id="@+id/txtSubCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Grammer"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtEndDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:text="08 Jan, 2018"
+                    android:textColor="@color/hint_text_color"
+                    android:textSize="@dimen/_10ssp" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/colorPrimaryDark" />
+        </LinearLayout>
+
+    </com.daimajia.swipe.SwipeLayout>
+
+</layout>

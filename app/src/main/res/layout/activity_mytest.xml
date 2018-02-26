@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvSubCategory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+        <com.vrinsoft.emsat.widget.CustomTextView
+            android:id="@+id/txtNoDataFound"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/no_data_found"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"
+            android:visibility="gone"
+            app:fontTextStyle="1" />
+    </LinearLayout>
+</layout><!-- if 4 texts then 4 x 2 texts will be added --><!-- if 4 texts then 4 x 2 texts will be added -->

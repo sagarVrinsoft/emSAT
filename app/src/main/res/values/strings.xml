@@ -65,4 +65,5 @@
     <string name="password_invalid">Invalid Password</string>
     <string name="please_enter_new_password">Please enter new password</string>
     <string name="please_enter_confirm_password">Please enter confirm password</string>
+    <string name="retake_quiz">Re-take Quiz</string>
 </resources>

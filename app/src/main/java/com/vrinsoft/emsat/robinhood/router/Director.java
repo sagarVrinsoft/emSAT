@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.activity.cms.Help;
 import com.vrinsoft.emsat.activity.home.Home;
+import com.vrinsoft.emsat.activity.mytest.MyTestActivity;
 import com.vrinsoft.emsat.activity.profile.ProfileActivity;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.NavigationUtils;
@@ -37,7 +38,7 @@ public class Director {
                     NavigationUtils.startActivity(context, ProfileActivity.class, bundle);
                     break;
                 case AppConstants.MENU_ITEM.MENU_ITEM_MY_TEST:
-                    ViewUtils.showToast(context, "My Test", null);
+                    NavigationUtils.startActivity(context, MyTestActivity.class, bundle);
                     break;
                 case AppConstants.MENU_ITEM.MENU_ITEM_HELP:
                     NavigationUtils.startActivity(context, Help.class, bundle);

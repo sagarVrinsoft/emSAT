@@ -93,6 +93,15 @@ public class QuestionBean {
         @Expose
         private String answer;
         private String user_ans = "", remaining_options = "";
+        private int ans_type = 0;
+
+        public int getAns_type() {
+            return ans_type;
+        }
+
+        public void setAns_type(int ans_type) {
+            this.ans_type = ans_type;
+        }
 
         public String getRemaining_options() {
             return remaining_options;

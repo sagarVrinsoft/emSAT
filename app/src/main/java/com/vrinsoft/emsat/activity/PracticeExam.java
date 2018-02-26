@@ -51,6 +51,9 @@ import static com.vrinsoft.emsat.apis.rest.NetworkConstants.KEY_PAGE_NO;
 import static com.vrinsoft.emsat.apis.rest.NetworkConstants.KEY_TOKEN;
 import static com.vrinsoft.emsat.apis.rest.NetworkConstants.KEY_USER_ID;
 import static com.vrinsoft.emsat.apis.rest.NetworkConstants.QUESTION.KEY_TEST_ID;
+import static com.vrinsoft.emsat.utils.AppConstants.ANS_TYPE.CORRECT;
+import static com.vrinsoft.emsat.utils.AppConstants.ANS_TYPE.SKIP;
+import static com.vrinsoft.emsat.utils.AppConstants.ANS_TYPE.WRONG;
 import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.CORRECT_ANS;
 import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.OBTAINED_SCORE;
 import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.SKIPPED_ANS;
@@ -61,6 +64,7 @@ import static com.vrinsoft.emsat.utils.AppConstants.QUESTION_TYPE.FILL_BLANK;
 import static com.vrinsoft.emsat.utils.AppConstants.QUESTION_TYPE.MCQ;
 import static com.vrinsoft.emsat.utils.AppConstants.QUESTION_TYPE.TRUE_FALSE;
 import static com.vrinsoft.emsat.utils.LogUtils.LOGD;
+import static com.vrinsoft.emsat.utils.ViewUtils.SpannableText;
 import static com.vrinsoft.emsat.utils.ViewUtils.showDoubleBtnAlert;
 import static com.vrinsoft.emsat.utils.ViewUtils.showSingleBtnAlert;
 import static com.vrinsoft.emsat.utils.ViewUtils.showToast;
@@ -105,6 +109,10 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
                 is_view_only = true;
                 mBinding.toolbar.txtRight.setVisibility(View.GONE);
                 mBinding.headerBar.setVisibility(View.INVISIBLE);
+
+                if (AppConstants.mQuestionList != null && AppConstants.mQuestionList.size() > 0)
+                    mArrayList = AppConstants.mQuestionList;
+
             } else {
                 is_view_only = false;
                 mBinding.toolbar.txtRight.setVisibility(View.VISIBLE);
@@ -114,9 +122,10 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
 
         layoutManager = new GridLayoutManager(mActivity, 3);
         mBinding.rvWords.setLayoutManager(layoutManager);
-        getQuestionList();
+
 
         if (!is_view_only) {
+            getQuestionList();
             mBinding.rbTrue.setOnClickListener(this);
             mBinding.rbFalse.setOnClickListener(this);
 
@@ -124,11 +133,13 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
             mBinding.txtOpt2.setOnClickListener(this);
             mBinding.txtOpt3.setOnClickListener(this);
             mBinding.txtOpt4.setOnClickListener(this);
-        }
+        } else
+            setData();
 
         mBinding.txtNext.setOnClickListener(this);
         mBinding.txtPrev.setOnClickListener(this);
         mBinding.toolbar.txtRight.setOnClickListener(this);
+        mBinding.toolbar.imgBack.setOnClickListener(this);
     }
 
     private void getQuestionList() {
@@ -158,11 +169,10 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
                             if (mainArray.get(0).getCode() == 1) {
 
 //                                mTotalCount = mainArray.get(0).getTotalRecords();
+                                mArrayList = new ArrayList<>();
                                 mArrayList = mainArray.get(0).getResult();
                                 setData();
-
-                                if (!is_view_only)
-                                    startCountDown();
+                                startCountDown();
 
                             } else if (mainArray.get(0).getCode() == 0) {
                                 showToast(mActivity, "No data found", null);
@@ -215,6 +225,9 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
            /* case R.id.btnReset:
                 reset();
                 break;*/
+            case R.id.imgBack:
+                onBackPressed();
+                break;
             case R.id.txtNext:
                 if (!is_view_only)
                     setFillData();
@@ -397,16 +410,31 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
                     mBinding.txtOpt3.setText(questionBean.getOption3());
                     mBinding.txtOpt4.setText(questionBean.getOption4());
 
-                    if (questionBean.getUser_ans() != null && !questionBean.getUser_ans().equals("")) {
-                        if (questionBean.getUser_ans().equals("1"))
-                            setCheckedMCQ(mBinding.txtOpt1, mBinding.txtOpt2, mBinding.txtOpt3, mBinding.txtOpt4);
-                        else if (questionBean.getUser_ans().equals("2"))
-                            setCheckedMCQ(mBinding.txtOpt2, mBinding.txtOpt1, mBinding.txtOpt3, mBinding.txtOpt4);
-                        else if (questionBean.getUser_ans().equals("3"))
-                            setCheckedMCQ(mBinding.txtOpt3, mBinding.txtOpt2, mBinding.txtOpt1, mBinding.txtOpt4);
-                        else if (questionBean.getUser_ans().equals("4"))
-                            setCheckedMCQ(mBinding.txtOpt4, mBinding.txtOpt2, mBinding.txtOpt3, mBinding.txtOpt1);
+                    if (is_view_only) {
+                        setMCQAns(questionBean.getMcqAnswer());
+                        if (questionBean.getAns_type() == WRONG) {
+                            if (questionBean.getUser_ans().equals("1"))
+                                mBinding.txtOpt1.setBackgroundResource(R.drawable.bg_opt_wrong);
+                            else if (questionBean.getUser_ans().equals("2"))
+                                mBinding.txtOpt2.setBackgroundResource(R.drawable.bg_opt_wrong);
+                            else if (questionBean.getUser_ans().equals("3"))
+                                mBinding.txtOpt3.setBackgroundResource(R.drawable.bg_opt_wrong);
+                            else if (questionBean.getUser_ans().equals("4"))
+                                mBinding.txtOpt4.setBackgroundResource(R.drawable.bg_opt_wrong);
+                        }
+                    } else {
+                        if (questionBean.getUser_ans() != null && !questionBean.getUser_ans().equals("")) {
+                            if (questionBean.getUser_ans().equals("1"))
+                                setCheckedMCQ(mBinding.txtOpt1, mBinding.txtOpt2, mBinding.txtOpt3, mBinding.txtOpt4);
+                            else if (questionBean.getUser_ans().equals("2"))
+                                setCheckedMCQ(mBinding.txtOpt2, mBinding.txtOpt1, mBinding.txtOpt3, mBinding.txtOpt4);
+                            else if (questionBean.getUser_ans().equals("3"))
+                                setCheckedMCQ(mBinding.txtOpt3, mBinding.txtOpt2, mBinding.txtOpt1, mBinding.txtOpt4);
+                            else if (questionBean.getUser_ans().equals("4"))
+                                setCheckedMCQ(mBinding.txtOpt4, mBinding.txtOpt2, mBinding.txtOpt3, mBinding.txtOpt1);
+                        }
                     }
+
 
                     break;
                 case TRUE_FALSE:
@@ -420,61 +448,97 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
 
                     mBinding.txtQuestion.setText(questionBean.getQuestionName());
 
-                    if (questionBean.getUser_ans() != null && !questionBean.getUser_ans().equals("")) {
-                        if (questionBean.getUser_ans().equals("true"))
-                            setCheckedTrueFalse(mBinding.rbTrue, mBinding.rbFalse);
-                        else if (questionBean.getUser_ans().equals("false"))
-                            setCheckedTrueFalse(mBinding.rbFalse, mBinding.rbTrue);
+                    if (is_view_only) {
+                        setTrueFalseAns(questionBean.getAnswer().toLowerCase().trim());
+
+                        if (questionBean.getAns_type() == WRONG) {
+                            if (questionBean.getUser_ans().toLowerCase().equals("true"))
+                                mBinding.rbTrue.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_true_wrong, 0, 0);
+                            else if (questionBean.getUser_ans().toLowerCase().equals("false"))
+                                mBinding.rbFalse.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_false_wrong, 0, 0);
+                        }
+                    } else {
+                        if (questionBean.getUser_ans() != null && !questionBean.getUser_ans().equals("")) {
+                            if (questionBean.getUser_ans().equals("true"))
+                                setCheckedTrueFalse(mBinding.rbTrue, mBinding.rbFalse);
+                            else if (questionBean.getUser_ans().equals("false"))
+                                setCheckedTrueFalse(mBinding.rbFalse, mBinding.rbTrue);
+                        }
                     }
+
 
                     break;
                 case FILL_BLANK:
-                    tagLayout.setVisibility(View.VISIBLE);
-                    mBinding.rvWords.setVisibility(View.VISIBLE);
+
                     mBinding.llTrueFalse.setVisibility(View.GONE);
                     mBinding.llMCQ.setVisibility(View.GONE);
 
 //                    btnReset.setVisibility(View.VISIBLE);
-                    mBinding.txtQuestion.setVisibility(View.GONE);
-                    mBinding.txtQuestion.setText("");
-
-//                     mBinding.txtNext.setEnabled(false);
-
-                    wordsList = new ArrayList<>();
-                    String[] options = null;
-                    if (questionBean.getUser_ans() != null && !questionBean.getUser_ans().equals("")) {
-                        if (questionBean.getRemaining_options() != null && !questionBean.getRemaining_options().equals(""))
-                            options = questionBean.getRemaining_options().split(",");
-                    } else
-                        options = questionBean.getOption().split(",");
 
 
-                    if (options != null && options.length > 0) {
+                    if (is_view_only) {
+                        tagLayout.setVisibility(View.GONE);
+                        mBinding.rvWords.setVisibility(View.GONE);
+                        mBinding.txtQuestion.setVisibility(View.VISIBLE);
 
-                        for (int i = 0; i < options.length; i++) {
-                            wordsList.add(i, options[i]);
+
+                        switch (questionBean.getAns_type()) {
+                            case SKIP:
+                                SpannableText(mActivity, questionBean.getQuestionName(), questionBean.getFillAnswer(),
+                                        "", mBinding.txtQuestion);
+                                break;
+                            case CORRECT:
+                                SpannableText(mActivity, questionBean.getQuestionName(), questionBean.getFillAnswer(),
+                                        "", mBinding.txtQuestion);
+                                break;
+                            case WRONG:
+                                SpannableText(mActivity, questionBean.getQuestionName(), questionBean.getFillAnswer(),
+                                        questionBean.getUser_ans(), mBinding.txtQuestion);
+                                break;
                         }
 
-                        if (wordsList != null && wordsList.size() > 0) {
-                            mBinding.rvWords.setVisibility(View.VISIBLE);
-                            mAdapter = new WordsAdapter(mActivity, wordsList);
-                            mBinding.rvWords.setAdapter(mAdapter);
-                        } else {
-                            mBinding.rvWords.setVisibility(View.GONE);
-                        }
+                    } else {
+                        tagLayout.setVisibility(View.VISIBLE);
+                        mBinding.rvWords.setVisibility(View.VISIBLE);
+                        mBinding.txtQuestion.setVisibility(View.GONE);
+                        mBinding.txtQuestion.setText("");
 
-
-                        if (tagLayout != null) {
-                            tagLayout.removeAllViews();
-                        }
-
+                        wordsList = new ArrayList<>();
+                        String[] options = null;
                         if (questionBean.getUser_ans() != null && !questionBean.getUser_ans().equals("")) {
-                            makeDraggableTag(questionBean.getUser_ans());
-                        } else {
-                            makeDraggableTag(questionBean.getQuestionName());
-                        }
+                            if (questionBean.getRemaining_options() != null && !questionBean.getRemaining_options().equals(""))
+                                options = questionBean.getRemaining_options().split(",");
+                        } else
+                            options = questionBean.getOption().split(",");
 
+
+                        if (options != null && options.length > 0) {
+
+                            for (int i = 0; i < options.length; i++) {
+                                wordsList.add(i, options[i]);
+                            }
+
+                            if (wordsList != null && wordsList.size() > 0) {
+                                mBinding.rvWords.setVisibility(View.VISIBLE);
+                                mAdapter = new WordsAdapter(mActivity, wordsList);
+                                mBinding.rvWords.setAdapter(mAdapter);
+                            } else {
+                                mBinding.rvWords.setVisibility(View.GONE);
+                            }
+
+
+                            if (tagLayout != null) {
+                                tagLayout.removeAllViews();
+                            }
+
+                            if (questionBean.getUser_ans() != null && !questionBean.getUser_ans().equals("")) {
+                                makeDraggableTag(questionBean.getUser_ans());
+                            } else {
+                                makeDraggableTag(questionBean.getQuestionName());
+                            }
+                        }
                     }
+
                     break;
             }
         }
@@ -522,26 +586,41 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
                             if (result.getMcqAnswer().trim().equals(result.getUser_ans().trim())) {
                                 obtained_score = obtained_score + Integer.parseInt(questionBean.getQuestionMark());
                                 correct_ans++;
-                            } else
+                                mArrayList.get(i).setAns_type(CORRECT);
+                            } else {
                                 wrong_ans++;
+                                mArrayList.get(i).setAns_type(WRONG);
+                            }
                             break;
                         case TRUE_FALSE:
                             if (result.getAnswer().toLowerCase().equals(result.getUser_ans().toLowerCase())) {
                                 obtained_score = obtained_score + Integer.parseInt(questionBean.getQuestionMark());
                                 correct_ans++;
-                            } else
+                                mArrayList.get(i).setAns_type(CORRECT);
+                            } else {
                                 wrong_ans++;
+                                mArrayList.get(i).setAns_type(WRONG);
+                            }
                             break;
                         case FILL_BLANK:
-                            if (result.getFillAnswer().equals(result.getUser_ans())) {
-                                obtained_score = obtained_score + Integer.parseInt(questionBean.getQuestionMark());
-                                correct_ans++;
-                            } else
-                                wrong_ans++;
+                            if (result.getQuestionName().equals(result.getUser_ans())) {
+                                skipped_ans++;
+                                mArrayList.get(i).setAns_type(SKIP);
+                            } else {
+                                if (result.getFillAnswer().equals(result.getUser_ans())) {
+                                    obtained_score = obtained_score + Integer.parseInt(questionBean.getQuestionMark());
+                                    correct_ans++;
+                                    mArrayList.get(i).setAns_type(CORRECT);
+                                } else {
+                                    wrong_ans++;
+                                    mArrayList.get(i).setAns_type(WRONG);
+                                }
+                            }
                             break;
                     }
                 } else {
                     skipped_ans++;
+                    mArrayList.get(i).setAns_type(SKIP);
                 }
             }
 
@@ -558,6 +637,7 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
                     .putExtra(SKIPPED_ANS, skipped_ans)
                     .putExtra(CORRECT_ANS, correct_ans)
                     .putExtra(WRONG_ANS, wrong_ans));
+            finish();
         }
 
     }
@@ -593,6 +673,42 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
         deactive3.setSelected(false);
     }
 
+    void setMCQAns(String mAns) {
+        mBinding.txtOpt1.setBackgroundResource(R.drawable.bg_opt_deselected);
+        mBinding.txtOpt2.setBackgroundResource(R.drawable.bg_opt_deselected);
+        mBinding.txtOpt3.setBackgroundResource(R.drawable.bg_opt_deselected);
+        mBinding.txtOpt4.setBackgroundResource(R.drawable.bg_opt_deselected);
+
+        switch (mAns) {
+            case "1":
+                mBinding.txtOpt1.setBackgroundResource(R.drawable.bg_opt_correct);
+                break;
+            case "2":
+                mBinding.txtOpt2.setBackgroundResource(R.drawable.bg_opt_correct);
+                break;
+            case "3":
+                mBinding.txtOpt3.setBackgroundResource(R.drawable.bg_opt_correct);
+                break;
+            case "4":
+                mBinding.txtOpt4.setBackgroundResource(R.drawable.bg_opt_correct);
+                break;
+        }
+    }
+
+    void setTrueFalseAns(String mAns) {
+        mBinding.rbTrue.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_false, 0, 0);
+        mBinding.rbFalse.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_false, 0, 0);
+
+        switch (mAns) {
+            case "true":
+                mBinding.rbTrue.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_true_correct, 0, 0);
+                break;
+            case "false":
+                mBinding.rbFalse.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_false_correct, 0, 0);
+                break;
+        }
+    }
+
     String getSentence(TagLayout viewGroup) {
         String mSentence = "";
         int count = viewGroup.getChildCount();
@@ -625,5 +741,23 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         if (countDownTimer != null)
             countDownTimer.cancel();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (is_view_only) {
+            AppConstants.mQuestionList = null;
+            super.onBackPressed();
+        } else {
+            showDoubleBtnAlert(mActivity, "Quit Exam", "Are You sure you want to quit exam?",
+                    getString(android.R.string.yes), getString(android.R.string.no),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            stopCountDown();
+                            getFinalScore();
+                        }
+                    });
+        }
     }
 }

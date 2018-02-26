@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView
@@ -23,10 +22,10 @@
                 android:gravity="center">
 
                 <LinearLayout
-                    android:gravity="center"
                     android:id="@+id/rlImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
@@ -35,15 +34,14 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_user_profile" />
 
-                    <com.vrinsoft.emsat.widget.CustomTextView
+                    <TextView
                         style="@style/BoxEditTextLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="Will Smith"
-                        android:textColor="@color/black"
-                        app:fontTextStyle="5" />
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
             </RelativeLayout>

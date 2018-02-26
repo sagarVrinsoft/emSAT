@@ -3,66 +3,39 @@ package com.vrinsoft.emsat.utils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.CheckedTextView;
-import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.interfaces.OnCustomDialogClickListener;
 import com.vrinsoft.emsat.model.phonebook.BinPhoneBook;
 import com.vrinsoft.emsat.utils.dialog.adapter.MyRecyclerViewAdapter;
 import com.vrinsoft.emsat.utils.dialog.model.BinItems;
-import com.vrinsoft.emsat.widget.CustomEditTextView;
-import com.vrinsoft.emsat.widget.CustomTextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 import static com.vrinsoft.emsat.utils.LogUtils.LOGD;
@@ -98,13 +71,12 @@ public class ViewUtils {
         this.context = context;
     }
 
-    public String getScreenResolution(Activity context)
-    {
+    public String getScreenResolution(Activity context) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         context.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
-        return width+"-"+height;
+        return width + "-" + height;
     }
 
     public static void showToast(Context mContext, String message, View view) {
@@ -119,7 +91,7 @@ public class ViewUtils {
         }
     }
 
-    public static void setTextInputLayout(CustomEditTextView editTextView, String hint, LinearLayout ll, Drawable llBackground, CustomTextView txtView, int txtViewVisibility, View view, int viewVisibility) {
+    public static void setTextInputLayout(EditText editTextView, String hint, LinearLayout ll, Drawable llBackground, TextView txtView, int txtViewVisibility, View view, int viewVisibility) {
         editTextView.setHint(hint);
         ll.setBackground(llBackground);
         txtView.setVisibility(txtViewVisibility);
@@ -200,24 +172,31 @@ public class ViewUtils {
 
     public static void showSingleBtnAlert(Context context, String title, String message, String btnText, DialogInterface.OnClickListener onClickListener) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        alertDialog.setCancelable(false);
         alertDialog.create();
-        if(!Validator.isNullEmpty(title))
+
+        if (!Validator.isNullEmpty(title))
             alertDialog.setTitle(title);
-        if(!Validator.isNullEmpty(message))
+        if (!Validator.isNullEmpty(message))
             alertDialog.setMessage(message);
         alertDialog.setPositiveButton(btnText, onClickListener);
         alertDialog.show();
     }
 
     public static void showDoubleBtnAlert(Context context, String title, String message, String btnText1, String btnText2, DialogInterface.OnClickListener onClickListener) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.create();
-        if(!Validator.isNullEmpty(title))
+        if (!Validator.isNullEmpty(title))
             alertDialog.setTitle(title);
-        if(!Validator.isNullEmpty(message))
+        if (!Validator.isNullEmpty(message))
             alertDialog.setMessage(message);
         alertDialog.setPositiveButton(btnText1, onClickListener);
-        alertDialog.setNegativeButton(btnText2, onClickListener);
+        alertDialog.setNegativeButton(btnText2, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
         alertDialog.show();
     }
 
@@ -327,7 +306,7 @@ public class ViewUtils {
         }
     }
 
-    public static String roundUpValue(double value){
+    public static String roundUpValue(double value) {
         return String.format("%.2f", value);
     }
 

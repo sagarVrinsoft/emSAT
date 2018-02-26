@@ -4,11 +4,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckedTextView;
 
 
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.utils.dialog.model.BinItems;
-import com.vrinsoft.emsat.widget.CustomCheckedTextView;
 
 import java.util.ArrayList;
 
@@ -57,11 +57,11 @@ public class MyRecyclerViewAdapter extends RecyclerView
     }
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder {
-        CustomCheckedTextView mtxt_name;
+       CheckedTextView mtxt_name;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
-            mtxt_name = (CustomCheckedTextView) itemView.findViewById(R.id.ctItems);
+            mtxt_name = (CheckedTextView) itemView.findViewById(R.id.ctItems);
         }
     }
 }

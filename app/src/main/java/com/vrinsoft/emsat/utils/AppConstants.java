@@ -13,19 +13,38 @@ import android.util.Patterns;
 
 import com.vrinsoft.emsat.BuildConfig;
 import com.vrinsoft.emsat.R;
+import com.vrinsoft.emsat.apis.model.exam_question.QuestionBean;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class AppConstants {
-
     public static final String INTENT_NAME = "name";
+    public static ArrayList<QuestionBean.Result> mQuestionList = null;
+
+    public interface QUESTION_TYPE {
+        public static String MCQ = "1";
+        public static String TRUE_FALSE = "2";
+        public static String FILL_BLANK = "3";
+    }
+
+    public interface BUNDLE_KEY {
+        public static String TOTAL_SCORE = "total_score";
+        public static String OBTAINED_SCORE = "obtained_score";
+        public static String SKIPPED_ANS = "skipped_ans";
+        public static String CORRECT_ANS = "correct_ans";
+        public static String WRONG_ANS = "wrong_ans";
+        public static String TOTAL_ANS = "total_ans";
+    }
+
+
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static DecimalFormat decimalFormat = new DecimalFormat("0.00");
-    public static final String PREF_FILE = BuildConfig.APPLICATION_ID+"_PREF";
+    public static final String PREF_FILE = BuildConfig.APPLICATION_ID + "_PREF";
     public static final int MAPS_REQUEST_CODE_AUTOCOMPLETE = 1123;
     public static final int VALIDATE_DOB_YEAR = -18;
 
@@ -195,6 +214,7 @@ public class AppConstants {
             public static String scale = "2";// resolution of Image
             public static String map_width = "512";
             public static String map_height = "256";
+
             public interface MARKER {
                 public static String SIZE_TINY = "tiny";
                 public static String SIZE_MID = "mid";

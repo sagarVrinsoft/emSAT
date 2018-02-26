@@ -36,7 +36,7 @@
 
             </RelativeLayout>
 
-            <com.vrinsoft.emsat.widget.CustomTextView
+            <TextView
                 android:id="@+id/txtMenuItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,8 +45,7 @@
                 android:layout_toRightOf="@+id/rlMenuImg"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_12ssp"
-                app:fontTextStyle="1" />
+                android:textSize="@dimen/_12ssp" />
 
         </RelativeLayout>
 

@@ -13,19 +13,30 @@ import com.vrinsoft.emsat.apis.model.user_profile.update_profile.BeanUpdateProfi
 import com.vrinsoft.emsat.apis.model.user_profile.view_profile.BeanViewProfile;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
+import static com.vrinsoft.emsat.apis.rest.NetworkConstants.QUESTION.METHOD_TEST_QUESTION;
+
 public interface ApiInterface {
 
     //Check server time
 //    http://ec2-34-231-167-130.compute-1.amazonaws.com/api/check_server_time.php
+
+    //region login
+    @FormUrlEncoded
+    @POST(METHOD_TEST_QUESTION)
+    Call<ResponseBody> getQuestions(@FieldMap HashMap<String, String> map);
+    //endregion
 
     //region Login
     @FormUrlEncoded

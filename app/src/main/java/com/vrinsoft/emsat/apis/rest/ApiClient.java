@@ -19,6 +19,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
+//    public static final String BASE_URL = "http://192.168.1.56/onlinetest/admin/";
 //    public static final String BASE_URL = BuildConfig.PROD_BASE_URL;
     public static final String BASE_URL = "https://app.ahoyride.com/beta/";
     public static final String BASE_URL_API = BASE_URL + "api/";

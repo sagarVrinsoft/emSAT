@@ -68,6 +68,7 @@ import java.util.regex.Pattern;
 import static com.vrinsoft.emsat.utils.LogUtils.LOGD;
 
 public class ViewUtils {
+    // Test br dev from A
     public static boolean isCancelRideDialogOpenByPassenger = false;
 
     public static String DATE_TIME_FORMAT = "dd MMM yyy HH:mm";

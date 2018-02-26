@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.vrinsoft.emsat.activity.PracticeExam">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_actionbar" />
+
+        <RelativeLayout
+            android:id="@+id/header_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginTop="@dimen/_12sdp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_right_curved"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_4sdp"
+                android:paddingLeft="@dimen/_20sdp"
+                android:paddingRight="@dimen/_12sdp"
+                android:paddingTop="@dimen/_4sdp">
+
+                <com.vrinsoft.emsat.utils.widget.CircleCountDownView
+                    android:id="@+id/circle_count_down_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_left_curved"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_4sdp"
+                android:paddingLeft="@dimen/_15sdp"
+                android:paddingRight="@dimen/_25sdp"
+                android:paddingTop="@dimen/_4sdp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_flag" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hint"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/footer_bar"
+            android:layout_below="@+id/header_bar"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.vrinsoft.emsat.utils.widget.TagLayout
+                        android:id="@+id/mFrameLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_15sdp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/txtQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="@dimen/_8sdp"
+                        android:padding="@dimen/_20sdp"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_16ssp"
+                        android:visibility="gone" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvWords"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:background="@android:color/transparent"
+                        android:divider="@null"
+                        android:dividerHeight="0dp"
+                        android:scrollbars="none"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/llTrueFalse"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/rbTrue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawablePadding="@dimen/_8sdp"
+                            android:drawableTop="@drawable/exam_radio_btn_selector"
+                            android:gravity="center"
+                            android:text="True"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/_16ssp" />
+
+                        <TextView
+                            android:id="@+id/rbFalse"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawablePadding="@dimen/_8sdp"
+                            android:drawableTop="@drawable/exam_radio_btn_selector"
+                            android:gravity="center"
+                            android:text="False"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/_16ssp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llMCQ"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/txtOpt1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/option_selector"
+                            android:gravity="center"
+                            android:padding="@dimen/_12sdp"
+                            android:text=""
+                            android:textColor="@color/opt_text_selector"
+                            android:textSize="@dimen/_16ssp"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/txtOpt2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:background="@drawable/option_selector"
+                            android:gravity="center"
+                            android:padding="@dimen/_12sdp"
+                            android:text=""
+                            android:textColor="@color/opt_text_selector"
+                            android:textSize="@dimen/_16ssp"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/txtOpt3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:background="@drawable/option_selector"
+                            android:gravity="center"
+                            android:padding="@dimen/_12sdp"
+                            android:text=""
+                            android:textColor="@color/opt_text_selector"
+                            android:textSize="@dimen/_16ssp"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/txtOpt4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:background="@drawable/option_selector"
+                            android:gravity="center"
+                            android:padding="@dimen/_12sdp"
+                            android:text=""
+                            android:textColor="@color/opt_text_selector"
+                            android:textSize="@dimen/_16ssp"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:id="@+id/footer_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:id="@+id/txtPrev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:drawableTop="@drawable/left_arrow"
+                android:gravity="center"
+                android:text="@string/prev"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13ssp" />
+
+            <TextView
+                android:id="@+id/txtCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_13ssp" />
+
+            <TextView
+                android:id="@+id/txtNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:drawableTop="@drawable/right_arrow"
+                android:gravity="center"
+                android:text="@string/next"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13ssp" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>

@@ -14,4 +14,20 @@
     <string name="permission_storage_rationale">Storage permissions is required for accessing pictures. Requesting permission.</string>
     <string name="permission_storage_settings">Storage permissions is not granted. You can grant it from Settings >> Permissions</string>
     <string name="ok">OK</string>
+    <string name="practice_exam">Practice Exam</string>
+    <string name="quit">Quit</string>
+    <string name="next">Next</string>
+    <string name="prev">Prev</string>
+    <string name="hint">Hint</string>
+    <string name="blanks">____________</string>
+    <string name="your_score">Your score</string>
+    <string name="re_take_quiz">Re-take Quiz</string>
+    <string name="check_answers">Check Answers</string>
+
+    <string name="skip_ans">Skip answers\n</string>
+    <string name="correct_ans">Correct answers\n</string>
+    <string name="wrong_ans">Wrong answers\n</string>
+    <string name="done">Done</string>
+    <string name="score_card">Score Card</string>
+
 </resources>

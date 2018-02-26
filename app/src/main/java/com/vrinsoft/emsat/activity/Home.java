@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Switch;
 
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
@@ -12,8 +13,7 @@ import com.vrinsoft.emsat.databinding.ActivityHomeBinding;
 import com.vrinsoft.emsat.utils.NavigationUtils;
 
 
-public class Home extends MasterActivity
-{
+public class Home extends MasterActivity implements View.OnClickListener {
     // Master
     ActivityHomeBinding binding;
     Activity mActivity;
@@ -33,6 +33,8 @@ public class Home extends MasterActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
+
+        binding.btnExam.setOnClickListener(this);
     }
 
     @Override
@@ -58,5 +60,17 @@ public class Home extends MasterActivity
             }
         });
         //setNotificationBadgeCount(mActivity);
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.btnExam:
+                Bundle bundle = new Bundle();
+                bundle.putString("FROM", "NEWEST");
+                NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
+                break;
+        }
     }
 }

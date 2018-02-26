@@ -1,9 +1,9 @@
 package com.vrinsoft.emsat.utils;
 
 import android.app.Activity;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import com.vrinsoft.emsat.widget.CustomEditTextView;
 
 /**
  * Created by komal on 1/6/17.
@@ -44,7 +44,7 @@ public class Validator {
         return false;
     }
 
-    public static boolean checkValidation(Activity mActivity, CustomEditTextView editTextView, String validationMsg) {
+    public static boolean checkValidation(Activity mActivity, EditText editTextView, String validationMsg) {
         if (Validator.isEmptyStr(editTextView.getText().toString().trim())) {
             ViewUtils.showToast(mActivity, validationMsg, null);
             editTextView.requestFocus();

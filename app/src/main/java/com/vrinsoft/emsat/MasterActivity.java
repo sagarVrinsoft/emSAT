@@ -1,23 +1,22 @@
 package com.vrinsoft.emsat;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.vrinsoft.emsat.activity.Home;
@@ -27,9 +26,6 @@ import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.ConnectivityReceiver;
-import com.vrinsoft.emsat.widget.CustomTextView;
-
-import java.util.ArrayList;
 
 public abstract class MasterActivity extends AppCompatActivity
         implements ConnectivityReceiver.ConnectivityReceiverListener,
@@ -38,7 +34,7 @@ public abstract class MasterActivity extends AppCompatActivity
     public final String TAG = MasterActivity.this.getClass().getSimpleName();
     public Toolbar mToolbar;
     public ImageView mmToolbarimgMenu, mmToolbarimgBack, mmToolbarimgDone;
-    public CustomTextView mmToolbartxtTitle, mmtxtRider, mmtxtDriver, mmtxtNotificationCount;
+    public TextView mmToolbartxtTitle, mmtxtRider, mmtxtDriver, mmtxtNotificationCount;
     //    public SlidingRootNav slideMenuUtils;
     public boolean isConnectedToInternet = false;
     public Gson gson = new Gson();

@@ -8,8 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
@@ -17,8 +15,6 @@ import com.vrinsoft.emsat.adapter.navigation_drawer_menu.NavDrawerMenuAdapter;
 import com.vrinsoft.emsat.databinding.NavMenuDrawerBinding;
 import com.vrinsoft.emsat.interfaces.OnItemClickListener;
 import com.vrinsoft.emsat.model.drawer_menu.BinDrawerMenu;
-import com.vrinsoft.emsat.widget.CustomEditTextView;
-import com.vrinsoft.emsat.widget.CustomTextView;
 
 import java.util.ArrayList;
 
@@ -86,8 +82,7 @@ public class FragmentDrawer extends Fragment implements View.OnClickListener, On
 
     private void setMenuItemList() {
         mArrayList = new ArrayList<>();
-        mArrayList.add(new BinDrawerMenu(R.drawable.ic_menu_sign_out,
-                getString(R.string.menu_sign_out)));
+        mArrayList.add(new BinDrawerMenu(R.drawable.ic_menu_sign_out, getString(R.string.menu_sign_out)));
     }
 
     @Override

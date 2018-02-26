@@ -15,15 +15,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -177,10 +183,9 @@ public class ViewUtils {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
         alertDialog.setCancelable(false);
         alertDialog.create();
-
-        if (!Validator.isNullEmpty(title))
+        if(!Validator.isNullEmpty(title))
             alertDialog.setTitle(title);
-        if (!Validator.isNullEmpty(message))
+        if(!Validator.isNullEmpty(message))
             alertDialog.setMessage(message);
         alertDialog.setPositiveButton(btnText, onClickListener);
         alertDialog.show();

@@ -32,6 +32,12 @@ public class AppConstants {
         public static String FILL_BLANK = "3";
     }
 
+    public interface ANS_TYPE {
+        public static int SKIP = 0;
+        public static int CORRECT = 1;
+        public static int WRONG = 2;
+    }
+
     public interface BUNDLE_KEY {
         public static String TOTAL_SCORE = "total_score";
         public static String OBTAINED_SCORE = "obtained_score";

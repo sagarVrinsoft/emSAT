@@ -15,6 +15,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
@@ -339,5 +343,22 @@ public class ViewUtils {
                 enableDisableView(group.getChildAt(idx), enabled);
             }
         }
+    }
+
+    public static void SpannableText(Context mContext, String mQuestion, String mCorrectAns, String mWrongAns, TextView mTextView) {
+        Spannable text1 = new SpannableString(mQuestion.replaceAll("####", mContext.getString(R.string.blanks)));
+        text1.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.black)), 0, text1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mTextView.setText(text1);
+        if (!TextUtils.isEmpty(mWrongAns)) {
+            Spannable text2 = new SpannableString("\n\n" + mWrongAns.replaceAll("####", mContext.getString(R.string.blanks)));
+            text2.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.wrong_color)), 0, text2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mTextView.append(text2);
+        }
+        if (!TextUtils.isEmpty(mCorrectAns)) {
+            Spannable text3 = new SpannableString("\n\n" + mCorrectAns);
+            text3.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.correct_color)), 0, text3.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mTextView.append(text3);
+        }
+
     }
 }

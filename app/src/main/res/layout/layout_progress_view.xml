@@ -37,5 +37,6 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_30ssp" />
         </LinearLayout>
+
     </RelativeLayout>
 </merge>

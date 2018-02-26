@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 public class MyTestActivity extends MasterActivity {
     private static int PERCENT = 0;
-    String mTitle = "";
     ActivityMytestBinding binding;
     Activity mActivity;
     ArrayList<Result> mArrayList = new ArrayList<>();
@@ -70,16 +69,12 @@ public class MyTestActivity extends MasterActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null && bundle.containsKey(AppConstants.INTENT_NAME)) {
-            mTitle = bundle.getString(AppConstants.INTENT_NAME);
-        }
         setToolBarConfig();
     }
 
     public void setToolBarConfig() {
         masterBinding.toolbar.txtTitle.setVisibility(View.VISIBLE);
-        masterBinding.toolbar.txtTitle.setText(mTitle);
+        masterBinding.toolbar.txtTitle.setText(getString(R.string.menu_my_test));
         masterBinding.toolbar.imgHome.setVisibility(View.GONE);
         masterBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
         masterBinding.toolbar.rlNotification.setVisibility(View.GONE);

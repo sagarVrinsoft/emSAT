@@ -45,6 +45,7 @@ import java.util.regex.Pattern;
 import static com.vrinsoft.emsat.utils.LogUtils.LOGD;
 
 public class ViewUtils {
+    //temp
     public static boolean isCancelRideDialogOpenByPassenger = false;
 
     public static String DATE_TIME_FORMAT = "dd MMM yyy HH:mm";

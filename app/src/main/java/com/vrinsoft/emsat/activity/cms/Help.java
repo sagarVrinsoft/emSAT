@@ -49,13 +49,13 @@ public class Help extends MasterActivity implements View.OnClickListener {
     public void setToolBarConfig() {
         masterBinding.toolbar.txtTitle.setVisibility(View.VISIBLE);
         masterBinding.toolbar.txtTitle.setText(getString(R.string.menu_help));
-        masterBinding.toolbar.imgHome.setVisibility(View.GONE);
-        masterBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
+        masterBinding.toolbar.imgHome.setVisibility(View.VISIBLE);
+        masterBinding.toolbar.imgBack.setVisibility(View.GONE);
         masterBinding.toolbar.rlNotification.setVisibility(View.GONE);
-        masterBinding.toolbar.imgBack.setOnClickListener(new View.OnClickListener() {
+        masterBinding.toolbar.imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavigationUtils.finishCurrentActivity(Help.this);
+                toggleDrawer();
             }
         });
         masterBinding.toolbar.rlNotification.setOnClickListener(new View.OnClickListener() {

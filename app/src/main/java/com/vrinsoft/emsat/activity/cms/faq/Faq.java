@@ -59,6 +59,7 @@ public class Faq extends MasterActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
 
         mActivity = Faq.this;
+        setDrawerVisible(false);
         faqApiHandler = new FAQApiHandler();
 
         setFAQContent();

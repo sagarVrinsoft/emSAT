@@ -29,4 +29,9 @@ public class AppPreference {
         public static String USER_PROFILE = "USER_PROFILE";
     }
 
+    public interface USER_STATUS{
+        public static int LOGON = 1;
+        public static int LOGOFF = 0;
+    }
+
 }

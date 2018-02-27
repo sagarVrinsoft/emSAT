@@ -47,6 +47,10 @@ public class AppConstants {
         public static String TOTAL_ANS = "total_ans";
     }
 
+    public interface DEVICE_TYPE {
+        public static String ANDROID = "2";
+    }
+
 
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static DecimalFormat decimalFormat = new DecimalFormat("0.00");

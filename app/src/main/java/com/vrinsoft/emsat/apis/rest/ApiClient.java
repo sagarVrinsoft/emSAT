@@ -89,7 +89,9 @@ public class ApiClient {
                 }
             });
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            interceptor.setLevel(BuildConfig.DEBUG?
+                    HttpLoggingInterceptor.Level.BODY:
+                    HttpLoggingInterceptor.Level.NONE);
             builder.connectTimeout(30L, TimeUnit.SECONDS).
                     readTimeout(30L, TimeUnit.SECONDS).
                     addInterceptor(interceptor);

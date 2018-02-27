@@ -3,11 +3,13 @@ package com.vrinsoft.emsat.utils;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.vrinsoft.emsat.BuildConfig;
+
 public class LogUtils {
-    private static final String LOG_PREFIX = "PASSENGER_";
+    private static final String LOG_PREFIX = ">>";
     private static final int LOG_PREFIX_LENGTH = LOG_PREFIX.length();
     private static final int MAX_LOG_TAG_LENGTH = 23;
-    public static boolean LOGGING_ENABLED = true;
+    public static boolean LOGGING_ENABLED = BuildConfig.LOGGING_ENABLED;
 
     @NonNull
     public static String makeLogTag(@NonNull String str) {

@@ -13,14 +13,12 @@ import com.google.gson.Gson;
  */
 
 public class Pref {
-    private static final String Pref_Key_Duty = "Pref_Key_Duty";
     private static final String Pref_Key_NeverAskAgainForContact = "NeverAskAgainForContact";
     private static final String Pref_Key_NeverAskAgainForFineLocation = "NeverAskAgainForFineLocation";
     private static final String Pref_Key_NeverAskAgainForReadContacts = "NeverAskAgainForReadContacts";
     private static final String Pref_Key_NeverAskAgainForSendSms = "NeverAskAgainForSendSms";
     private static final String Pref_Key_NeverAskAgainForCamera = "NeverAskAgainForCamera";
     private static final String Pref_Key_NeverAskAgainForStorage = "NeverAskAgainForStorage";
-    private static final String Pref_Key_CURRENT_LOCATION_API = "CURRENT_LOCATION_API";
     @Nullable
     private static SharedPreferences sharedPreferences = null;
 
@@ -191,30 +189,5 @@ public class Pref {
         Pref.sharedPreferences = null;
         return result;
     }
-
-    public static void setCurrentApiResp(Context context, String jsonResponse)
-    {
-        Pref.openPref(context);
-        SharedPreferences.Editor prefsPrivateEditor = Pref.sharedPreferences.edit();
-        prefsPrivateEditor.putString(Pref_Key_CURRENT_LOCATION_API, jsonResponse);
-        prefsPrivateEditor.commit();
-        prefsPrivateEditor = null;
-        Pref.sharedPreferences = null;
-    }
     //  ======================= RUNTIME PERMISSIONS =====================================
-    public static void setDriverDuty(Context context, boolean isOn) {
-        Pref.openPref(context);
-        SharedPreferences.Editor prefsPrivateEditor = Pref.sharedPreferences.edit();
-        prefsPrivateEditor.putBoolean(Pref_Key_Duty, isOn);
-        prefsPrivateEditor.commit();
-        prefsPrivateEditor = null;
-        Pref.sharedPreferences = null;
-    }
-
-    public static boolean getDriverDuty(Context context) {
-        Pref.openPref(context);
-        boolean result = Pref.sharedPreferences.getBoolean(Pref_Key_Duty, false);
-        Pref.sharedPreferences = null;
-        return result;
-    }
 }

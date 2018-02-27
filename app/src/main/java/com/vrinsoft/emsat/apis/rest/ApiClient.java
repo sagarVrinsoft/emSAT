@@ -19,7 +19,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    public static final String BASE_URL = "http://vrinsoft.in/emsat/admin/";
+    public static final String BASE_URL = BuildConfig.BASE_URL;
 //    public static final String BASE_URL = "http://vrinsoft.in/emsat/admin/";
     public static final String BASE_URL_API = BASE_URL + "api/";
 

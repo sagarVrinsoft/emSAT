@@ -18,11 +18,24 @@ import android.widget.EditText;
 
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.home.Home;
+import com.vrinsoft.emsat.apis.model.register.BeanRegister;
+import com.vrinsoft.emsat.apis.rest.ApiClient;
+import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
+import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.RegisterBinding;
+import com.vrinsoft.emsat.utils.AppConstants;
+import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.NavigationUtils;
+import com.vrinsoft.emsat.utils.Pref;
 import com.vrinsoft.emsat.utils.ViewUtils;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.vrinsoft.emsat.utils.AppConstants.isValidPhoneNumber;
 import static com.vrinsoft.emsat.utils.NavigationUtils.finishCurrentActivity;
@@ -127,7 +140,39 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         {
             case R.id.txtSignIn:
                 if(validation())
-                    NavigationUtils.startActivityWithClearStack(this, Home.class, null);
+                {
+                    ViewUtils.showDialog(mActivity, false);
+                    final String name = mBinding.etFN.getText().toString().trim();
+                    final String email = mBinding.etEmail.getText().toString().trim();
+                    final String phone = mBinding.etMobileNo.getText().toString().trim();
+                    final String password = mBinding.etPassword.getText().toString().trim();
+
+                    Call<ArrayList<BeanRegister>> listCall =
+                            ApiClient.getApiInterface().register(name, phone, email, password, "", AppConstants.GENDER.MALE);
+
+                    listCall.enqueue(new Callback<ArrayList<BeanRegister>>() {
+                        @Override
+                        public void onResponse(Call<ArrayList<BeanRegister>> call, Response<ArrayList<BeanRegister>> response) {
+                            ArrayList<BeanRegister> beanRegister = response.body();
+                            ViewUtils.showDialog(mActivity, true);
+                            if (beanRegister.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.NAME, name);
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.EMAIL_ID, email);
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.PASSWORD, password);
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.MOBILE_NO, phone);
+                                NavigationUtils.startActivityWithClearStack(mActivity, Home.class, null);
+                            } else {
+                                ViewUtils.showToast(mActivity, beanRegister.get(0).getMessage(), null);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ArrayList<BeanRegister>> call, Throwable t) {
+                            ViewUtils.showDialog(mActivity, true);
+                            ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
+                        }
+                    });
+                }
                 break;
             case R.id.imgBack:
                 finishCurrentActivity(mActivity);

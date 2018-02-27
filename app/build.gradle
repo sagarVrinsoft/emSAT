@@ -11,9 +11,22 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        def serverPropertiesFile = rootProject.file("server.properties")
+        def serverProperties = new Properties()
+        serverProperties.load(new FileInputStream(serverPropertiesFile))
         release {
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_URL", serverProperties['BASE_URL_PROD'])
+            buildConfigField("boolean", "LOGGING_ENABLED", "false")
+        }
+        debug {
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_URL", serverProperties['BASE_URL_INHOUSE'])
+            buildConfigField("boolean", "LOGGING_ENABLED", "true")
         }
     }
     dataBinding {

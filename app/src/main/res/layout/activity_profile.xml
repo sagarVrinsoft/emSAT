@@ -76,14 +76,14 @@
                         android:background="@color/white"
                         android:orientation="vertical">
 
-                        <com.vrinsoft.emsat.widget.CustomTextView
+                        <TextView
                             style="@style/BoxEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/grey_bg_title"
                             android:padding="@dimen/_10sdp"
                             android:text="@string/profile_info"
-                            app:fontTextStyle="5" />
+                             />
 
                         <LinearLayout
                             android:id="@+id/llSignIn"
@@ -103,7 +103,7 @@
                                     android:layout_marginTop="@dimen/_8sdp"
                                     android:orientation="vertical">
 
-                                    <com.vrinsoft.emsat.widget.CustomEditTextView
+                                    <EditText
                                         android:id="@+id/etFN"
                                         style="@style/BoxEditText"
                                         android:layout_width="match_parent"
@@ -111,7 +111,7 @@
                                         android:hint="@string/name"
                                         android:inputType="textCapSentences"
                                         android:maxLength="30"
-                                        app:fontTextStyle="1" />
+                                         />
 
                                     <View
                                         android:id="@+id/vFN"
@@ -121,7 +121,7 @@
                                         android:background="@android:color/darker_gray" />
                                 </LinearLayout>
 
-                                <com.vrinsoft.emsat.widget.CustomTextView
+                                <TextView
                                     android:id="@+id/txtFN"
                                     style="@style/BoxEditTextLabel"
                                     android:layout_width="wrap_content"
@@ -129,7 +129,7 @@
                                     android:layout_alignParentTop="true"
                                     android:text="@string/name"
                                     android:visibility="gone"
-                                    app:fontTextStyle="1" />
+                                     />
 
                             </RelativeLayout>
 
@@ -149,7 +149,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content">
 
-                                        <com.vrinsoft.emsat.widget.CustomTextView
+                                        <TextView
                                             android:id="@+id/txtMobileCode"
                                             style="@style/BoxEditText"
                                             android:layout_width="wrap_content"
@@ -160,9 +160,9 @@
                                             android:maxLength="4"
                                             android:text="+971"
                                             android:textSize="@dimen/_12ssp"
-                                            app:fontTextStyle="1" />
+                                             />
 
-                                        <com.vrinsoft.emsat.widget.CustomEditTextView
+                                        <EditText
                                             android:id="@+id/etMobileNo"
                                             style="@style/BoxEditText"
                                             android:layout_width="match_parent"
@@ -174,7 +174,7 @@
                                             android:inputType="phone"
                                             android:maxLength="10"
                                             android:paddingLeft="@dimen/_1sdp"
-                                            app:fontTextStyle="1" />
+                                             />
                                     </RelativeLayout>
 
                                     <View
@@ -185,14 +185,14 @@
                                         android:background="@android:color/darker_gray" />
                                 </LinearLayout>
 
-                                <com.vrinsoft.emsat.widget.CustomTextView
+                                <TextView
                                     android:id="@+id/txtMobileNo"
                                     style="@style/BoxEditTextLabel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/mobile_no"
                                     android:visibility="gone"
-                                    app:fontTextStyle="1" />
+                                     />
 
                             </RelativeLayout>
 
@@ -208,14 +208,14 @@
                                     android:layout_marginTop="@dimen/_7sdp"
                                     android:orientation="vertical">
 
-                                    <com.vrinsoft.emsat.widget.CustomEditTextView
+                                    <EditText
                                         android:id="@+id/etEmail"
                                         style="@style/BoxEditText"
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/_40sdp"
                                         android:hint="@string/email_hint"
                                         android:inputType="textEmailAddress"
-                                        app:fontTextStyle="1" />
+                                         />
 
                                     <View
                                         android:id="@+id/vEmail"
@@ -225,14 +225,14 @@
                                         android:background="@android:color/darker_gray" />
                                 </LinearLayout>
 
-                                <com.vrinsoft.emsat.widget.CustomTextView
+                                <TextView
                                     android:id="@+id/txtEmail"
                                     style="@style/BoxEditTextLabel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/email_hint"
                                     android:visibility="gone"
-                                    app:fontTextStyle="1" />
+                                     />
 
                             </RelativeLayout>
 
@@ -248,7 +248,7 @@
                                     android:layout_marginTop="@dimen/_7sdp"
                                     android:orientation="vertical">
 
-                                    <com.vrinsoft.emsat.widget.CustomTextView
+                                    <TextView
                                         android:id="@+id/txtDOB"
                                         style="@style/BoxEditText"
                                         android:layout_width="match_parent"
@@ -259,11 +259,11 @@
                                         android:hint="@string/date_of_birth"
                                         android:imeOptions="actionNext"
                                         android:padding="@dimen/_10sdp"
-                                        app:fontTextStyle="1">
+                                        >
 
                                         <requestFocus />
 
-                                    </com.vrinsoft.emsat.widget.CustomTextView>
+                                    </TextView>
 
                                     <View
                                         android:id="@+id/vDOB"
@@ -273,14 +273,14 @@
                                         android:background="@android:color/darker_gray" />
                                 </LinearLayout>
 
-                                <com.vrinsoft.emsat.widget.CustomTextView
+                                <TextView
                                     android:id="@+id/txtLabelDOB"
                                     style="@style/BoxEditTextLabel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/date_of_birth"
                                     android:visibility="gone"
-                                    app:fontTextStyle="1" />
+                                     />
 
                             </RelativeLayout>
 
@@ -289,14 +289,14 @@
                                 android:layout_height="wrap_content"
                                 android:paddingTop="@dimen/_10sdp">
 
-                                <com.vrinsoft.emsat.widget.CustomTextView
+                                <TextView
                                     android:id="@+id/txtGender"
                                     style="@style/BoxEditText"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/gender"
                                     android:visibility="visible"
-                                    app:fontTextStyle="3" />
+                                     />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -305,7 +305,7 @@
                                     android:orientation="horizontal"
                                     android:paddingLeft="@dimen/_8sdp">
 
-                                    <com.vrinsoft.emsat.widget.CustomCheckedTextView
+                                    <CheckedTextView
                                         android:id="@+id/ctRider"
                                         style="@style/CheckedTextViewStyle"
                                         android:layout_width="wrap_content"
@@ -315,9 +315,9 @@
                                         android:gravity="center"
                                         android:padding="@dimen/_5sdp"
                                         android:text="@string/male"
-                                        app:fontTextStyle="1" />
+                                         />
 
-                                    <com.vrinsoft.emsat.widget.CustomCheckedTextView
+                                    <CheckedTextView
                                         android:id="@+id/ctDriver"
                                         style="@style/CheckedTextViewStyle"
                                         android:layout_width="wrap_content"
@@ -326,7 +326,7 @@
                                         android:gravity="center"
                                         android:padding="@dimen/_5sdp"
                                         android:text="@string/female"
-                                        app:fontTextStyle="1" />
+                                         />
 
                                 </LinearLayout>
 
@@ -334,14 +334,14 @@
 
                         </LinearLayout>
 
-                        <com.vrinsoft.emsat.widget.CustomTextView
+                        <TextView
                             style="@style/BoxEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/grey_bg_title"
                             android:padding="@dimen/_10sdp"
                             android:text="@string/change_password"
-                            app:fontTextStyle="5" />
+                             />
 
                         <RelativeLayout
                             android:id="@+id/rlChangePwd"
@@ -369,7 +369,7 @@
 
                             </RelativeLayout>
 
-                            <com.vrinsoft.emsat.widget.CustomTextView
+                            <TextView
                                 android:id="@+id/txtMenuItem"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -380,7 +380,7 @@
                                 android:text="@string/change_password"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_14ssp"
-                                app:fontTextStyle="2" />
+                                 />
 
                             <ImageView
                                 android:id="@+id/imgArrowRyt"
@@ -399,14 +399,14 @@
                             android:layout_height="@dimen/_2sdp"
                             android:background="@color/grey_line" />
 
-                        <com.vrinsoft.emsat.widget.CustomTextView
+                        <TextView
                             android:id="@+id/txtSignIn"
                             style="@style/ButtonBlueStyle"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_50sdp"
                             android:layout_below="@+id/llSignIn"
                             android:text="@string/save"
-                            app:fontTextStyle="1" />
+                             />
 
                     </LinearLayout>
                 </LinearLayout>

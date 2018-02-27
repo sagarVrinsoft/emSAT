@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
+import com.vrinsoft.emsat.activity.PracticeExam;
 import com.vrinsoft.emsat.activity.home.model.category.Result;
 import com.vrinsoft.emsat.activity.subcategory.SubCategory;
 import com.vrinsoft.emsat.apis.api.category.subcategory_list.CategoryListApiHandler;
@@ -51,6 +52,14 @@ public class Home extends MasterActivity {
         categoryListApiHandler = new CategoryListApiHandler();
         setUIConfig();
         fetchNotificationList(1);
+        binding.txtTopImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("FROM", "NEWEST");
+                NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
+            }
+        });
     }
 
     private void setUIConfig() {

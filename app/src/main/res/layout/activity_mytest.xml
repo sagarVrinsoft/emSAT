@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:visibility="visible" />
 
-        <com.vrinsoft.emsat.widget.CustomTextView
+        <TextView
             android:id="@+id/txtNoDataFound"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,6 +24,6 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_14ssp"
             android:visibility="gone"
-            app:fontTextStyle="1" />
+             />
     </LinearLayout>
 </layout><!-- if 4 texts then 4 x 2 texts will be added --><!-- if 4 texts then 4 x 2 texts will be added -->

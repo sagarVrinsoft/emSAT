@@ -8,6 +8,8 @@
         android:background="@color/white">
 
         <TextView
+            android:clickable="true"
+            android:background="@color/colorAccent"
             android:id="@+id/txtTopImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_180sdp" />

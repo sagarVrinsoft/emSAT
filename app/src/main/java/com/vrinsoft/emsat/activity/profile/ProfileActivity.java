@@ -9,8 +9,10 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
@@ -20,8 +22,6 @@ import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.Pref;
 import com.vrinsoft.emsat.utils.Validator;
 import com.vrinsoft.emsat.utils.ViewUtils;
-import com.vrinsoft.emsat.widget.CustomEditTextView;
-import com.vrinsoft.emsat.widget.CustomTextView;
 
 import java.util.ArrayList;
 
@@ -36,10 +36,10 @@ import static com.vrinsoft.emsat.utils.ViewUtils.setTextInputLayout;
 public class ProfileActivity extends MasterActivity {
     ActivityProfileBinding profileBinding;
     Activity mActivity;
-    CustomTextView txtPassword, txtNewPassword, txtConfirmPassword, txtChangePassword, txtUpdate;
+    TextView txtPassword, txtNewPassword, txtConfirmPassword, txtChangePassword, txtUpdate;
     LinearLayout llPassword, llNewPassword, llConfirmPassword;
     View vPassword, vNewPassword, vConfirmPassword;
-    CustomEditTextView etPassword, etNewPassword, etConfirmPassword;
+    EditText etPassword, etNewPassword, etConfirmPassword;
     ImageView imgClose;
 
     @Override
@@ -99,8 +99,8 @@ public class ProfileActivity extends MasterActivity {
         dialog.getWindow().setWindowAnimations(R.style.CustomDialogStyle2);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-        txtChangePassword = (CustomTextView) dialog.findViewById(R.id.txtChangePassword);
-        txtUpdate = (CustomTextView) dialog.findViewById(R.id.txtUpdate);
+        txtChangePassword = (TextView) dialog.findViewById(R.id.txtChangePassword);
+        txtUpdate = (TextView) dialog.findViewById(R.id.txtUpdate);
 
         llPassword = (LinearLayout) dialog.findViewById(R.id.llPassword);
         llNewPassword = (LinearLayout) dialog.findViewById(R.id.llNewPassword);
@@ -108,17 +108,17 @@ public class ProfileActivity extends MasterActivity {
 
         imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
 
-        txtPassword = (CustomTextView) dialog.findViewById(R.id.txtPassword);
-        txtNewPassword = (CustomTextView) dialog.findViewById(R.id.txtNewPassword);
-        txtConfirmPassword = (CustomTextView) dialog.findViewById(R.id.txtCPassword);
+        txtPassword = (TextView) dialog.findViewById(R.id.txtPassword);
+        txtNewPassword = (TextView) dialog.findViewById(R.id.txtNewPassword);
+        txtConfirmPassword = (TextView) dialog.findViewById(R.id.txtCPassword);
 
         vPassword = (View) dialog.findViewById(R.id.vPassword);
         vNewPassword = (View) dialog.findViewById(R.id.vNewPassword);
         vConfirmPassword = (View) dialog.findViewById(R.id.vCPassword);
 
-        etPassword = (CustomEditTextView) dialog.findViewById(R.id.etPassword);
-        etNewPassword = (CustomEditTextView) dialog.findViewById(R.id.etNewPassword);
-        etConfirmPassword = (CustomEditTextView) dialog.findViewById(R.id.etCPassword);
+        etPassword = (EditText) dialog.findViewById(R.id.etPassword);
+        etNewPassword = (EditText) dialog.findViewById(R.id.etNewPassword);
+        etConfirmPassword = (EditText) dialog.findViewById(R.id.etCPassword);
 
         txtUpdate.setOnClickListener(new View.OnClickListener() {
             @Override

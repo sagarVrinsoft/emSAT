@@ -16,7 +16,7 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:orientation="horizontal">
 
-            <com.vrinsoft.emsat.widget.CustomTextView
+            <TextView
                 android:id="@+id/txtAboutUs"
                 style="@style/BoxEditTextLabel"
                 android:layout_width="0dp"
@@ -30,9 +30,9 @@
                 android:text="@string/about_us"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
-                app:fontTextStyle="3" />
+                 />
 
-            <com.vrinsoft.emsat.widget.CustomTextView
+            <TextView
                 android:id="@+id/txtPrivacy"
                 style="@style/BoxEditTextLabel"
                 android:layout_width="0dp"
@@ -46,7 +46,7 @@
                 android:text="@string/privacy_policy"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
-                app:fontTextStyle="3" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -57,7 +57,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:orientation="horizontal">
 
-            <com.vrinsoft.emsat.widget.CustomTextView
+            <TextView
                 android:id="@+id/txtTerms"
                 style="@style/BoxEditTextLabel"
                 android:layout_width="0dp"
@@ -71,10 +71,10 @@
                 android:text="@string/terms"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
-                app:fontTextStyle="3" />
+                 />
 
 
-            <com.vrinsoft.emsat.widget.CustomTextView
+            <TextView
                 android:id="@+id/txtFaqs"
                 style="@style/BoxEditTextLabel"
                 android:layout_width="0dp"
@@ -88,7 +88,7 @@
                 android:text="@string/faqs"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
-                app:fontTextStyle="3" />
+                 />
         </LinearLayout>
     </LinearLayout>
 </layout>

@@ -11,11 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.apis.model.faqs.BeanFaqs;
-import com.vrinsoft.emsat.widget.CustomTextView;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,7 @@ public class FAQExListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.faq_new_user_child, null);
         }
 
-        CustomTextView txtChild = (CustomTextView) convertView.findViewById(R.id.txtChild);
+        TextView txtChild = (TextView) convertView.findViewById(R.id.txtChild);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
         {
@@ -89,8 +89,8 @@ public class FAQExListAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.faq_new_user_group, null);
         }
 
-        CustomTextView txtParent = (CustomTextView) convertView.findViewById(R.id.txtParent);
-        CustomTextView txtIndex = (CustomTextView) convertView.findViewById(R.id.txtIndex);
+        TextView txtParent = (TextView) convertView.findViewById(R.id.txtParent);
+        TextView txtIndex = (TextView) convertView.findViewById(R.id.txtIndex);
         ImageView mImgIndicator = (ImageView) convertView.findViewById(R.id.imgIndicator);
 
         txtParent.setText(mCatagoryArrayList.get(groupPosition).getQuestion());

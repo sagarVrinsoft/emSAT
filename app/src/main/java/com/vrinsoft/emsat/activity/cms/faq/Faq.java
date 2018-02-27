@@ -14,6 +14,7 @@ import com.vrinsoft.emsat.activity.cms.faq.adapter.FAQExListAdapter;
 import com.vrinsoft.emsat.apis.api.faqs.FAQApiHandler;
 import com.vrinsoft.emsat.apis.api.faqs.OnFAQ;
 import com.vrinsoft.emsat.apis.model.faqs.BeanFaqs;
+import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.FaqBinding;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
@@ -130,12 +131,12 @@ public class Faq extends MasterActivity implements View.OnClickListener {
 
     private void fetchFAQList(final int pageNo) {
         ViewUtils.showDialog(mActivity, false);
-        faqApiHandler.fetchFAQList(Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_USER_ID, ""),
-                Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_TOKEN, ""), pageNo, new OnFAQ() {
+        faqApiHandler.fetchFAQList(Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, ""),
+                Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, ""), pageNo, new OnFAQ() {
                     @Override
                     public void getResponse(boolean isSuccess, ArrayList<BeanFaqs> beanFaq, String errorMsgSystem) {
                         if (isSuccess) {
-                            if (beanFaq.get(0).getCode() == AppConstants.API_CODE_RESPONSE_SUCCESS) {
+                            if (beanFaq.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
 
                                 ViewUtils.showDialog(mActivity, true);
 

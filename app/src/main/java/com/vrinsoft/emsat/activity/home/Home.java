@@ -18,6 +18,7 @@ import com.vrinsoft.emsat.databinding.ActivityHomeBinding;
 import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
+import com.vrinsoft.emsat.utils.LogUtils;
 import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.utils.Pref;
 import com.vrinsoft.emsat.utils.ViewUtils;
@@ -60,6 +61,11 @@ public class Home extends MasterActivity {
                 NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
             }
         });
+
+        LogUtils.LOGE("name", ""+Pref.getValue(mActivity, AppPreference.USER_INFO.NAME,AppPreference.DEFAULT_STR));
+        LogUtils.LOGE("email", ""+Pref.getValue(mActivity, AppPreference.USER_INFO.EMAIL_ID,AppPreference.DEFAULT_STR));
+        LogUtils.LOGE("password", ""+Pref.getValue(mActivity, AppPreference.USER_INFO.PASSWORD,AppPreference.DEFAULT_STR));
+        LogUtils.LOGE("mobile", ""+Pref.getValue(mActivity, AppPreference.USER_INFO.MOBILE_NO,AppPreference.DEFAULT_STR));
     }
 
     private void setUIConfig() {
@@ -107,7 +113,21 @@ public class Home extends MasterActivity {
 
     private void fetchNotificationList(int pageNo) {
 
-        ViewUtils.showDialog(mActivity, false);
+        if (AppConstants.isTestModeOn) {
+            mArrayList.clear();
+            for (int i = 1; i <= 4; i++) {
+                Result result = new Result();
+                result.setBroadcastMsg("Subject " + i);
+                mArrayList.add(result);
+            }
+            mAdapter.notifyDataSetChanged();
+            binding.txtNoDataFound.setVisibility(View.GONE);
+            binding.rvGridModules.setVisibility(View.VISIBLE);
+        } else {
+            // call APi
+        }
+
+        /*ViewUtils.showDialog(mActivity, false);
         categoryListApiHandler.fetchCatData(Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_USER_ID, ""),
                 Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_TOKEN, ""),
                 pageNo, Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_USER_TYPE, 0), new OnCatList() {
@@ -147,6 +167,6 @@ public class Home extends MasterActivity {
                             ViewUtils.showToast(mActivity, errorMsgSystem, null);
                         }
                     }
-                });
+                });*/
     }
 }

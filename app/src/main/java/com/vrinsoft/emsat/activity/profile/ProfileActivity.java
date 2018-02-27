@@ -180,8 +180,8 @@ public class ProfileActivity extends MasterActivity {
         } else if (etPassword.getText().toString().length() < 8) {
             ViewUtils.showToast(mActivity, getString(R.string.old_password_must_contains_atleast_8_characters), null);
             return false;
-        } else if (!Validator.isNullEmpty(Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_PASSWORD, "")) &&
-                !(etPassword.getText().toString().trim().equals(Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_PASSWORD, "")))) {
+        } else if (!Validator.isNullEmpty(Pref.getValue(mActivity, AppPreference.USER_INFO.PASSWORD, "")) &&
+                !(etPassword.getText().toString().trim().equals(Pref.getValue(mActivity, AppPreference.USER_INFO.PASSWORD, "")))) {
             ViewUtils.showToast(mActivity, getString(R.string.password_invalid), etPassword);
             return false;
         } else if (checkValidation(mActivity, etNewPassword,

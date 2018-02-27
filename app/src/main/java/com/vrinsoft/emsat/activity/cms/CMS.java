@@ -11,6 +11,7 @@ import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.apis.api.cms.CMSApiHandler;
 import com.vrinsoft.emsat.apis.api.cms.OnCMS;
 import com.vrinsoft.emsat.apis.model.cms.BeanCMS;
+import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivityCmsBinding;
 import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.AppConstants;
@@ -59,7 +60,7 @@ public class CMS extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void getResponse(boolean isSuccess, ArrayList<BeanCMS> cms, String errorMsgSystem) {
                 if (isSuccess) {
-                    if (cms.get(0).getCode() == AppConstants.API_CODE_RESPONSE_SUCCESS) {
+                    if (cms.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
                         ViewUtils.showDialog(mActivity, true);
                         ArrayList<BeanCMS.Result> listCms = cms.get(0).getResult();
                         if (listCms != null && listCms.size() > 0) {

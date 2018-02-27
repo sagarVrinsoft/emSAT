@@ -89,45 +89,19 @@ public class MyTestActivity extends MasterActivity {
     private void fetchNotificationList(int pageNo) {
 
         ViewUtils.showDialog(mActivity, false);
-        subCategoryListApiHandler.fetchSubCatData(Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_USER_ID, ""),
-                Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_TOKEN, ""),
-                pageNo, Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_USER_TYPE, 0), new OnSubCatList() {
-                    @Override
-                    public void getResponse(boolean isSuccess, ArrayList<BeanNotificationList> beanNotificationList, String errorMsgSystem) {
-                        ViewUtils.showDialog(mActivity, true);
-                        if (isSuccess) {
-                            if (beanNotificationList.get(0).getCode() == AppConstants.API_CODE_RESPONSE_SUCCESS) {
-                                mArrayList.clear();
-                                mArrayList.addAll(beanNotificationList.get(0).getResult());
-                                if (mArrayList.size() > 0) {
-                                    binding.txtNoDataFound.setVisibility(View.GONE);
-                                    binding.rvSubCategory.setVisibility(View.VISIBLE);
-                                    mAdapter.notifyDataSetChanged();
-                                } else {
-                                    binding.txtNoDataFound.setVisibility(View.VISIBLE);
-                                    binding.rvSubCategory.setVisibility(View.GONE);
-                                }
-                            } else {
-                                if (AppConstants.isTestModeOn) {
-                                    mArrayList.clear();
-                                    for (int i = 1; i <= 4; i++) {
-                                        Result result = new Result();
-                                        result.setBroadcastMsg("Topic " + i);
-                                        mArrayList.add(result);
-                                    }
-                                    mAdapter.notifyDataSetChanged();
-                                    binding.txtNoDataFound.setVisibility(View.GONE);
-                                    binding.rvSubCategory.setVisibility(View.VISIBLE);
-                                } else {
-                                    binding.txtNoDataFound.setVisibility(View.VISIBLE);
-                                    binding.rvSubCategory.setVisibility(View.GONE);
-                                }
-                            }
-                        } else {
-                            ViewUtils.showToast(mActivity, errorMsgSystem, null);
-                        }
-                    }
-                });
+        if (AppConstants.isTestModeOn) {
+            mArrayList.clear();
+            for (int i = 1; i <= 4; i++) {
+                Result result = new Result();
+                result.setBroadcastMsg("Topic " + i);
+                mArrayList.add(result);
+            }
+            mAdapter.notifyDataSetChanged();
+            binding.txtNoDataFound.setVisibility(View.GONE);
+            binding.rvSubCategory.setVisibility(View.VISIBLE);
+        } else {
+//            call APi
+        }
     }
 
 }

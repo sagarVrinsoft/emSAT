@@ -2,6 +2,7 @@ package com.vrinsoft.emsat.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -12,35 +13,32 @@ import com.google.gson.Gson;
  */
 
 public class Pref {
-    private static final String Pref_Key_Duty = "Pref_Key_Duty";
     private static final String Pref_Key_NeverAskAgainForContact = "NeverAskAgainForContact";
     private static final String Pref_Key_NeverAskAgainForFineLocation = "NeverAskAgainForFineLocation";
     private static final String Pref_Key_NeverAskAgainForReadContacts = "NeverAskAgainForReadContacts";
     private static final String Pref_Key_NeverAskAgainForSendSms = "NeverAskAgainForSendSms";
     private static final String Pref_Key_NeverAskAgainForCamera = "NeverAskAgainForCamera";
     private static final String Pref_Key_NeverAskAgainForStorage = "NeverAskAgainForStorage";
-    private static final String Pref_Key_CURRENT_LOCATION_API = "CURRENT_LOCATION_API";
     @Nullable
     private static SharedPreferences sharedPreferences = null;
 
     public static void openPref(@NonNull Context context) {
-
-        sharedPreferences = context.getSharedPreferences(AppConstants.PREF_FILE, Context.MODE_PRIVATE);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public static void clearAllData(Context context)
     {
 //        ==== Get Values which are still require after clearing data ========
-        String mFCMtoken = Pref.getValue(context, AppPreference.FCM_PREF_REG_ID, "");
-        String defaultLanguageLabels = Pref.getValue(context, AppPreference.LANGUAGE.DEFAULT_LANGUAGE_LABELS, "");
-        String defaultLangId = Pref.getValue(context, AppPreference.LANGUAGE.PREF_LANGUAGE_ID, "");
+//        String mFCMtoken = Pref.getValue(context, AppPreference.FCM_PREF_REG_ID, "");
+//        String defaultLanguageLabels = Pref.getValue(context, AppPreference.LANGUAGE.DEFAULT_LANGUAGE_LABELS, "");
+//        String defaultLangId = Pref.getValue(context, AppPreference.LANGUAGE.PREF_LANGUAGE_ID, "");
 //      ======== Clearing Data ===========================================
         Pref.openPref(context);
         Pref.sharedPreferences.edit().clear().commit();
 //      ==== Set Values which are still require after clearing data ========
-        Pref.setValue(context, AppPreference.FCM_PREF_REG_ID, mFCMtoken);
-        Pref.setValue(context, AppPreference.LANGUAGE.DEFAULT_LANGUAGE_LABELS, defaultLanguageLabels);
-        Pref.setValue(context, AppPreference.LANGUAGE.PREF_LANGUAGE_ID, defaultLangId);
+//        Pref.setValue(context, AppPreference.FCM_PREF_REG_ID, mFCMtoken);
+//        Pref.setValue(context, AppPreference.LANGUAGE.DEFAULT_LANGUAGE_LABELS, defaultLanguageLabels);
+//        Pref.setValue(context, AppPreference.LANGUAGE.PREF_LANGUAGE_ID, defaultLangId);
 
     }
 
@@ -191,30 +189,5 @@ public class Pref {
         Pref.sharedPreferences = null;
         return result;
     }
-
-    public static void setCurrentApiResp(Context context, String jsonResponse)
-    {
-        Pref.openPref(context);
-        SharedPreferences.Editor prefsPrivateEditor = Pref.sharedPreferences.edit();
-        prefsPrivateEditor.putString(Pref_Key_CURRENT_LOCATION_API, jsonResponse);
-        prefsPrivateEditor.commit();
-        prefsPrivateEditor = null;
-        Pref.sharedPreferences = null;
-    }
     //  ======================= RUNTIME PERMISSIONS =====================================
-    public static void setDriverDuty(Context context, boolean isOn) {
-        Pref.openPref(context);
-        SharedPreferences.Editor prefsPrivateEditor = Pref.sharedPreferences.edit();
-        prefsPrivateEditor.putBoolean(Pref_Key_Duty, isOn);
-        prefsPrivateEditor.commit();
-        prefsPrivateEditor = null;
-        Pref.sharedPreferences = null;
-    }
-
-    public static boolean getDriverDuty(Context context) {
-        Pref.openPref(context);
-        boolean result = Pref.sharedPreferences.getBoolean(Pref_Key_Duty, false);
-        Pref.sharedPreferences = null;
-        return result;
-    }
 }

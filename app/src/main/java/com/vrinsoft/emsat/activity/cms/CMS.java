@@ -34,7 +34,6 @@ public class CMS extends AppCompatActivity implements View.OnClickListener {
     Bundle bundle;
     String title, cmsID = "";
     ActivityCmsBinding mBinding;
-    CMSApiHandler cmsApiHandler;
     Activity mActivity;
 
     @Override
@@ -43,8 +42,6 @@ public class CMS extends AppCompatActivity implements View.OnClickListener {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_cms);
 
         mActivity = this;
-        cmsApiHandler = new CMSApiHandler();
-
         bundle = getIntent().getExtras();
 
         if (bundle != null) {

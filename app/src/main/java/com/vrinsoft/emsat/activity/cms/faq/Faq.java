@@ -134,8 +134,8 @@ public class Faq extends MasterActivity implements View.OnClickListener {
 
     private void fetchFAQList(final int pageNo) {
         ViewUtils.showDialog(mActivity, false);
-        faqApiHandler.fetchFAQList(Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, NetworkConstants.QUESTION.TEMP_USERid),
-                Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, NetworkConstants.QUESTION.TEMP_TOKEN), pageNo, new OnFAQ() {
+        faqApiHandler.fetchFAQList(Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, ""),
+                Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, ""), pageNo, new OnFAQ() {
                     @Override
                     public void getResponse(boolean isSuccess, ArrayList<BeanFaqs> beanFaq, String errorMsgSystem) {
                         if (isSuccess) {

@@ -48,10 +48,9 @@ public interface ApiInterface {
     //region Login
     @FormUrlEncoded
     @POST("login.php")
-    Call<ArrayList<BeanLogin>> login(@Field("mobile_number") String mobile_number,
-                                     @Field("country_code") String country_code,
+    Call<ArrayList<BeanLogin>> login(@Field("email") String email,
                                      @Field("password") String password,
-                                     @Field("device_type") String device_type,
+                                     @Field("is_phone") String device_type,
                                      @Field("device_token") String device_token);
     //region Forgot_password
     @FormUrlEncoded

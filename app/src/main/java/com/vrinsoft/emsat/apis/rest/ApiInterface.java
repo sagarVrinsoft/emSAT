@@ -32,11 +32,18 @@ public interface ApiInterface {
     //Check server time
 //    http://ec2-34-231-167-130.compute-1.amazonaws.com/api/check_server_time.php
 
-    //region login
     @FormUrlEncoded
     @POST(METHOD_TEST_QUESTION)
     Call<ResponseBody> getQuestions(@FieldMap HashMap<String, String> map);
-    //endregion
+
+    @FormUrlEncoded
+    @POST("register.php")
+    Call<ArrayList<BeanRegister>> register(@Field("name") String name,
+                                           @Field("mobile_number") String mobile_number,
+                                           @Field("email") String country_code,
+                                           @Field("password") String password,
+                                           @Field("dob") String date_of_birth,
+                                           @Field("gender") int gender);
 
     //region Login
     @FormUrlEncoded
@@ -46,29 +53,6 @@ public interface ApiInterface {
                                      @Field("password") String password,
                                      @Field("device_type") String device_type,
                                      @Field("device_token") String device_token);
-    //endregion
-
-    //region Register
-    @FormUrlEncoded
-    @POST("register.php")
-    Call<ArrayList<BeanRegister>> register(@Field("first_name") String first_name,
-                                           @Field("last_name") String last_name,
-                                           @Field("mobile_number") String mobile_number,
-                                           @Field("country_code") String country_code,
-                                           @Field("password") String password,
-                                           @Field("gender") int gender,
-                                           @Field("date_of_birth") String date_of_birth,
-                                           @Field("user_type") int user_type,
-                                           @Field("metro_area") String metro_area,
-                                           @Field("ssn_number") String ssn_number,
-                                           @Field("email") String email,
-                                           @Field("car_model") String car_model,
-                                           @Field("vehicle_year") String vehicle_year,
-                                           @Field("vehicle_plate_no") String vehicle_plate_no,
-                                           @Field("vehicle_state") String vehicle_state)
-    ;
-    //endregion
-
     //region Forgot_password
     @FormUrlEncoded
     @POST("forgot_password.php")

@@ -11,6 +11,8 @@ import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.apis.api.cms.CMSApiHandler;
 import com.vrinsoft.emsat.apis.api.cms.OnCMS;
 import com.vrinsoft.emsat.apis.model.cms.BeanCMS;
+import com.vrinsoft.emsat.apis.rest.ApiClient;
+import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
 import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivityCmsBinding;
 import com.vrinsoft.emsat.robinhood.router.Director;
@@ -19,6 +21,10 @@ import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.utils.ViewUtils;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CMS extends AppCompatActivity implements View.OnClickListener {
 
@@ -56,26 +62,29 @@ public class CMS extends AppCompatActivity implements View.OnClickListener {
 
     private void callCMS() {
         ViewUtils.showDialog(mActivity, false);
-        cmsApiHandler.cmsData(cmsID, new OnCMS() {
+        Call<ArrayList<BeanCMS>> listCall = ApiClient.getApiInterface().cms(cmsID);
+
+        listCall.enqueue(new Callback<ArrayList<BeanCMS>>() {
             @Override
-            public void getResponse(boolean isSuccess, ArrayList<BeanCMS> cms, String errorMsgSystem) {
-                if (isSuccess) {
-                    if (cms.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
-                        ViewUtils.showDialog(mActivity, true);
-                        ArrayList<BeanCMS.Result> listCms = cms.get(0).getResult();
-                        if (listCms != null && listCms.size() > 0) {
-                            mBinding.mWebview.loadData(listCms.get(0).getDescription(), "text/html", "UTF-8");
-                        } else {
-                            ViewUtils.showToast(mActivity, getString(R.string.unable_to_load_content), mBinding.mWebview);
-                        }
+            public void onResponse(Call<ArrayList<BeanCMS>> call, Response<ArrayList<BeanCMS>> response) {
+                ArrayList<BeanCMS> beanCMS = response.body();
+                ViewUtils.showDialog(mActivity, true);
+                if (beanCMS.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
+                    ArrayList<BeanCMS.Result> listCms = beanCMS.get(0).getResult();
+                    if (listCms != null && listCms.size() > 0) {
+                        mBinding.mWebview.loadData(listCms.get(0).getContent(), "text/html", "UTF-8");
                     } else {
-                        ViewUtils.showDialog(mActivity, true);
-                        ViewUtils.showToast(mActivity, cms.get(0).getMessage(), null);
+                        ViewUtils.showToast(mActivity, getString(R.string.unable_to_load_content), mBinding.mWebview);
                     }
-                } else {
-                    ViewUtils.showDialog(mActivity, true);
-                    ViewUtils.showToast(mActivity, errorMsgSystem, null);
                 }
+                else {
+                    ViewUtils.showToast(mActivity, beanCMS.get(0).getMessage(), null);
+                }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<BeanCMS>> call, Throwable t) {
+                ViewUtils.showDialog(mActivity, true);
+                ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
             }
         });
     }

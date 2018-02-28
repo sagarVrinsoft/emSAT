@@ -200,10 +200,9 @@ public class AppConstants {
     }
 
     public interface CMS {
-        public static String RATE_CARD_MANAGEMENT = "1";
+        public static String ABOUT_US = "1";
         public static String TERMS_CONDITIONS = "2";
-        public static String PRIVACY_POLICY = "4";
-        public static String DISCLOSURE = "5";
+        public static String PRIVACY_POLICY = "3";
     }
 
     /*NUM_OF_CHECKED_VIEWS indicates no. of views to be checked/unchecked*/

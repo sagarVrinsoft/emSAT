@@ -81,7 +81,7 @@ public class Help extends MasterActivity implements View.OnClickListener {
             case R.id.txtAboutUs:
                 b = new Bundle();
                 b.putString(Director.CMS_TITLE, getString(R.string.about_us));
-                b.putString(CMS.KEY_CMS_ID, AppConstants.CMS.DISCLOSURE);
+                b.putString(CMS.KEY_CMS_ID, AppConstants.CMS.ABOUT_US);
                 NavigationUtils.startActivity(mActivity, CMS.class, b);
                 break;
             case R.id.txtPrivacy:

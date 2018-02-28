@@ -83,9 +83,7 @@ public interface ApiInterface {
                                                      @Field("vehicle_plate_no") String vehicle_plate_no,
                                                      @Field("vehicle_state") String vehicle_state,
                                                      @Field("token") String token);
-    //endregion
 
-    //region View Profile
     @FormUrlEncoded
     @POST("view_profile.php")
     Call<ArrayList<BeanViewProfile>> viewProfile(@Field("user_id") String user_id,

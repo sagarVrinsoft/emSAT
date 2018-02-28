@@ -91,7 +91,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
     }
 
     private void setProfileData() {
-        /*ViewUtils.showDialog(mActivity, false);
+        ViewUtils.showDialog(mActivity, false);
         Call<ArrayList<BeanViewProfile>> listCall =
                 ApiClient.getApiInterface().viewProfile(
                         Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR),
@@ -128,7 +128,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                 ViewUtils.showDialog(mActivity, true);
                 ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
             }
-        });*/
+        });
     }
 
     @Override

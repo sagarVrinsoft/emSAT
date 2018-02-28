@@ -74,7 +74,7 @@ public class CMS extends AppCompatActivity implements View.OnClickListener {
                 if (beanCMS.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
                     ArrayList<BeanCMS.Result> listCms = beanCMS.get(0).getResult();
                     if (listCms != null && listCms.size() > 0) {
-                        mBinding.mWebview.loadData(listCms.get(0).getDescription(), "text/html", "UTF-8");
+                        mBinding.mWebview.loadData(listCms.get(0).getContent(), "text/html", "UTF-8");
                     } else {
                         ViewUtils.showToast(mActivity, getString(R.string.unable_to_load_content), mBinding.mWebview);
                     }

@@ -41,38 +41,27 @@ public class BeanCMS {
     }
 
     public class Result {
-        @SerializedName("cms_id")
+        @SerializedName("title")
         @Expose
-        private String cms_id;
-        @SerializedName("page_name")
-        @Expose
-        private String page_name;
+        private String title;
         @SerializedName("content")
         @Expose
-        private String description;
+        private String content;
 
-        public String getCms_id() {
-            return cms_id;
+        public String getTitle() {
+            return title;
         }
 
-        public void setCms_id(String cms_id) {
-            this.cms_id = cms_id;
+        public void setTitle(String title) {
+            this.title = title;
         }
 
-        public String getPage_name() {
-            return page_name;
+        public String getContent() {
+            return content;
         }
 
-        public void setPage_name(String page_name) {
-            this.page_name = page_name;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
+        public void setContent(String content) {
+            this.content = content;
         }
     }
 }

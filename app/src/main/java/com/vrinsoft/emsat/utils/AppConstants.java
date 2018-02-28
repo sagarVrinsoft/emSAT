@@ -168,13 +168,13 @@ public class AppConstants {
         }
     }
 
-    /*public static void setLogoutFromApp(Activity mActivity) {
+    public static void setLogoutFromApp(Activity mActivity) {
         if (!AppConstants.isUserPreferedLogOut)
             ViewUtils.showToast(mActivity, mActivity.getString(R.string.invalid_token_msg), null);
         AppConstants.isUserPreferedLogOut = false;
         Pref.clearAllData(mActivity);
         NavigationUtils.logoutFromActivity(mActivity);
-    }*/
+    }
 
     public interface DATE_FORMAT {
         public static String DD_MM_YYYY = "dd MMM yyy";

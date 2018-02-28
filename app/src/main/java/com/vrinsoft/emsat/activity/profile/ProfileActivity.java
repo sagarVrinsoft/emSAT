@@ -16,6 +16,10 @@ import android.widget.TextView;
 
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
+import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
+import com.vrinsoft.emsat.apis.rest.ApiClient;
+import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
+import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivityProfileBinding;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
@@ -24,6 +28,10 @@ import com.vrinsoft.emsat.utils.Validator;
 import com.vrinsoft.emsat.utils.ViewUtils;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.vrinsoft.emsat.utils.Validator.checkValidation;
 import static com.vrinsoft.emsat.utils.ViewUtils.getEtBackground;
@@ -120,37 +128,6 @@ public class ProfileActivity extends MasterActivity {
         etNewPassword = (EditText) dialog.findViewById(R.id.etNewPassword);
         etConfirmPassword = (EditText) dialog.findViewById(R.id.etCPassword);
 
-        txtUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*if (changePasswordValidation()) {
-                    ViewUtils.showDialog(mActivity, false);
-                    new ChangePasswordApiHandler().changePassword(Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_USER_ID, ""),
-                            Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_TOKEN, ""), etPassword.getText().toString().trim(),
-                            etConfirmPassword.getText().toString().trim(), new OnChangePassword() {
-                                @Override
-                                public void getResponse(boolean isSuccess, ArrayList<BeanChangePassword> beanChangePassword, String errorMsgSystem) {
-                                    ViewUtils.showDialog(mActivity, true);
-                                    if (isSuccess) {
-                                        if (beanChangePassword.get(0).getCode() == AppConstants.API_CODE_RESPONSE_SUCCESS) {
-                                            ViewUtils.showToast(mActivity, LanguageUtils.getInstance().getValidatedLabel(
-                                                    binLabels.getUpdate_successfully(),
-                                                    getString(R.string.update_successfully)), null);
-                                            dialog.dismiss();
-                                            signOut();
-                                        } else {
-                                            ViewUtils.showToast(mActivity, beanChangePassword.get(0).getMessage(), null);
-                                        }
-                                    } else {
-                                        ViewUtils.showToast(mActivity, errorMsgSystem, null);
-                                    }
-                                }
-                            });
-                }*/
-                dialog.dismiss();
-            }
-        });
-
         etPassword.addTextChangedListener(new MyTextWatcher(etPassword));
         etNewPassword.addTextChangedListener(new MyTextWatcher(etNewPassword));
         etConfirmPassword.addTextChangedListener(new MyTextWatcher(etConfirmPassword));
@@ -171,6 +148,49 @@ public class ProfileActivity extends MasterActivity {
 
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
+
+
+        txtUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if (changePasswordValidation())
+                {
+                    ViewUtils.showDialog(mActivity, false);
+                    String userId = Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR);
+                    String token = Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR);
+                    String old_password = etPassword.getText().toString().trim();
+                    String new_password = etConfirmPassword.getText().toString().trim();
+
+                    Call<ArrayList<BeanChangePassword>> listCall =
+                            ApiClient.getApiInterface().changePassword
+                                    (userId, token, old_password, new_password);
+                    listCall.enqueue(new Callback<ArrayList<BeanChangePassword>>() {
+                        @Override
+                        public void onResponse(Call<ArrayList<BeanChangePassword>> call,
+                                               Response<ArrayList<BeanChangePassword>> response) {
+                            ArrayList<BeanChangePassword> beanChangePassword = response.body();
+                            ViewUtils.showDialog(mActivity, true);
+                            if (beanChangePassword.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS)
+                            {
+                                ViewUtils.showToast(mActivity, getString(R.string.password_changed_successfully), null);
+                                dialog.dismiss();
+                                signOut();
+                            } else {
+                                ViewUtils.showToast(mActivity, beanChangePassword.get(0).getMessage(), null);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ArrayList<BeanChangePassword>> call,
+                                              Throwable t) {
+                            ViewUtils.showDialog(mActivity, true);
+                            ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
+                        }
+                    });
+                }
+            }
+        });
     }
 
     private boolean changePasswordValidation() {

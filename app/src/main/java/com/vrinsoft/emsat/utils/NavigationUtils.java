@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.vrinsoft.emsat.R;
+import com.vrinsoft.emsat.activity.signin.SignIn;
 
 
 public class NavigationUtils {
@@ -47,10 +48,10 @@ public class NavigationUtils {
 
     public static void logoutFromActivity(Activity context)
     {
-//        Intent intent = new Intent(context, SignIn.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        context.startActivity(intent);
-//        context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        Intent intent = new Intent(context, SignIn.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+        context.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 //
 //    public static void startHomeScreen(Activity context, Bundle bundle)

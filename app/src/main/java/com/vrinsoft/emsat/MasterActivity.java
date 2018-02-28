@@ -19,6 +19,10 @@ import com.google.gson.Gson;
 import com.vrinsoft.emsat.activity.home.Home;
 import com.vrinsoft.emsat.activity.profile.ProfileActivity;
 import com.vrinsoft.emsat.activity.signin.SignIn;
+import com.vrinsoft.emsat.apis.model.sign_out.BeanLogOut;
+import com.vrinsoft.emsat.apis.rest.ApiClient;
+import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
+import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivityMasterBinding;
 import com.vrinsoft.emsat.navigation_drawer.FragmentDrawer;
 import com.vrinsoft.emsat.robinhood.router.Director;
@@ -26,6 +30,14 @@ import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.ConnectivityReceiver;
 import com.vrinsoft.emsat.utils.NavigationUtils;
+import com.vrinsoft.emsat.utils.Pref;
+import com.vrinsoft.emsat.utils.ViewUtils;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public abstract class MasterActivity extends AppCompatActivity
         implements ConnectivityReceiver.ConnectivityReceiverListener,
@@ -218,35 +230,42 @@ public abstract class MasterActivity extends AppCompatActivity
                 .show();
     }
 
-    /*public void signOut() {
-        ViewUtils.showDialog(mActivity, false);
-        logOutApiHandler.logOut(Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_USER_ID, ""), Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_TOKEN, "")
-                , new OnLogOut() {
-                    @Override
-                    public void getResponse(boolean isSuccess, ArrayList<BeanLogOut> beanLogOut, String errorMsgSystem) {
-                        if (isSuccess) {
-                            if (beanLogOut.get(0).getCode() == AppConstants.API_CODE_RESPONSE_SUCCESS) {
-                                ViewUtils.showDialog(mActivity, true);
-                                stopGpsService();
-                                AppConstants.isUserPreferedLogOut = true;
-                                AppConstants.setLogoutFromApp(mActivity);
-                            }
-                            else if (beanLogOut.get(0).getCode() != null &&
-                                    beanLogOut.get(0).getCode() ==
-                                            API_Constants.API_CODE_TOKEN_INVALID) {
-                                AppConstants.isUserPreferedLogOut = false;
-                                AppConstants.setLogoutFromApp(mActivity);
-                            } else {
-                                ViewUtils.showDialog(mActivity, true);
-                                ViewUtils.showToast(mActivity, beanLogOut.get(0).getMessage(), null);
-                            }
-                        } else {
-                            ViewUtils.showDialog(mActivity, true);
-                            ViewUtils.showToast(mActivity, errorMsgSystem, null);
-                        }
-                    }
-                });
-    }*/
+    public void signOut() {
+//  -------------   TEMP    ---------------------------
+        AppConstants.isUserPreferedLogOut = true;
+        AppConstants.setLogoutFromApp(mActivity);
+//  ---------------------------------------------------
+        /*ViewUtils.showDialog(mActivity, false);
+        Call<ArrayList<BeanLogOut>> listCall = ApiClient.getApiInterface().
+                logOut(Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR),
+                        Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR));
+
+        listCall.enqueue(new Callback<ArrayList<BeanLogOut>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BeanLogOut>> call, Response<ArrayList<BeanLogOut>> response) {
+                ArrayList<BeanLogOut> beanLogOut = response.body();
+                ViewUtils.showDialog(mActivity, true);
+                if (beanLogOut.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
+                    AppConstants.isUserPreferedLogOut = true;
+                    AppConstants.setLogoutFromApp(mActivity);
+                }
+                else if (beanLogOut.get(0).getCode() != null &&
+                        beanLogOut.get(0).getCode() ==
+                                NetworkConstants.API_CODE_RESPONSE_INVALID_TOKEN) {
+                    AppConstants.isUserPreferedLogOut = false;
+                    AppConstants.setLogoutFromApp(mActivity);
+                } else {
+                    ViewUtils.showToast(mActivity, beanLogOut.get(0).getMessage(), null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<BeanLogOut>> call, Throwable t) {
+                ViewUtils.showDialog(mActivity, true);
+                ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
+            }
+        });*/
+    }
 
     @Override
     public void onBackPressed() {

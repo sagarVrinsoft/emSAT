@@ -22,6 +22,10 @@ import com.vrinsoft.emsat.apis.model.user_profile.view_profile.BeanViewProfile;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
 import com.vrinsoft.emsat.apis.rest.NetworkConstants;
+import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
+import com.vrinsoft.emsat.apis.rest.ApiClient;
+import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
+import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivityProfileBinding;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
@@ -30,6 +34,10 @@ import com.vrinsoft.emsat.utils.Validator;
 import com.vrinsoft.emsat.utils.ViewUtils;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -176,29 +184,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         etNewPassword = (EditText) dialog.findViewById(R.id.etNewPassword);
         etConfirmPassword = (EditText) dialog.findViewById(R.id.etCPassword);
 
-        etPassword.addTextChangedListener(new MyTextWatcher(etPassword));
-        etNewPassword.addTextChangedListener(new MyTextWatcher(etNewPassword));
-        etConfirmPassword.addTextChangedListener(new MyTextWatcher(etConfirmPassword));
-
-        imgClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        Window window = dialog.getWindow();
-        lp.copyFrom(window.getAttributes());
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(lp);
-
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.show();
-
-
-        /*txtUpdate.setOnClickListener(new View.OnClickListener() {
+        txtUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
@@ -238,7 +224,28 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                     });
                 }
             }
-        });*/
+        });
+
+        etPassword.addTextChangedListener(new MyTextWatcher(etPassword));
+        etNewPassword.addTextChangedListener(new MyTextWatcher(etNewPassword));
+        etConfirmPassword.addTextChangedListener(new MyTextWatcher(etConfirmPassword));
+
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 
     private boolean changePasswordValidation() {

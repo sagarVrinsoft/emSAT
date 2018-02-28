@@ -39,6 +39,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static com.vrinsoft.emsat.utils.Validator.checkValidation;
 import static com.vrinsoft.emsat.utils.ViewUtils.getEtBackground;
 import static com.vrinsoft.emsat.utils.ViewUtils.setTextInputLayout;

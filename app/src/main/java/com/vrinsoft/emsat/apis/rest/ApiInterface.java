@@ -45,25 +45,15 @@ public interface ApiInterface {
                                            @Field("dob") String date_of_birth,
                                            @Field("gender") int gender);
 
-    //region Login
     @FormUrlEncoded
     @POST("login.php")
     Call<ArrayList<BeanLogin>> login(@Field("email") String email,
                                      @Field("password") String password,
                                      @Field("is_phone") String device_type,
                                      @Field("device_token") String device_token);
-    //region Forgot_password
     @FormUrlEncoded
     @POST("forgot_password.php")
     Call<ArrayList<BeanForgotPwd>> forgot_password(@Field("email") String email);
-
-    @FormUrlEncoded
-    @POST("change_password.php")
-    Call<ArrayList<BeanChangePassword>> changePassword(@Field("user_id") String user_id,
-                                                       @Field("token") String token,
-                                                       @Field("old_password") String old_password,
-                                                       @Field("new_password") String new_password
-    );
 
     //region Update Profile
     @FormUrlEncoded
@@ -124,6 +114,18 @@ public interface ApiInterface {
     Call<ArrayList<BeanCMS>> cms(@Field("cms_id") String cms_id);
     //endregion
 
+
+    // region Change Password
+    @FormUrlEncoded
+    @POST("change_password.php")
+    Call<ArrayList<BeanChangePassword>> changePassword(@Field("user_id") String user_id,
+                                                       @Field("token") String token,
+                                                       @Field("old_password") String old_password,
+                                                       @Field("new_password") String new_password
+    );
+    //endregion
+
+    // region Log Out
     @FormUrlEncoded
     @POST("logout.php")
     Call<ArrayList<BeanLogOut>> logOut(@Field("user_id") String user_id,

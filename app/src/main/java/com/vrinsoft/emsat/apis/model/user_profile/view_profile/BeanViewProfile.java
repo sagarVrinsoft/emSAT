@@ -46,13 +46,13 @@ public class BeanViewProfile {
         @SerializedName("user_id")
         @Expose
         private String userId;
-        @SerializedName("first_name")
+        @SerializedName("name")
         @Expose
-        private String firstName;
+        private String name;
         @SerializedName("last_name")
         @Expose
         private String lastName;
-        @SerializedName("mobile_no")
+        @SerializedName("mobile_number")
         @Expose
         private String mobileNo;
         @SerializedName("country_code")
@@ -133,12 +133,12 @@ public class BeanViewProfile {
             this.userId = userId;
         }
 
-        public String getFirstName() {
-            return firstName;
+        public String getName() {
+            return name;
         }
 
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
+        public void setName(String name) {
+            this.name = name;
         }
 
         public String getLastName() {

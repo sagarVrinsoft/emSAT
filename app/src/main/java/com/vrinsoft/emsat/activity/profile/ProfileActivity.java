@@ -95,7 +95,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
     }
 
     private void setProfileData() {
-        /*ViewUtils.showDialog(mActivity, false);
+        ViewUtils.showDialog(mActivity, false);
         Call<ArrayList<BeanViewProfile>> listCall =
                 ApiClient.getApiInterface().viewProfile(
                         Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR),
@@ -132,7 +132,57 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                 ViewUtils.showDialog(mActivity, true);
                 ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
             }
-        });*/
+        });
+    }
+
+    private void setListeners() {
+        profileBinding.ctMale.setOnClickListener(this);
+        profileBinding.ctFemale.setOnClickListener(this);
+        profileBinding.etFN.addTextChangedListener(new MyTextWatcher(profileBinding.etFN));
+        profileBinding.etEmail.addTextChangedListener(new MyTextWatcher(profileBinding.etEmail));
+        profileBinding.etMobileNo.addTextChangedListener(new MyTextWatcher(profileBinding.etMobileNo));
+        profileBinding.txtDOB.addTextChangedListener(new MyTextWatcher(profileBinding.txtDOB));
+    }
+
+    private void setProfileData() {
+        ViewUtils.showDialog(mActivity, false);
+        Call<ArrayList<BeanViewProfile>> listCall =
+                ApiClient.getApiInterface().viewProfile(
+                        Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR),
+                        Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR));
+
+        listCall.enqueue(new Callback<ArrayList<BeanViewProfile>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BeanViewProfile>> call, Response<ArrayList<BeanViewProfile>> response) {
+                ArrayList<BeanViewProfile> beanViewProfile = response.body();
+                ViewUtils.showDialog(mActivity, true);
+                if (beanViewProfile.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
+                    ArrayList<BeanViewProfile.Result> mArrayList = beanViewProfile.get(0).getResult();
+                    if(mArrayList.size() > 0)
+                    {
+                        profileBinding.etFN.setText(mArrayList.get(0).getName());
+                        profileBinding.etMobileNo.setText(mArrayList.get(0).getMobileNo());
+                        profileBinding.etEmail.setText(mArrayList.get(0).getEmail());
+                        profileBinding.txtDOB.setText(mArrayList.get(0).getDob());
+                        setGender(mArrayList.get(0).getGender());
+                    }
+                    else
+                    {
+                        ViewUtils.showToast(mActivity, getString(R.string.no_data_found), null);
+                    }
+                }
+                else
+                {
+                    ViewUtils.showToast(mActivity, beanViewProfile.get(0).getMessage(), null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<BeanViewProfile>> call, Throwable t) {
+                ViewUtils.showDialog(mActivity, true);
+                ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
+            }
+        });
     }
 
     @Override

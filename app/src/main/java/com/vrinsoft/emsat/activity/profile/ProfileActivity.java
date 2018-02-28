@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
+import com.vrinsoft.emsat.apis.model.user_profile.view_profile.BeanViewProfile;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
 import com.vrinsoft.emsat.apis.rest.NetworkConstants;
@@ -41,7 +42,7 @@ import static com.vrinsoft.emsat.utils.ViewUtils.setTextInputLayout;
  * Created by komal on 19/2/18.
  */
 
-public class ProfileActivity extends MasterActivity {
+public class ProfileActivity extends MasterActivity implements View.OnClickListener {
     ActivityProfileBinding profileBinding;
     Activity mActivity;
     TextView txtPassword, txtNewPassword, txtConfirmPassword, txtChangePassword, txtUpdate;
@@ -65,11 +66,62 @@ public class ProfileActivity extends MasterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
-
+        setProfileData();
+        setListeners();
         profileBinding.rlChangePwd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showChangePasswordDialog();
+            }
+        });
+    }
+
+    private void setListeners() {
+        profileBinding.ctMale.setOnClickListener(this);
+        profileBinding.ctFemale.setOnClickListener(this);
+        profileBinding.etFN.addTextChangedListener(new MyTextWatcher(profileBinding.etFN));
+        profileBinding.etEmail.addTextChangedListener(new MyTextWatcher(profileBinding.etEmail));
+        profileBinding.etMobileNo.addTextChangedListener(new MyTextWatcher(profileBinding.etMobileNo));
+        profileBinding.txtDOB.addTextChangedListener(new MyTextWatcher(profileBinding.txtDOB));
+    }
+
+    private void setProfileData() {
+        ViewUtils.showDialog(mActivity, false);
+        Call<ArrayList<BeanViewProfile>> listCall =
+                ApiClient.getApiInterface().viewProfile(
+                        Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR),
+                        Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR));
+
+        listCall.enqueue(new Callback<ArrayList<BeanViewProfile>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BeanViewProfile>> call, Response<ArrayList<BeanViewProfile>> response) {
+                ArrayList<BeanViewProfile> beanViewProfile = response.body();
+                ViewUtils.showDialog(mActivity, true);
+                if (beanViewProfile.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
+                    ArrayList<BeanViewProfile.Result> mArrayList = beanViewProfile.get(0).getResult();
+                    if(mArrayList.size() > 0)
+                    {
+                        profileBinding.etFN.setText(mArrayList.get(0).getName());
+                        profileBinding.etMobileNo.setText(mArrayList.get(0).getMobileNo());
+                        profileBinding.etEmail.setText(mArrayList.get(0).getEmail());
+                        profileBinding.txtDOB.setText(mArrayList.get(0).getDob());
+                        setGender(mArrayList.get(0).getGender());
+                    }
+                    else
+                    {
+                        ViewUtils.showToast(mActivity, getString(R.string.no_data_found), null);
+                    }
+                }
+                else
+                {
+                    ViewUtils.showToast(mActivity, beanViewProfile.get(0).getMessage(), null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<BeanViewProfile>> call, Throwable t) {
+                ViewUtils.showDialog(mActivity, true);
+                ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
             }
         });
     }
@@ -266,12 +318,79 @@ public class ProfileActivity extends MasterActivity {
                                 getString(R.string.confirm_password_star), llConfirmPassword, null, txtConfirmPassword, View.GONE, vConfirmPassword, View.VISIBLE);
                     }
                     break;
+                case R.id.etFN:
+                    if (s.length() > 0) {
+                        setTextInputLayout(profileBinding.etFN, null, profileBinding.llFN, getEtBackground(mActivity), profileBinding.txtFN, View.VISIBLE, profileBinding.vFN, View.GONE);
+                    } else {
+                        setTextInputLayout(profileBinding.etFN,
+                                getString(R.string.name), profileBinding.llFN, null, profileBinding.txtFN, View.GONE, profileBinding.vFN, View.VISIBLE);
+                    }
+                    break;
+                case R.id.etEmail:
+                    if (s.length() > 0) {
+                        setTextInputLayout(profileBinding.etEmail, null, profileBinding.llEmail, getEtBackground(mActivity), profileBinding.txtEmail, View.VISIBLE, profileBinding.vEmail, View.GONE);
+                    } else {
+                        setTextInputLayout(profileBinding.etEmail,
+                                getString(R.string.email_hint), profileBinding.llEmail, null, profileBinding.txtEmail, View.GONE, profileBinding.vEmail, View.VISIBLE);
+                    }
+                    break;
+                case R.id.etMobileNo:
+                    if (s.length() > 0) {
+                        setTextInputLayout(profileBinding.etMobileNo, null, profileBinding.llMobileNo, getEtBackground(mActivity), profileBinding.txtMobileNo, View.VISIBLE, profileBinding.vMobileNo, View.GONE);
+                    } else {
+                        setTextInputLayout(profileBinding.etMobileNo,
+                                getString(R.string.mobile_no), profileBinding.llMobileNo, null, profileBinding.txtMobileNo, View.GONE, profileBinding.vMobileNo, View.VISIBLE);
+                    }
+                    break;
+                case R.id.txtDOB:
+                    if (s.length() > 0) {
+                        setTextInputLayout(profileBinding.txtDOB, null,
+                                profileBinding.llDOB, getEtBackground(mActivity), profileBinding.txtLabelDOB, View.VISIBLE, profileBinding.vDOB, View.GONE);
+                    } else {
+                        setTextInputLayout(profileBinding.txtDOB,
+                                getString(R.string.date_of_birth), profileBinding.llDOB, null, profileBinding.txtLabelDOB, View.GONE, profileBinding.vDOB, View.VISIBLE);
+                    }
+                    break;
             }
         }
 
         @Override
         public void afterTextChanged(Editable s) {
 
+        }
+    }
+
+    int mGenderSel = AppConstants.GENDER.MALE;
+    private void setGender(String gender)
+    {
+        mGenderSel = Integer.parseInt(gender);
+        switch (mGenderSel)
+        {
+            case AppConstants.GENDER.MALE:
+                profileBinding.ctMale.setChecked(true);
+                break;
+            case AppConstants.GENDER.FEMALE:
+                profileBinding.ctFemale.setChecked(true);
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.ctMale:
+                if (!profileBinding.ctMale.isChecked()) {
+                    ViewUtils.setCheckedTextView(AppConstants.NUM_OF_CHECKED_VIEWS.TWO, profileBinding.ctMale, profileBinding.ctFemale, null, null);
+                    mGenderSel = AppConstants.GENDER.MALE;
+                }
+                break;
+            case R.id.ctFemale:
+                if (!profileBinding.ctFemale.isChecked()) {
+                    ViewUtils.setCheckedTextView(AppConstants.NUM_OF_CHECKED_VIEWS.TWO, profileBinding.ctFemale, profileBinding.ctMale, null, null);
+                    mGenderSel = AppConstants.GENDER.FEMALE;
+                }
+                break;
         }
     }
 }

@@ -85,4 +85,7 @@
     <string name="done">Done</string>
     <string name="score_card">Score Card</string>
 
+    <string name="invalid_token_msg">You can not sign-in into more than one device with same mobile number.</string>
+    <string name="password_changed_successfully">Password has been changed</string>
+
 </resources>

@@ -22,6 +22,10 @@ import com.vrinsoft.emsat.apis.model.user_profile.view_profile.BeanViewProfile;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
 import com.vrinsoft.emsat.apis.rest.NetworkConstants;
+import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
+import com.vrinsoft.emsat.apis.rest.ApiClient;
+import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
+import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivityProfileBinding;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
@@ -198,7 +202,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         dialog.show();
 
 
-        /*txtUpdate.setOnClickListener(new View.OnClickListener() {
+        txtUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
@@ -238,7 +242,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                     });
                 }
             }
-        });*/
+        });
     }
 
     private boolean changePasswordValidation() {

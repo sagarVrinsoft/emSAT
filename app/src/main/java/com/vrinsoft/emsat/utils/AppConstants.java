@@ -211,4 +211,11 @@ public class AppConstants {
 //        public static final int THREE = 3;
 //        public static final int FOUR = 4;
     }
+
+    /*NUM_OF_CHECKED_VIEWS indicates no. of views to be checked/unchecked*/
+    public interface NUM_OF_CHECKED_VIEWS {
+        public static final int TWO = 2;
+//        public static final int THREE = 3;
+//        public static final int FOUR = 4;
+    }
 }

@@ -45,18 +45,15 @@ public interface ApiInterface {
                                            @Field("dob") String date_of_birth,
                                            @Field("gender") int gender);
 
-    //region Login
     @FormUrlEncoded
     @POST("login.php")
     Call<ArrayList<BeanLogin>> login(@Field("email") String email,
                                      @Field("password") String password,
                                      @Field("is_phone") String device_type,
                                      @Field("device_token") String device_token);
-    //region Forgot_password
     @FormUrlEncoded
     @POST("forgot_password.php")
     Call<ArrayList<BeanForgotPwd>> forgot_password(@Field("email") String email);
-    //endregion
 
     //region Update Profile
     @FormUrlEncoded

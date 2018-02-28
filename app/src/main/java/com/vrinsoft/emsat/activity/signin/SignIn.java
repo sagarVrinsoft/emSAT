@@ -19,6 +19,7 @@ import android.widget.EditText;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.home.Home;
 import com.vrinsoft.emsat.activity.signup.Register;
+import com.vrinsoft.emsat.apis.model.forgot_password.BeanForgotPwd;
 import com.vrinsoft.emsat.apis.model.signin.BeanLogin;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
@@ -173,15 +174,37 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
 
-                if (Validator.isEmptyStr(binding.etEmail.getText().toString().trim())) {
+                String email = binding.etEmail.getText().toString().trim();
+                if (Validator.isEmptyStr(email)) {
                     ViewUtils.showToast(mActivity,
                             getString(R.string.please_enter_email), null);
                     binding.etEmail.requestFocus();
-                }else if (!checkEmail(binding.etEmail.getText().toString().trim())) {
+                }else if (!checkEmail(email)) {
                     ViewUtils.showToast(mActivity,getString(R.string.please_enter_valid_email)
                             , binding.etEmail);
                 } else {
-                    dialog.dismiss();
+                    ViewUtils.showDialog(mActivity, false);
+                    Call<ArrayList<BeanForgotPwd>> listCall = ApiClient.getApiInterface().forgot_password(email);
+
+                    listCall.enqueue(new Callback<ArrayList<BeanForgotPwd>>() {
+                        @Override
+                        public void onResponse(Call<ArrayList<BeanForgotPwd>> call, Response<ArrayList<BeanForgotPwd>> response) {
+                            ArrayList<BeanForgotPwd> beanForgotPwd = response.body();
+                            ViewUtils.showDialog(mActivity, true);
+                            if (beanForgotPwd.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
+                                ViewUtils.showToast(mActivity, beanForgotPwd.get(0).getMessage(), null);
+                                dialog.dismiss();
+                            } else {
+                                ViewUtils.showToast(mActivity, beanForgotPwd.get(0).getMessage(), null);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ArrayList<BeanForgotPwd>> call, Throwable t) {
+                            ViewUtils.showDialog(mActivity, true);
+                            ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
+                        }
+                    });
                 }
             }
         });

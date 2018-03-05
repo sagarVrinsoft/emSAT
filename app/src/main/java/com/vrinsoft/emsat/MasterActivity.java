@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -75,6 +76,13 @@ public abstract class MasterActivity extends AppCompatActivity
             // As nothing is triggered from SlideMenuUtils when back pressed
             // and activity changes.
             AppConstants.cur_sel_pos = AppConstants.MENU_ITEM.MENU_ITEM_HOME;
+            masterBinding.toolbar.toolbarActionbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.transparent));
+            masterBinding.toolbar.imgTopBanner.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            masterBinding.toolbar.toolbarActionbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.colorPrimary));
+            masterBinding.toolbar.imgTopBanner.setVisibility(View.GONE);
         }
     }
 

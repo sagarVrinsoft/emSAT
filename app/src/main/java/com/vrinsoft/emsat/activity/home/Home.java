@@ -3,6 +3,7 @@ package com.vrinsoft.emsat.activity.home;
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -52,20 +53,10 @@ public class Home extends MasterActivity {
         categoryListApiHandler = new CategoryListApiHandler();
         setUIConfig();
         fetchNotificationList(1);
-        binding.txtTopImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("FROM", "NEWEST");
-                NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
-            }
-        });
     }
 
     private void setUIConfig() {
         binding.rvGridModules.setNestedScrollingEnabled(false);
-//        linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL,
-//                false);
         binding.rvGridModules.setLayoutManager(new GridLayoutManager(this, 2));
         mAdapter = new MainCategoryListAdapter(mActivity, mArrayList, new MainCategoryListAdapter.OnClickable() {
             @Override
@@ -89,20 +80,21 @@ public class Home extends MasterActivity {
         masterBinding.toolbar.txtTitle.setText(getString(R.string.app_name));
         masterBinding.toolbar.imgHome.setVisibility(View.VISIBLE);
         masterBinding.toolbar.imgBack.setVisibility(View.GONE);
-        masterBinding.toolbar.rlNotification.setVisibility(View.VISIBLE);
+        masterBinding.toolbar.rlNotification.setVisibility(View.GONE);
         masterBinding.toolbar.imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggleDrawer();
             }
         });
-        masterBinding.toolbar.rlNotification.setOnClickListener(new View.OnClickListener() {
+        masterBinding.toolbar.imgTopBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                NavigationUtils.startActivity(mActivity, Notification.class, null);
+                Bundle bundle = new Bundle();
+                bundle.putString("FROM", "NEWEST");
+                NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
             }
         });
-        //setNotificationBadgeCount(mActivity);
     }
 
     private void fetchNotificationList(int pageNo) {

@@ -55,6 +55,7 @@ public class MainCategoryListAdapter extends RecyclerView.Adapter<MainCategoryLi
         }
         holder.mBinding.rlRootView.setTag(position);
         holder.mBinding.txtCategory.setText(getArrayList().get(position).getBroadcastMsg());
+        holder.mBinding.imgLockUnlock.setImageResource((position%2)==0?R.drawable.ic_lock:R.drawable.ic_unlock);
         holder.mBinding.rlRootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

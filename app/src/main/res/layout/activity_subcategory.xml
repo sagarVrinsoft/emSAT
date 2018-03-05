@@ -118,8 +118,8 @@
                 android:layout_height="@dimen/_235sdp"
                 android:layout_centerHorizontal="true"
                 android:padding="@dimen/_40sdp"
-                app:bgColor="@color/colorPrimaryDark"
-                app:fgColor="@color/colorPrimary"
+                app:bgColor="@color/colorPrimary"
+                app:fgColor="@color/colorPrimaryDark"
                 app:percent="0"
                 app:startAngle="0"
                 app:strokeWidth="21dp" />

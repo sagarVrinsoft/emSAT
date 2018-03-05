@@ -3,6 +3,7 @@ package com.vrinsoft.emsat.activity.profile;
 import android.app.Activity;
 import android.app.Dialog;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -75,6 +76,7 @@ public class ProfileActivity extends MasterActivity {
     public void setToolBarConfig() {
         masterBinding.toolbar.txtTitle.setVisibility(View.VISIBLE);
         masterBinding.toolbar.txtTitle.setText(getString(R.string.menu_profile));
+        masterBinding.toolbar.txtTitle.setTextColor(Color.WHITE);
         masterBinding.toolbar.imgHome.setVisibility(View.VISIBLE);
         masterBinding.toolbar.imgBack.setVisibility(View.GONE);
         masterBinding.toolbar.rlNotification.setVisibility(View.GONE);

@@ -60,7 +60,18 @@ public abstract class MasterActivity extends AppCompatActivity
 //        pref = getSharedPreferences(AppConstants.PREF_FILE, Context.MODE_PRIVATE);
         pref.registerOnSharedPreferenceChangeListener(this);
         masterBinding.drawerLayout.addDrawerListener(this);
-        masterBinding.container.addView(getContentLayout());
+        if(getActivity() instanceof ProfileActivity)
+        {
+            masterBinding.container.setVisibility(View.GONE);
+            masterBinding.containerProfile.setVisibility(View.VISIBLE);
+            masterBinding.containerProfile.addView(getContentLayout());
+        }
+        else
+        {
+            masterBinding.containerProfile.setVisibility(View.GONE);
+            masterBinding.container.setVisibility(View.VISIBLE);
+            masterBinding.container.addView(getContentLayout());
+        }
         drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setDrawerListener(this);
     }
@@ -78,18 +89,18 @@ public abstract class MasterActivity extends AppCompatActivity
             AppConstants.cur_sel_pos = AppConstants.MENU_ITEM.MENU_ITEM_HOME;
             masterBinding.toolbar.toolbarActionbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.transparent));
             masterBinding.toolbar.imgTopBanner.setVisibility(View.VISIBLE);
-            masterBinding.toolbar.imgBlurred.setVisibility(View.GONE);
+//            masterBinding.toolbar.imgBlurred.setVisibility(View.GONE);
         }
         else if (getActivity() instanceof ProfileActivity) {
             masterBinding.toolbar.toolbarActionbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.transparent));
             masterBinding.toolbar.imgTopBanner.setVisibility(View.GONE);
-            masterBinding.toolbar.imgBlurred.setVisibility(View.VISIBLE);
+//            masterBinding.toolbar.imgBlurred.setVisibility(View.VISIBLE);
         }
         else
         {
             masterBinding.toolbar.toolbarActionbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.colorPrimary));
             masterBinding.toolbar.imgTopBanner.setVisibility(View.GONE);
-            masterBinding.toolbar.imgBlurred.setVisibility(View.GONE);
+//            masterBinding.toolbar.imgBlurred.setVisibility(View.GONE);
         }
     }
 

@@ -5,24 +5,23 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/black"
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true">
 
         <ImageView
-            android:visibility="invisible"
             android:id="@+id/imgBlurred"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/bg_notification_count" />
-
-        <!--<android.support.v4.widget.NestedScrollView
-            android:id="@+id/scroll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">-->
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            android:src="@drawable/bg_profile_top_banner"
+            android:visibility="visible" />
 
         <com.nirhart.parallaxscroll.views.ParallaxScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="?actionBarSize"
             android:visibility="visible"
             app:inner_parallax_factor="1.9">
 
@@ -55,15 +54,14 @@
                         android:layout_alignBottom="@+id/imgTop"
                         android:layout_alignRight="@id/imgTop"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
                         android:gravity="center"
                         android:src="@drawable/ic_heart_white"
                         android:textSize="45sp" />
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:background="@color/colorAccent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/rlTop"
@@ -84,8 +82,7 @@
                             android:layout_height="wrap_content"
                             android:background="@color/grey_bg_title"
                             android:padding="@dimen/_10sdp"
-                            android:text="@string/profile_info"
-                             />
+                            android:text="@string/profile_info" />
 
                         <LinearLayout
                             android:id="@+id/llSignIn"
@@ -112,8 +109,7 @@
                                         android:layout_height="@dimen/_40sdp"
                                         android:hint="@string/name"
                                         android:inputType="textCapSentences"
-                                        android:maxLength="30"
-                                         />
+                                        android:maxLength="30" />
 
                                     <View
                                         android:id="@+id/vFN"
@@ -130,8 +126,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentTop="true"
                                     android:text="@string/name"
-                                    android:visibility="gone"
-                                     />
+                                    android:visibility="gone" />
 
                             </RelativeLayout>
 
@@ -161,8 +156,7 @@
                                             android:inputType="number|phone"
                                             android:maxLength="4"
                                             android:text="+971"
-                                            android:textSize="@dimen/_12ssp"
-                                             />
+                                            android:textSize="@dimen/_12ssp" />
 
                                         <EditText
                                             android:id="@+id/etMobileNo"
@@ -175,8 +169,7 @@
                                             android:hint="@string/mobile_no"
                                             android:inputType="phone"
                                             android:maxLength="10"
-                                            android:paddingLeft="@dimen/_1sdp"
-                                             />
+                                            android:paddingLeft="@dimen/_1sdp" />
                                     </RelativeLayout>
 
                                     <View
@@ -193,8 +186,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/mobile_no"
-                                    android:visibility="gone"
-                                     />
+                                    android:visibility="gone" />
 
                             </RelativeLayout>
 
@@ -216,8 +208,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/_40sdp"
                                         android:hint="@string/email_hint"
-                                        android:inputType="textEmailAddress"
-                                         />
+                                        android:inputType="textEmailAddress" />
 
                                     <View
                                         android:id="@+id/vEmail"
@@ -233,8 +224,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/email_hint"
-                                    android:visibility="gone"
-                                     />
+                                    android:visibility="gone" />
 
                             </RelativeLayout>
 
@@ -260,8 +250,7 @@
                                         android:focusableInTouchMode="true"
                                         android:hint="@string/date_of_birth"
                                         android:imeOptions="actionNext"
-                                        android:padding="@dimen/_10sdp"
-                                        >
+                                        android:padding="@dimen/_10sdp">
 
                                         <requestFocus />
 
@@ -281,8 +270,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/date_of_birth"
-                                    android:visibility="gone"
-                                     />
+                                    android:visibility="gone" />
 
                             </RelativeLayout>
 
@@ -297,8 +285,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/gender"
-                                    android:visibility="visible"
-                                     />
+                                    android:visibility="visible" />
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -316,8 +303,7 @@
                                         android:checked="true"
                                         android:gravity="center"
                                         android:padding="@dimen/_5sdp"
-                                        android:text="@string/male"
-                                         />
+                                        android:text="@string/male" />
 
                                     <CheckedTextView
                                         android:id="@+id/ctDriver"
@@ -327,8 +313,7 @@
                                         android:layout_weight="1"
                                         android:gravity="center"
                                         android:padding="@dimen/_5sdp"
-                                        android:text="@string/female"
-                                         />
+                                        android:text="@string/female" />
 
                                 </LinearLayout>
 
@@ -342,8 +327,7 @@
                             android:layout_height="wrap_content"
                             android:background="@color/grey_bg_title"
                             android:padding="@dimen/_10sdp"
-                            android:text="@string/change_password"
-                             />
+                            android:text="@string/change_password" />
 
                         <RelativeLayout
                             android:id="@+id/rlChangePwd"
@@ -381,8 +365,7 @@
                                 android:layout_toRightOf="@+id/rlChangePwdChild"
                                 android:text="@string/change_password"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_14ssp"
-                                 />
+                                android:textSize="@dimen/_14ssp" />
 
                             <ImageView
                                 android:id="@+id/imgArrowRyt"
@@ -407,13 +390,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_50sdp"
                             android:layout_below="@+id/llSignIn"
-                            android:text="@string/save"
-                             />
+                            android:text="@string/save" />
 
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
-            <!--            </android.support.v4.widget.NestedScrollView>-->
         </com.nirhart.parallaxscroll.views.ParallaxScrollView>
     </RelativeLayout>
 

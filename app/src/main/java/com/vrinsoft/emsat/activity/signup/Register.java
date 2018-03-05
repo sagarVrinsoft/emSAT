@@ -2,12 +2,17 @@ package com.vrinsoft.emsat.activity.signup;
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.home.Home;
@@ -20,6 +25,7 @@ import static com.vrinsoft.emsat.utils.NavigationUtils.finishCurrentActivity;
 import static com.vrinsoft.emsat.utils.Validator.checkValidation;
 import static com.vrinsoft.emsat.utils.ViewUtils.checkEmail;
 import static com.vrinsoft.emsat.utils.ViewUtils.getEtBackground;
+import static com.vrinsoft.emsat.utils.ViewUtils.getEtBackgroundIntro;
 import static com.vrinsoft.emsat.utils.ViewUtils.setTextInputLayout;
 
 
@@ -52,6 +58,14 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         mBinding.etMobileNo.addTextChangedListener(new MyTextWatcher(mBinding.etMobileNo));
         mBinding.etPassword.addTextChangedListener(new MyTextWatcher(mBinding.etPassword));
         mBinding.etEmail.addTextChangedListener(new MyTextWatcher(mBinding.etEmail));
+        setDisableCopyPasteSelect(mBinding.etFN);
+        setDisableCopyPasteSelect(mBinding.etMobileNo);
+        setDisableCopyPasteSelect(mBinding.etPassword);
+        setDisableCopyPasteSelect(mBinding.etEmail);
+        setFocusListener(mBinding.etFN);
+        setFocusListener(mBinding.etMobileNo);
+        setFocusListener(mBinding.etPassword);
+        setFocusListener(mBinding.etEmail);
     }
 
     @Override
@@ -63,7 +77,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     private void setToolBarConfig() {
         mBinding.toolBar.imgHome.setVisibility(View.GONE);
         mBinding.toolBar.txtTitle.setText(getString(R.string.sign_up));
+        mBinding.toolBar.txtTitle.setTextColor(Color.WHITE);
         mBinding.toolBar.imgBack.setVisibility(View.VISIBLE);
+        mBinding.toolBar.imgBack.setImageResource(R.drawable.back_arrow_white);
         mBinding.toolBar.imgBack.setOnClickListener(this);
     }
 
@@ -127,7 +143,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             switch (v.getId()) {
                 case R.id.etFN:
                     if (s.length() > 0) {
-                        setTextInputLayout(mBinding.etFN, null, mBinding.llFN, getEtBackground(mActivity), mBinding.txtFN, View.VISIBLE, mBinding.vFN, View.GONE);
+                        setTextInputLayout(mBinding.etFN, null, mBinding.llFN, getEtBackgroundIntro(mActivity), mBinding.txtFN, View.VISIBLE, mBinding.vFN, View.GONE);
                     } else {
                         setTextInputLayout(mBinding.etFN,
                                 getString(R.string.name),
@@ -136,7 +152,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     break;
                 case R.id.etMobileNo:
                     if (s.length() > 0) {
-                        setTextInputLayout(mBinding.etMobileNo, null, mBinding.llMobileNo, getEtBackground(mActivity), mBinding.txtMobileNo, View.VISIBLE, mBinding.vMobileNo, View.GONE);
+                        setTextInputLayout(mBinding.etMobileNo, null, mBinding.llMobileNo, getEtBackgroundIntro(mActivity), mBinding.txtMobileNo, View.VISIBLE, mBinding.vMobileNo, View.GONE);
                     } else {
                         setTextInputLayout(mBinding.etMobileNo,
                                 getString(R.string.mobile_no), mBinding.llMobileNo, null, mBinding.txtMobileNo, View.GONE, mBinding.vMobileNo, View.VISIBLE);
@@ -144,14 +160,14 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     break;
                 case R.id.etPassword:
                     if (s.length() > 0) {
-                        setTextInputLayout(mBinding.etPassword, null, mBinding.llPassword, getEtBackground(mActivity), mBinding.txtPassword, View.VISIBLE, mBinding.vPassword, View.GONE);
+                        setTextInputLayout(mBinding.etPassword, null, mBinding.llPassword, getEtBackgroundIntro(mActivity), mBinding.txtPassword, View.VISIBLE, mBinding.vPassword, View.GONE);
                     } else {
                         setTextInputLayout(mBinding.etPassword, getString(R.string.password), mBinding.llPassword, null, mBinding.txtPassword, View.GONE, mBinding.vPassword, View.VISIBLE);
                     }
                     break;
                 case R.id.etEmail:
                     if (s.length() > 0) {
-                        setTextInputLayout(mBinding.etEmail, null, mBinding.llEmail, getEtBackground(mActivity), mBinding.txtEmail, View.VISIBLE, mBinding.vEmail, View.GONE);
+                        setTextInputLayout(mBinding.etEmail, null, mBinding.llEmail, getEtBackgroundIntro(mActivity), mBinding.txtEmail, View.VISIBLE, mBinding.vEmail, View.GONE);
                     } else {
                         setTextInputLayout(mBinding.etEmail, getString(R.string.email_hint), mBinding.llEmail, null, mBinding.txtEmail, View.GONE, mBinding.vEmail, View.VISIBLE);
                     }
@@ -163,6 +179,41 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         public void afterTextChanged(Editable s) {
 
         }
+    }
+
+    public void setDisableCopyPasteSelect(EditText editText)
+    {
+        editText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            public void onDestroyActionMode(ActionMode mode) {
+            }
+
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return false;
+            }
+        });
+
+    }
+
+    private void setFocusListener(final EditText editText)
+    {
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    editText.setCursorVisible(true);
+                    editText.setSelection(editText.getText().toString().trim().length());
+                }
+            }
+        });
     }
 
     @Override

@@ -356,6 +356,10 @@ public class ViewUtils {
         return mActivity.getResources().getDrawable(R.drawable.bg_edit_text_text_input);
     }
 
+    public static Drawable getEtBackgroundIntro(Activity mActivity) {
+        return mActivity.getResources().getDrawable(R.drawable.bg_edit_text_text_input_intro_screen);
+    }
+
     public static void SpannableText(Context mContext, String mQuestion, String mCorrectAns, String mWrongAns, TextView mTextView) {
         Spannable text1 = new SpannableString(mQuestion.replaceAll("####", mContext.getString(R.string.blanks)));
         text1.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.black)), 0, text1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -82,13 +82,13 @@ public class FragmentDrawer extends Fragment implements View.OnClickListener, On
 
     private void setMenuItemList() {
         mArrayList = new ArrayList<>();
-        mArrayList.add(new BinDrawerMenu(R.drawable.ic_menu_sign_out,
+        mArrayList.add(new BinDrawerMenu(R.drawable.ic_menu_home,
                 getString(R.string.menu_home)));
-        mArrayList.add(new BinDrawerMenu(R.drawable.ic_menu_sign_out,
+        mArrayList.add(new BinDrawerMenu(R.drawable.ic_menu_profile,
                 getString(R.string.menu_profile)));
-        mArrayList.add(new BinDrawerMenu(R.drawable.ic_menu_sign_out,
+        mArrayList.add(new BinDrawerMenu(R.drawable.ic_menu_test,
                 getString(R.string.menu_my_test)));
-        mArrayList.add(new BinDrawerMenu(R.drawable.ic_menu_sign_out,
+        mArrayList.add(new BinDrawerMenu(R.drawable.ic_menu_help,
                 getString(R.string.menu_help)));
         mArrayList.add(new BinDrawerMenu(R.drawable.ic_menu_sign_out,
                 getString(R.string.menu_sign_out)));

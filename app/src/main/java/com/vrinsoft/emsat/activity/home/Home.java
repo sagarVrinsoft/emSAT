@@ -2,6 +2,7 @@ package com.vrinsoft.emsat.activity.home;
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;

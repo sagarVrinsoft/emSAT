@@ -17,6 +17,7 @@ import android.view.View;
 
 import com.google.gson.Gson;
 import com.vrinsoft.emsat.activity.home.Home;
+import com.vrinsoft.emsat.activity.profile.ProfileActivity;
 import com.vrinsoft.emsat.activity.signin.SignIn;
 import com.vrinsoft.emsat.databinding.ActivityMasterBinding;
 import com.vrinsoft.emsat.navigation_drawer.FragmentDrawer;
@@ -69,7 +70,6 @@ public abstract class MasterActivity extends AppCompatActivity
         super.onResume();
         registerReceiver(connectivityReceiver,
                 ConnectivityReceiver.getIntentFilterInternetConnectivity());
-//        setLockMenu();
 
         if (getActivity() instanceof Home) {
             // To make work while going back to home
@@ -78,11 +78,18 @@ public abstract class MasterActivity extends AppCompatActivity
             AppConstants.cur_sel_pos = AppConstants.MENU_ITEM.MENU_ITEM_HOME;
             masterBinding.toolbar.toolbarActionbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.transparent));
             masterBinding.toolbar.imgTopBanner.setVisibility(View.VISIBLE);
+            masterBinding.toolbar.imgBlurred.setVisibility(View.GONE);
+        }
+        else if (getActivity() instanceof ProfileActivity) {
+            masterBinding.toolbar.toolbarActionbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.transparent));
+            masterBinding.toolbar.imgTopBanner.setVisibility(View.GONE);
+            masterBinding.toolbar.imgBlurred.setVisibility(View.VISIBLE);
         }
         else
         {
             masterBinding.toolbar.toolbarActionbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.colorPrimary));
             masterBinding.toolbar.imgTopBanner.setVisibility(View.GONE);
+            masterBinding.toolbar.imgBlurred.setVisibility(View.GONE);
         }
     }
 

@@ -5,15 +5,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true">
 
         <ImageView
+            android:visibility="invisible"
             android:id="@+id/imgBlurred"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@color/colorAccent" />
+            android:background="@color/bg_notification_count" />
 
         <!--<android.support.v4.widget.NestedScrollView
             android:id="@+id/scroll"
@@ -55,13 +55,15 @@
                         android:layout_alignBottom="@+id/imgTop"
                         android:layout_alignRight="@id/imgTop"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginRight="-8dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginBottom="@dimen/_10sdp"
                         android:gravity="center"
                         android:src="@drawable/ic_heart_white"
                         android:textSize="45sp" />
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:background="@color/colorAccent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/rlTop"

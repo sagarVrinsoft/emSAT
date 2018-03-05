@@ -77,20 +77,13 @@ public class ProfileActivity extends MasterActivity {
         masterBinding.toolbar.txtTitle.setText(getString(R.string.menu_profile));
         masterBinding.toolbar.imgHome.setVisibility(View.VISIBLE);
         masterBinding.toolbar.imgBack.setVisibility(View.GONE);
-        masterBinding.toolbar.rlNotification.setVisibility(View.VISIBLE);
+        masterBinding.toolbar.rlNotification.setVisibility(View.GONE);
         masterBinding.toolbar.imgHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggleDrawer();
             }
         });
-        masterBinding.toolbar.rlNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                NavigationUtils.startActivity(mActivity, Notification.class, null);
-            }
-        });
-        //setNotificationBadgeCount(mActivity);
     }
 
     public void showChangePasswordDialog() {

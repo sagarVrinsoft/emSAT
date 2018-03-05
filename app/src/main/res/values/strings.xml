@@ -40,6 +40,7 @@
     <string name="please_enter_valid_mobile_no">Please enter valid mobile number</string>
     <string name="unable_to_load_content">Unable to load content</string>
     <string name="ok">OK</string>
+    <string name="okay">Okay</string>
 
     <string name="about_us">About Us</string>
     <string name="privacy_policy">Privacy Policy</string>

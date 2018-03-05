@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.home.Home;
@@ -25,6 +29,7 @@ import static com.vrinsoft.emsat.utils.NavigationUtils.finishCurrentActivity;
 import static com.vrinsoft.emsat.utils.Validator.checkValidation;
 import static com.vrinsoft.emsat.utils.ViewUtils.checkEmail;
 import static com.vrinsoft.emsat.utils.ViewUtils.getEtBackground;
+import static com.vrinsoft.emsat.utils.ViewUtils.getEtBackgroundIntro;
 import static com.vrinsoft.emsat.utils.ViewUtils.setTextInputLayout;
 
 
@@ -54,6 +59,10 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
     private void addTextChangeListeners() {
         mBinding.etEmail.addTextChangedListener(new MyTextWatcher(mBinding.etEmail));
         mBinding.etPassword.addTextChangedListener(new MyTextWatcher(mBinding.etPassword));
+        setDisableCopyPasteSelect(mBinding.etPassword);
+        setDisableCopyPasteSelect(mBinding.etEmail);
+        setFocusListener(mBinding.etPassword);
+        setFocusListener(mBinding.etEmail);
     }
 
     private void setUiListeners() {
@@ -153,14 +162,14 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
             switch (v.getId()) {
                 case R.id.etPassword:
                     if (s.length() > 0) {
-                        setTextInputLayout(mBinding.etPassword, null, mBinding.llPassword, getEtBackground(mActivity), mBinding.txtPassword, View.VISIBLE, mBinding.vPassword, View.GONE);
+                        setTextInputLayout(mBinding.etPassword, null, mBinding.llPassword, getEtBackgroundIntro(mActivity), mBinding.txtPassword, View.VISIBLE, mBinding.vPassword, View.GONE);
                     } else {
                         setTextInputLayout(mBinding.etPassword, getString(R.string.password), mBinding.llPassword, null, mBinding.txtPassword, View.GONE, mBinding.vPassword, View.VISIBLE);
                     }
                     break;
                 case R.id.etEmail:
                     if (s.length() > 0) {
-                        setTextInputLayout(mBinding.etEmail, null, mBinding.llEmail, getEtBackground(mActivity), mBinding.txtEmail, View.VISIBLE, mBinding.vEmail, View.GONE);
+                        setTextInputLayout(mBinding.etEmail, null, mBinding.llEmail, getEtBackgroundIntro(mActivity), mBinding.txtEmail, View.VISIBLE, mBinding.vEmail, View.GONE);
                     } else {
                         setTextInputLayout(mBinding.etEmail, getString(R.string.email_hint), mBinding.llEmail, null, mBinding.txtEmail, View.GONE, mBinding.vEmail, View.VISIBLE);
                     }
@@ -172,6 +181,41 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
         public void afterTextChanged(Editable s) {
 
         }
+    }
+
+    public void setDisableCopyPasteSelect(EditText editText)
+    {
+        editText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
+
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            public void onDestroyActionMode(ActionMode mode) {
+            }
+
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return false;
+            }
+        });
+
+    }
+
+    private void setFocusListener(final EditText editText)
+    {
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    editText.setCursorVisible(true);
+                    editText.setSelection(editText.getText().toString().trim().length());
+                }
+            }
+        });
     }
 
     @Override

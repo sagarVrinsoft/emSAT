@@ -120,7 +120,7 @@
                 android:padding="@dimen/_40sdp"
                 app:bgColor="@color/colorPrimary"
                 app:fgColor="@color/colorPrimaryDark"
-                app:percent="0"
+                app:percent="75"
                 app:startAngle="0"
                 app:strokeWidth="21dp" />
         </RelativeLayout>

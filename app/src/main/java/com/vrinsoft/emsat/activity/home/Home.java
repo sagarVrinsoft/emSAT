@@ -89,14 +89,14 @@ public class Home extends MasterActivity {
                 toggleDrawer();
             }
         });
-        masterBinding.toolbar.imgTopBanner.setOnClickListener(new View.OnClickListener() {
+        /*masterBinding.toolbar.imgTopBanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("FROM", "NEWEST");
                 NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
             }
-        });
+        });*/
     }
 
     private void fetchNotificationList(int pageNo) {

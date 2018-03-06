@@ -123,14 +123,12 @@ public interface ApiInterface {
     );
     //endregion
 
-    // region FAQS
     @FormUrlEncoded
-    @POST("faq.php")
+    @POST("view_faqs.php")
     Call<ArrayList<BeanFaqs>> fetchFAQList(@Field("user_id") String user_id,
                                            @Field("token") String token,
                                            @Field("page_no") int page_no
     );
-    //endregion
 
     // region CMS
     @FormUrlEncoded

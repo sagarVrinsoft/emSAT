@@ -109,7 +109,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             return false;
         } else if (checkValidation(mActivity, mBinding.etPassword, getString(R.string.please_enter_password))) {
             return false;
-        } else {
+        }
+        else if (mBinding.etPassword.getText().toString().length() < 8) {
+            ViewUtils.showToast(mActivity, getString(R.string.password_must_contains_atleast_8_characters), null);
+            return false;
+        }else {
             return true;
         }
     }

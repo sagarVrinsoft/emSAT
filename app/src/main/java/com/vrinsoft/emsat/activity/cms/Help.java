@@ -50,6 +50,7 @@ public class Help extends MasterActivity implements View.OnClickListener {
         masterBinding.toolbar.txtTitle.setVisibility(View.VISIBLE);
         masterBinding.toolbar.txtTitle.setText(getString(R.string.menu_help));
         masterBinding.toolbar.imgHome.setVisibility(View.VISIBLE);
+        masterBinding.toolbar.imgHome.setImageResource(R.drawable.ic_home_black);
         masterBinding.toolbar.imgBack.setVisibility(View.GONE);
         masterBinding.toolbar.rlNotification.setVisibility(View.GONE);
         masterBinding.toolbar.imgHome.setOnClickListener(new View.OnClickListener() {

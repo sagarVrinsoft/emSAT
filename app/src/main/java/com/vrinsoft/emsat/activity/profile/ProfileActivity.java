@@ -138,6 +138,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         masterBinding.toolbar.txtTitle.setText(getString(R.string.menu_profile));
         masterBinding.toolbar.txtTitle.setTextColor(Color.WHITE);
         masterBinding.toolbar.imgHome.setVisibility(View.VISIBLE);
+        masterBinding.toolbar.imgHome.setImageResource(R.drawable.ic_home);
         masterBinding.toolbar.imgBack.setVisibility(View.GONE);
         masterBinding.toolbar.rlNotification.setVisibility(View.GONE);
         masterBinding.toolbar.imgHome.setOnClickListener(new View.OnClickListener() {

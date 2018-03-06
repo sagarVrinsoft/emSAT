@@ -76,6 +76,7 @@ public class MyTestActivity extends MasterActivity {
         masterBinding.toolbar.txtTitle.setVisibility(View.VISIBLE);
         masterBinding.toolbar.txtTitle.setText(getString(R.string.menu_my_test));
         masterBinding.toolbar.imgHome.setVisibility(View.VISIBLE);
+        masterBinding.toolbar.imgHome.setImageResource(R.drawable.ic_home_black);
         masterBinding.toolbar.imgBack.setVisibility(View.GONE);
         masterBinding.toolbar.rlNotification.setVisibility(View.GONE);
         masterBinding.toolbar.imgHome.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +89,6 @@ public class MyTestActivity extends MasterActivity {
 
     private void fetchNotificationList(int pageNo) {
 
-        ViewUtils.showDialog(mActivity, false);
         if (AppConstants.isTestModeOn) {
             mArrayList.clear();
             for (int i = 1; i <= 4; i++) {

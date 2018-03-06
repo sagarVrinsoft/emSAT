@@ -47,7 +47,7 @@ public class BeanCMS {
         @SerializedName("page_name")
         @Expose
         private String page_name;
-        @SerializedName("description")
+        @SerializedName("content")
         @Expose
         private String description;
 

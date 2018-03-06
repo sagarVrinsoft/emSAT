@@ -19,5 +19,7 @@ public class NetworkConstants {
         String METHOD_TEST_QUESTION = "test_question.php";
         String KEY_TEST_ID = "test_id";
         String TEMP_TEST_ID = "1";
+        String TEMP_TOKEN = "dHDOsK";
+        String TEMP_USERid = "1";
     }
 }

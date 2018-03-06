@@ -47,6 +47,10 @@ public class AppConstants {
         public static String TOTAL_ANS = "total_ans";
     }
 
+    public interface DEVICE_TYPE {
+        public static String ANDROID = "2";
+    }
+
 
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static DecimalFormat decimalFormat = new DecimalFormat("0.00");
@@ -273,64 +277,9 @@ public class AppConstants {
     }
 
     public interface CMS {
-        public static String RATE_CARD_MANAGEMENT = "1";
+        public static String ABOUT_US = "1";
         public static String TERMS_CONDITIONS = "2";
-        public static String PRIVACY_POLICY = "4";
-        public static String DISCLOSURE = "5";
-    }
-
-    public interface RIDE_STATUS {
-        //        public static String KEY_CURRENT_RIDE_STATUS = "ride_status_current_key";
-        public static String PUSH_RESPONSE_INCOMING_RIDE = "ride_request";
-        public static int PENDING = 0;
-        public static int ACCEPT = 1;
-        public static int ACCEPT_CONFIRM = 11;
-        //        public static int ARRIVE = 2;
-        public static int START_ONGOING = 3;
-        public static int CANCEL = 4;
-        public static int CANCEL_CONFIRM = 44;
-        public static int END = 5;
-        //        public static int END_CONFIRM = 55;//Rider Payment Screen
-        public static int DECLINE = 6;
-        public static int DECLINE_CONFIRM = 66;
-        public static int REQUEST = 100;
-        public static int TEMP_NONE = -1;
-    }
-
-    public interface APPCOLOR {
-        public static final String PRIMARY = "#006AA8";
-        public static final String HINT_TEXT_COLOR = "#737373";
-    }
-
-    public interface FAV_SPOT_REQUEST_CODE {
-
-        public static int RIDE_NOW_PICK_UP_REQUEST_CODE = 104;
-        public static int RIDE_NOW_DROP_OFF_REQUEST_CODE = 105;
-
-        public static int PLAN_RIDE_PICK_UP_REQUEST_CODE = 106;
-        public static int PLAN_RIDE_DROP_OFF_REQUEST_CODE = 107;
-    }
-
-    public interface LOCATION_PICKER_ADDRESS_REQUEST_CODE {
-
-        public static final int FAVOURITE_SPOT = 101;
-        public static final int RIDE_NOW_PICK_UP = 102;
-        public static final int RIDE_NOW_DROP_OFF = 103;
-
-        public static final int PLAN_RIDE_PICK_UP = 104;
-        public static final int PLAN_RIDE_DROP_OFF = 105;
-    }
-
-    public interface FILTER_REQUEST_CODE {
-        public static final int DISCUSSION_BOARD_REQUEST_CODE = 101;
-    }
-
-    public interface PAYMENT_REQUEST_CODE {
-        public static final int PAYMENT = 1001;
-    }
-
-    public interface FEEDBACK_REQUEST_CODE {
-        public static final int FEEDBACK = 1002;
+        public static String PRIVACY_POLICY = "3";
     }
 
     /*NUM_OF_CHECKED_VIEWS indicates no. of views to be checked/unchecked*/

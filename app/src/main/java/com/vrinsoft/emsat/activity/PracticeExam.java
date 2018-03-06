@@ -145,10 +145,12 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
         ViewUtils.showDialog(mActivity, false);
 
         HashMap<String, String> params = new HashMap<>();
-        params.put(KEY_USER_ID, Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR));
+        /*params.put(KEY_USER_ID, Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR));
         params.put(KEY_TOKEN, Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR));
+        params.put(KEY_TEST_ID, NetworkConstants.QUESTION.TEMP_TEST_ID);*/
+        params.put(KEY_USER_ID, NetworkConstants.QUESTION.TEMP_USERid);
+        params.put(KEY_TOKEN, NetworkConstants.QUESTION.TEMP_TOKEN);
         params.put(KEY_TEST_ID, NetworkConstants.QUESTION.TEMP_TEST_ID);
-//        params.put(KEY_PAGE_NO, String.valueOf(1));
 
         LOGD("PARAMS::", params + "");
 

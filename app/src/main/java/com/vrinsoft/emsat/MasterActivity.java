@@ -167,7 +167,7 @@ public abstract class MasterActivity extends AppCompatActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(AppPreference.USER_INFO.PREF_USER_PROFILE)) {
+        if (key.equals(AppPreference.USER_INFO.USER_PROFILE)) {
             drawerFragment.setProfileImg();
         }
     }

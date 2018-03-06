@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -100,7 +101,7 @@ public class ViewUtils {
         }
     }
 
-    public static void setTextInputLayout(EditText editTextView, String hint, LinearLayout ll, Drawable llBackground, TextView txtView, int txtViewVisibility, View view, int viewVisibility) {
+    public static void setTextInputLayout(TextView editTextView, String hint, LinearLayout ll, Drawable llBackground, TextView txtView, int txtViewVisibility, View view, int viewVisibility) {
         editTextView.setHint(hint);
         ll.setBackground(llBackground);
         txtView.setVisibility(txtViewVisibility);
@@ -375,5 +376,41 @@ public class ViewUtils {
             mTextView.append(text3);
         }
 
+    }
+
+    public static void setCheckedTextView(int numOfViews,
+                                   CheckedTextView ctActive,
+                                   CheckedTextView ctInActive1,
+                                   CheckedTextView ctInActive2,
+                                   CheckedTextView ctInActive3) {
+        switch (numOfViews) {
+            case 2:
+                ctActive.setChecked(true);
+                ctInActive1.setChecked(false);
+
+//                ctActive.setTextColor(context.getResources().getColor(R.color.blue));
+//                ctInActive1.setTextColor(context.getResources().getColor(R.color.hint_label_color));
+                break;
+            /*case 3:
+                ctActive.setChecked(true);
+                ctInActive1.setChecked(false);
+                ctInActive2.setChecked(false);
+
+                ctActive.setTextColor(context.getResources().getColor(R.color.blue));
+                ctInActive1.setTextColor(context.getResources().getColor(R.color.hint_label_color));
+                ctInActive2.setTextColor(context.getResources().getColor(R.color.hint_label_color));
+                break;
+            case 4:
+                ctActive.setChecked(true);
+                ctInActive1.setChecked(false);
+                ctInActive2.setChecked(false);
+                ctInActive3.setChecked(false);
+
+                ctActive.setTextColor(context.getResources().getColor(R.color.blue));
+                ctInActive1.setTextColor(context.getResources().getColor(R.color.hint_label_color));
+                ctInActive2.setTextColor(context.getResources().getColor(R.color.hint_label_color));
+                ctInActive3.setTextColor(context.getResources().getColor(R.color.hint_label_color));
+                break;*/
+        }
     }
 }

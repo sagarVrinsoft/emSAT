@@ -295,7 +295,7 @@
                                     android:paddingLeft="@dimen/_8sdp">
 
                                     <CheckedTextView
-                                        android:id="@+id/ctRider"
+                                        android:id="@+id/ctMale"
                                         style="@style/CheckedTextViewStyle"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -306,7 +306,7 @@
                                         android:text="@string/male" />
 
                                     <CheckedTextView
-                                        android:id="@+id/ctDriver"
+                                        android:id="@+id/ctFemale"
                                         style="@style/CheckedTextViewStyle"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"

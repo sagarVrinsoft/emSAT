@@ -114,7 +114,8 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                         profileBinding.etMobileNo.setText(mArrayList.get(0).getMobileNo());
                         profileBinding.etEmail.setText(mArrayList.get(0).getEmail());
                         profileBinding.txtDOB.setText(mArrayList.get(0).getDob());
-                        setGender(mArrayList.get(0).getGender());
+                        boolean isMale = mArrayList.get(0).getGender().equalsIgnoreCase(AppConstants.GENDER.MALE_str);
+                        setGender(isMale);
                     }
                     else
                     {
@@ -364,10 +365,9 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         }
     }
 
-    int mGenderSel = AppConstants.GENDER.MALE;
-    private void setGender(String gender)
+    private void setGender(boolean isMale)
     {
-        mGenderSel = Integer.parseInt(gender);
+        /*mGenderSel = Integer.parseInt(gender);
         switch (mGenderSel)
         {
             case AppConstants.GENDER.MALE:
@@ -376,9 +376,13 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
             case AppConstants.GENDER.FEMALE:
                 profileBinding.ctFemale.setChecked(true);
                 break;
-        }
-    }
+        }*/
 
+        mGenderSel = isMale?AppConstants.GENDER.MALE:AppConstants.GENDER.FEMALE;
+        profileBinding.ctMale.setChecked(isMale);
+        profileBinding.ctFemale.setChecked(!isMale);
+    }
+    int mGenderSel = AppConstants.GENDER.MALE;
     @Override
     public void onClick(View v) {
         switch (v.getId())

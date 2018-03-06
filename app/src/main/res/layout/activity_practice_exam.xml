@@ -236,6 +236,8 @@
                 android:layout_marginLeft="@dimen/_30sdp"
                 android:drawableTop="@drawable/left_arrow"
                 android:gravity="center"
+                android:paddingLeft="@dimen/_20sdp"
+                android:paddingRight="@dimen/_20sdp"
                 android:text="@string/prev"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_13ssp" />
@@ -258,6 +260,8 @@
                 android:layout_marginRight="@dimen/_30sdp"
                 android:drawableTop="@drawable/right_arrow"
                 android:gravity="center"
+                android:paddingLeft="@dimen/_20sdp"
+                android:paddingRight="@dimen/_20sdp"
                 android:text="@string/next"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_13ssp" />

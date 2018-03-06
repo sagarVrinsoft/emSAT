@@ -73,7 +73,8 @@
     <string name="next">Next</string>
     <string name="prev">Prev</string>
     <string name="hint">Hint</string>
-    <string name="blanks">____________</string>
+    <!--<string name="blanks">____________</string>-->
+    <string name="blanks">______</string>
     <string name="your_score">Your score</string>
     <string name="re_take_quiz">Re-take Quiz</string>
     <string name="check_answers">Check Answers</string>

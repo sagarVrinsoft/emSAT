@@ -3,34 +3,25 @@ package com.vrinsoft.emsat.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.vrinsoft.emsat.Adapter.WordsAdapter;
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.activity.profile.ProfileActivity;
 import com.vrinsoft.emsat.apis.handler_interface.ApiHandler;
 import com.vrinsoft.emsat.apis.handler_interface.OnResponse;
 import com.vrinsoft.emsat.apis.model.exam_question.QuestionBean;
@@ -41,7 +32,6 @@ import com.vrinsoft.emsat.databinding.ActivityPracticeExamBinding;
 import com.vrinsoft.emsat.databinding.DialogHintBinding;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
-import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.utils.Pref;
 import com.vrinsoft.emsat.utils.ViewUtils;
 import com.vrinsoft.emsat.utils.widget.TagLayout;
@@ -58,7 +48,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import static com.vrinsoft.emsat.apis.rest.NetworkConstants.KEY_PAGE_NO;
 import static com.vrinsoft.emsat.apis.rest.NetworkConstants.KEY_TOKEN;
 import static com.vrinsoft.emsat.apis.rest.NetworkConstants.KEY_USER_ID;
 import static com.vrinsoft.emsat.apis.rest.NetworkConstants.QUESTION.KEY_TEST_ID;
@@ -79,6 +68,7 @@ import static com.vrinsoft.emsat.utils.ViewUtils.SpannableText;
 import static com.vrinsoft.emsat.utils.ViewUtils.showDoubleBtnAlert;
 import static com.vrinsoft.emsat.utils.ViewUtils.showSingleBtnAlert;
 import static com.vrinsoft.emsat.utils.ViewUtils.showToast;
+
 public class PracticeExam extends AppCompatActivity implements View.OnClickListener {
     ApiHandler apiHandler;
     Activity mActivity;
@@ -88,17 +78,15 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
     ArrayList<String> wordsList;
     WordsAdapter mAdapter;
     String QUESTION = "";
-    private int pos = 0;
     QuestionBean.Result questionBean;
-
     int progress;
     int endTime;
     CountDownTimer countDownTimer;
     GridLayoutManager layoutManager;
-
     Bundle mBundle;
     String mFrom = "";
     boolean is_view_only = false;
+    private int pos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -233,7 +221,7 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
                 setCheckedMCQ(mBinding.txtOpt4, mBinding.txtOpt2, mBinding.txtOpt3, mBinding.txtOpt1);
                 mArrayList.get(pos).setUser_ans("4");
                 break;
-           /* case R.id.btnReset:
+            /*case R.id.btnReset:
                 reset();
                 break;*/
             case R.id.imgBack:
@@ -274,110 +262,40 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.llHint:
-                showHintDialog();
+//                showHintDialog();
+                if (questionBean.getQuestionType().equals(FILL_BLANK))
+                    reset();
+                else
+                    showHintDialog();
                 break;
         }
     }
 
     private void showHintDialog() {
-            final Dialog dialog = new Dialog(mActivity, android.R.style.Theme_DeviceDefault_Dialog);
-            DialogHintBinding dialogHintBinding = DataBindingUtil.inflate
-                    (getLayoutInflater(), R.layout.dialog_hint, null, false);
-            dialog.setContentView(dialogHintBinding.getRoot());
-            dialog.getWindow().setWindowAnimations(R.style.CustomDialogStyle);
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        final Dialog dialog = new Dialog(mActivity, android.R.style.Theme_DeviceDefault_Dialog);
+        DialogHintBinding dialogHintBinding = DataBindingUtil.inflate
+                (getLayoutInflater(), R.layout.dialog_hint, null, false);
+        dialog.setContentView(dialogHintBinding.getRoot());
+        dialog.getWindow().setWindowAnimations(R.style.CustomDialogStyle);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 //            dialogHintBinding.txtDescription.setText();
 
-            dialogHintBinding.imgClose.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-
-            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-            Window window = dialog.getWindow();
-            lp.copyFrom(window.getAttributes());
-            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-            window.setAttributes(lp);
-
-            dialog.setCanceledOnTouchOutside(true);
-            dialog.show();
-    }
-
-    /**
-     * DragListener will handle dragged views being dropped on the drop area
-     * - only the drop action will have processing added to it as we are not
-     * - amending the default behavior for other parts of the drag process
-     */
-    @SuppressLint("NewApi")
-    public class ChoiceDragListener implements View.OnDragListener {
-
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-            View draggedView = (View) event.getLocalState();
-            switch (event.getAction()) {
-                case DragEvent.ACTION_DRAG_STARTED:
-                    //no action necessary
-                    draggedView.setVisibility(View.INVISIBLE);
-                    LOGD("ACTION_DRAG_STARTED", "ACTION_DRAG_STARTED");
-                    break;
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    //no action necessary
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    //no action necessary
-                    break;
-                case DragEvent.ACTION_DROP:
-                    LOGD("ACTION_DROP", "ACTION_DROP");
-
-                    //handle the dragged view being dropped over a drop view
-                    View view = (View) event.getLocalState();
-                    //view dragged item is being dropped on
-                    TextView dropTarget = (TextView) v;
-                    //view being dragged and dropped
-                    TextView dropped = (TextView) view;
-
-                    //stop displaying the view where it was before it was dragged
-                    view.setVisibility(View.GONE);
-                    //update the text in the target view to reflect the data being dropped
-//                    dropTarget.setText(dropTarget.getText().toString() + dropped.getText().toString());
-                    dropTarget.setText(dropped.getText().toString());
-                    //make it bold to highlight the fact that an item has been dropped
-//                    dropTarget.setTypeface(Typeface.DEFAULT_BOLD);
-                    //if an item has already been dropped here, there will be a tag
-                    Object tag = dropTarget.getTag();
-                    //if there is already an item here, set it back visible in its original place
-                    if (tag != null) {
-                        //the tag is the view id already dropped here
-                        int existingID = (Integer) tag;
-                        //set the original view visible again
-                        findViewById(existingID).setVisibility(View.VISIBLE);
-                    }
-                    //set the tag in the target view being dropped on - to the ID of the view being dropped
-                    dropTarget.setTag(dropped.getId());
-                    //remove setOnDragListener by setting OnDragListener to null, so that no further drag & dropping on this TextView can be done
-                    dropTarget.setOnDragListener(null);
-
-                  /*  if (getSentence(tagLayout).contains(getString(R.string.blanks)))
-                        btnNext.setEnabled(false);
-                    else
-                        btnNext.setEnabled(true);*/
-
-                    break;
-                case DragEvent.ACTION_DRAG_ENDED:
-                    LOGD("ACTION_DRAG_ENDED::", event.getResult() + "");
-                    if (!event.getResult())
-                        draggedView.setVisibility(View.VISIBLE);
-                    //no action necessary
-                    break;
-                default:
-                    break;
+        dialogHintBinding.imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
-            return true;
-        }
+        });
 
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
     }
 
     void startCountDown() {
@@ -406,7 +324,6 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
         };
         countDownTimer.start(); // start timer
     }
-
 
     void stopCountDown() {
         mBinding.circleCountDownView.setProgress(endTime, endTime);
@@ -582,6 +499,34 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
 
                     break;
             }
+        }
+    }
+
+    void reset() {
+        if (tagLayout != null) {
+            tagLayout.removeAllViews();
+        }
+
+        mArrayList.get(pos).setUser_ans("");
+        mArrayList.get(pos).setRemaining_options("");
+
+        String[] options = questionBean.getOption().split(",");
+
+        if (options != null && options.length > 0) {
+            wordsList = new ArrayList<>();
+            for (int i = 0; i < options.length; i++) {
+                wordsList.add(i, options[i]);
+            }
+
+            if (wordsList != null && wordsList.size() > 0) {
+                mBinding.rvWords.setVisibility(View.VISIBLE);
+                mAdapter = new WordsAdapter(mActivity, wordsList);
+                mBinding.rvWords.setAdapter(mAdapter);
+            } else {
+                mBinding.rvWords.setVisibility(View.GONE);
+            }
+
+            makeDraggableTag(questionBean.getQuestionName());
         }
     }
 
@@ -764,19 +709,6 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
         return mSentence;
     }
 
-    void reset() {
-        if (tagLayout != null) {
-            tagLayout.removeAllViews();
-        }
-        makeDraggableTag(questionBean.getQuestionName());
-        mBinding.txtNext.setEnabled(false);
-
-        if (wordsList != null && wordsList.size() > 0) {
-            mAdapter = new WordsAdapter(mActivity, wordsList);
-            mBinding.rvWords.setAdapter(mAdapter);
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -800,5 +732,79 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
                         }
                     });
         }
+    }
+
+    /**
+     * DragListener will handle dragged views being dropped on the drop area
+     * - only the drop action will have processing added to it as we are not
+     * - amending the default behavior for other parts of the drag process
+     */
+    @SuppressLint("NewApi")
+    public class ChoiceDragListener implements View.OnDragListener {
+
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            View draggedView = (View) event.getLocalState();
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    //no action necessary
+                    draggedView.setVisibility(View.INVISIBLE);
+                    LOGD("ACTION_DRAG_STARTED", "ACTION_DRAG_STARTED");
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    //no action necessary
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    //no action necessary
+                    break;
+                case DragEvent.ACTION_DROP:
+                    LOGD("ACTION_DROP", "ACTION_DROP");
+
+                    //handle the dragged view being dropped over a drop view
+                    View view = (View) event.getLocalState();
+                    //view dragged item is being dropped on
+                    TextView dropTarget = (TextView) v;
+                    //view being dragged and dropped
+                    TextView dropped = (TextView) view;
+
+                    //stop displaying the view where it was before it was dragged
+                    view.setVisibility(View.GONE);
+                    //update the text in the target view to reflect the data being dropped
+//                    dropTarget.setText(dropTarget.getText().toString() + dropped.getText().toString());
+                    dropTarget.setText(dropped.getText().toString());
+                    //make it bold to highlight the fact that an item has been dropped
+//                    dropTarget.setTypeface(Typeface.DEFAULT_BOLD);
+                    //if an item has already been dropped here, there will be a tag
+                    Object tag = dropTarget.getTag();
+                    //if there is already an item here, set it back visible in its original place
+                    if (tag != null) {
+                        //the tag is the view id already dropped here
+                        int existingID = (Integer) tag;
+                        //set the original view visible again
+                        findViewById(existingID).setVisibility(View.VISIBLE);
+                    }
+                    //set the tag in the target view being dropped on - to the ID of the view being dropped
+                    dropTarget.setTag(dropped.getId());
+                    //remove setOnDragListener by setting OnDragListener to null, so that no further drag & dropping on this TextView can be done
+                    dropTarget.setOnDragListener(null);
+
+                  /*  if (getSentence(tagLayout).contains(getString(R.string.blanks)))
+                        btnNext.setEnabled(false);
+                    else
+                        btnNext.setEnabled(true);*/
+
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    LOGD("ACTION_DRAG_ENDED::", event.getResult() + "");
+                    if (!event.getResult())
+                        draggedView.setVisibility(View.VISIBLE);
+                    //no action necessary
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+
     }
 }

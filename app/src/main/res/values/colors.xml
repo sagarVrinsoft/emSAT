@@ -17,4 +17,5 @@
     <color name="grey_line">#E5E5E5</color>
     <color name="wrong_color">#F91F39</color>
     <color name="correct_color">#00D62D</color>
+    <color name="bg_save_btn">#D4A85C</color>
 </resources>

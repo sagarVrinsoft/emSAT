@@ -21,6 +21,7 @@
         <com.nirhart.parallaxscroll.views.ParallaxScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/txtSubmit"
             android:layout_marginTop="?actionBarSize"
             android:visibility="visible"
             app:inner_parallax_factor="1.9">
@@ -384,18 +385,22 @@
                             android:layout_height="@dimen/_2sdp"
                             android:background="@color/grey_line" />
 
-                        <TextView
-                            android:id="@+id/txtSignIn"
-                            style="@style/ButtonBlueStyle"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_50sdp"
-                            android:layout_below="@+id/llSignIn"
-                            android:text="@string/save" />
-
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
         </com.nirhart.parallaxscroll.views.ParallaxScrollView>
+
+        <TextView
+            android:id="@+id/txtSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/bg_save_btn"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/save"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_16ssp" />
     </RelativeLayout>
 
 </layout>

@@ -13,7 +13,7 @@
             android:thicknessRatio="0"
             android:type="sweep"
             android:useLevel="false">
-            <solid android:color="@color/insider_circle_color" />
+            <solid android:color="@color/colorPrimaryDark" />
         </shape>
 
     </item>
@@ -25,7 +25,7 @@
             android:thicknessRatio="50.0"
             android:type="sweep"
             android:useLevel="false">
-            <solid android:color="@color/colorPrimary" />
+            <solid android:color="@color/colorPrimaryDark" />
         </shape>
 
     </item>

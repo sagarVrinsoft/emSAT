@@ -162,7 +162,8 @@
         <item name="android:windowEnterAnimation">@anim/up_from_bottom</item>
         <item name="android:windowExitAnimation">@anim/bottom_from_up</item>
     </style>
-    <style name="AppTheme.Picker" parent="Base.Theme.AppCompat.Dialog" >
+
+    <style name="AppTheme.Picker" parent="Base.Theme.AppCompat.Dialog">
         <item name="android:textColorPrimary">@android:color/black</item>
         <item name="android:textColorSecondary">@color/colorPrimary</item>
         <item name="android:textSize">18sp</item>

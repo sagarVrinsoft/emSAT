@@ -36,6 +36,7 @@ public class ExamResult extends AppCompatActivity implements View.OnClickListene
 
         mBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
         mBinding.toolbar.txtRight.setVisibility(View.VISIBLE);
+        mBinding.toolbar.txtRight.setText(getString(R.string.done));
         mBinding.toolbar.txtTitle.setText(getString(R.string.score_card));
 
         if (mBundle != null) {

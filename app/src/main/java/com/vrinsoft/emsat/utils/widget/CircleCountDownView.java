@@ -42,7 +42,8 @@ public class CircleCountDownView extends FrameLayout {
         View rootView = inflate(ctx, R.layout.layout_count_down_view, this);
         progressBarView = (ProgressBar) rootView.findViewById(R.id.view_progress_bar);
         progressTextView = (TextView) rootView.findViewById(R.id.view_progress_text);
-        RotateAnimation makeVertical = new RotateAnimation(0, -90, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
+//        RotateAnimation makeVertical = new RotateAnimation(0, -90, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
+        RotateAnimation makeVertical = new RotateAnimation(-180, 180, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
         makeVertical.setFillAfter(true);
         progressBarView.startAnimation(makeVertical);
     }

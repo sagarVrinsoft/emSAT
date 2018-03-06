@@ -18,5 +18,6 @@ public class NetworkConstants {
     public interface QUESTION {
         String METHOD_TEST_QUESTION = "test_question.php";
         String KEY_TEST_ID = "test_id";
+        String TEMP_TEST_ID = "1";
     }
 }

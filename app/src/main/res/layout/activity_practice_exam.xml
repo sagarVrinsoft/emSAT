@@ -19,6 +19,7 @@
             android:layout_marginTop="@dimen/_12sdp">
 
             <LinearLayout
+                android:id="@+id/llTimer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -39,9 +40,12 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llHint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/llTimer"
                 android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/llTimer"
                 android:layout_centerVertical="true"
                 android:background="@drawable/bg_left_curved"
                 android:gravity="center"

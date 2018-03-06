@@ -2,6 +2,7 @@ package com.vrinsoft.emsat.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,7 +17,12 @@ import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,14 +30,19 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.vrinsoft.emsat.Adapter.WordsAdapter;
 import com.vrinsoft.emsat.R;
+import com.vrinsoft.emsat.activity.profile.ProfileActivity;
 import com.vrinsoft.emsat.apis.handler_interface.ApiHandler;
 import com.vrinsoft.emsat.apis.handler_interface.OnResponse;
 import com.vrinsoft.emsat.apis.model.exam_question.QuestionBean;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
+import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivityPracticeExamBinding;
+import com.vrinsoft.emsat.databinding.DialogHintBinding;
 import com.vrinsoft.emsat.utils.AppConstants;
+import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.NavigationUtils;
+import com.vrinsoft.emsat.utils.Pref;
 import com.vrinsoft.emsat.utils.ViewUtils;
 import com.vrinsoft.emsat.utils.widget.TagLayout;
 
@@ -68,7 +79,6 @@ import static com.vrinsoft.emsat.utils.ViewUtils.SpannableText;
 import static com.vrinsoft.emsat.utils.ViewUtils.showDoubleBtnAlert;
 import static com.vrinsoft.emsat.utils.ViewUtils.showSingleBtnAlert;
 import static com.vrinsoft.emsat.utils.ViewUtils.showToast;
-//test01
 public class PracticeExam extends AppCompatActivity implements View.OnClickListener {
     ApiHandler apiHandler;
     Activity mActivity;
@@ -108,7 +118,7 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
             if (mFrom.equals("CHECK_ANS")) {
                 is_view_only = true;
                 mBinding.toolbar.txtRight.setVisibility(View.GONE);
-                mBinding.headerBar.setVisibility(View.INVISIBLE);
+                mBinding.headerBar.setVisibility(View.GONE);
 
                 if (AppConstants.mQuestionList != null && AppConstants.mQuestionList.size() > 0)
                     mArrayList = AppConstants.mQuestionList;
@@ -138,6 +148,7 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
 
         mBinding.txtNext.setOnClickListener(this);
         mBinding.txtPrev.setOnClickListener(this);
+        mBinding.llHint.setOnClickListener(this);
         mBinding.toolbar.txtRight.setOnClickListener(this);
         mBinding.toolbar.imgBack.setOnClickListener(this);
     }
@@ -146,10 +157,10 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
         ViewUtils.showDialog(mActivity, false);
 
         HashMap<String, String> params = new HashMap<>();
-        params.put(KEY_USER_ID, "1");
-        params.put(KEY_TOKEN, "dHDOsK");
-        params.put(KEY_TEST_ID, "1");
-        params.put(KEY_PAGE_NO, String.valueOf(1));
+        params.put(KEY_USER_ID, Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR));
+        params.put(KEY_TOKEN, Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR));
+        params.put(KEY_TEST_ID, NetworkConstants.QUESTION.TEMP_TEST_ID);
+//        params.put(KEY_PAGE_NO, String.valueOf(1));
 
         LOGD("PARAMS::", params + "");
 
@@ -262,7 +273,37 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
                             });
                 }
                 break;
+            case R.id.llHint:
+                showHintDialog();
+                break;
         }
+    }
+
+    private void showHintDialog() {
+            final Dialog dialog = new Dialog(mActivity, android.R.style.Theme_DeviceDefault_Dialog);
+            DialogHintBinding dialogHintBinding = DataBindingUtil.inflate
+                    (getLayoutInflater(), R.layout.dialog_hint, null, false);
+            dialog.setContentView(dialogHintBinding.getRoot());
+            dialog.getWindow().setWindowAnimations(R.style.CustomDialogStyle);
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//            dialogHintBinding.txtDescription.setText();
+
+            dialogHintBinding.imgClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+
+            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+            Window window = dialog.getWindow();
+            lp.copyFrom(window.getAttributes());
+            lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setAttributes(lp);
+
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.show();
     }
 
     /**

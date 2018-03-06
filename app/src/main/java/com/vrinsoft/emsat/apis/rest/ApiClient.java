@@ -19,17 +19,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-//    public static final String BASE_URL = "http://192.168.1.56/onlinetest/admin/";
-//    public static final String BASE_URL = BuildConfig.PROD_BASE_URL;
-    public static final String BASE_URL = "https://app.ahoyride.com/beta/";
+    public static final String BASE_URL = "http://vrinsoft.in/emsat/admin/";
+//    public static final String BASE_URL = "http://vrinsoft.in/emsat/admin/";
     public static final String BASE_URL_API = BASE_URL + "api/";
-
-    public static final String BASE_URL_GOOGLE = "https://maps.googleapis.com/";
 
     private static Retrofit retrofit = null;
     private static ApiInterface apiInterface = null;
-
-    private static Retrofit retrofit_google = null;
 
     public static Retrofit getClient() {
         if (retrofit == null) {
@@ -94,7 +89,9 @@ public class ApiClient {
                 }
             });
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            interceptor.setLevel(BuildConfig.DEBUG?
+                    HttpLoggingInterceptor.Level.BODY:
+                    HttpLoggingInterceptor.Level.NONE);
             builder.connectTimeout(30L, TimeUnit.SECONDS).
                     readTimeout(30L, TimeUnit.SECONDS).
                     addInterceptor(interceptor);

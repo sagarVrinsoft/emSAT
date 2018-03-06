@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -75,6 +76,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void setToolBarConfig() {
+        mBinding.toolBar.toolbarActionbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.transparent));
+        mBinding.toolBar.imgTopBanner.setVisibility(View.GONE);
         mBinding.toolBar.imgHome.setVisibility(View.GONE);
         mBinding.toolBar.txtTitle.setText(getString(R.string.sign_up));
         mBinding.toolBar.txtTitle.setTextColor(Color.WHITE);

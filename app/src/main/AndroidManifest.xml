@@ -77,6 +77,7 @@
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.profile.ProfileActivity"
+            android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"></activity>
 

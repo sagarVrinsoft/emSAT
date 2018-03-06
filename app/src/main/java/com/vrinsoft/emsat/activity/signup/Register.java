@@ -156,10 +156,19 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                             ArrayList<BeanRegister> beanRegister = response.body();
                             ViewUtils.showDialog(mActivity, true);
                             if (beanRegister.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
+
+                                BeanRegister.Result binRegister = beanRegister.get(0).getResult().get(0);
+                                Pref.setValue(mActivity, AppPreference.LOGIN, AppPreference.USER_STATUS.LOGON);
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.NAME, name);
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.EMAIL_ID, email);
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.PASSWORD, password);
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.MOBILE_NO, phone);
+
+
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.USER_ID, binRegister.getUserId());
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.DOB, binRegister.getDob());
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.GENDER, binRegister.getGender());
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.TOKEN, binRegister.getToken());
                                 NavigationUtils.startActivityWithClearStack(mActivity, Home.class, null);
                             } else {
                                 ViewUtils.showToast(mActivity, beanRegister.get(0).getMessage(), null);

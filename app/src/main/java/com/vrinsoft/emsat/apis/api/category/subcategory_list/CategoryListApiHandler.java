@@ -13,7 +13,7 @@ import retrofit2.Response;
 
 public class CategoryListApiHandler {
 
-    public void fetchCatData(String userId, String token, int pageNo, int userType, final OnCatList onCatList) {
+    /*public void fetchCatData(String userId, String token, int pageNo, int userType, final OnCatList onCatList) {
 
         Call<ArrayList<BeanNotificationList>> listCall =
                 ApiClient.getApiInterface().fetchCategoryList(userId, token, pageNo, userType);
@@ -31,5 +31,5 @@ public class CategoryListApiHandler {
                 onCatList.getResponse(false, null, ApiErrorUtils.getErrorMsg(t));
             }
         });
-    }
+    }*/
 }

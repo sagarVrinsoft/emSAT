@@ -103,7 +103,7 @@
                         android:lineSpacingExtra="@dimen/_8sdp"
                         android:padding="@dimen/_20sdp"
                         android:textColor="@android:color/black"
-                        android:textSize="@dimen/_16ssp"
+                        android:textSize="@dimen/_14ssp"
                         android:visibility="gone" />
 
                     <android.support.v7.widget.RecyclerView
@@ -160,7 +160,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="15dp"
                         android:orientation="vertical"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <TextView
                             android:id="@+id/txtOpt1"
@@ -168,10 +168,10 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/option_selector"
                             android:gravity="center"
-                            android:padding="@dimen/_12sdp"
+                            android:padding="@dimen/_9sdp"
                             android:text=""
                             android:textColor="@color/opt_text_selector"
-                            android:textSize="@dimen/_16ssp"
+                            android:textSize="@dimen/_14ssp"
                             android:visibility="visible" />
 
                         <TextView
@@ -181,10 +181,10 @@
                             android:layout_marginTop="@dimen/_15sdp"
                             android:background="@drawable/option_selector"
                             android:gravity="center"
-                            android:padding="@dimen/_12sdp"
+                            android:padding="@dimen/_9sdp"
                             android:text=""
                             android:textColor="@color/opt_text_selector"
-                            android:textSize="@dimen/_16ssp"
+                            android:textSize="@dimen/_14ssp"
                             android:visibility="visible" />
 
                         <TextView
@@ -194,10 +194,10 @@
                             android:layout_marginTop="@dimen/_15sdp"
                             android:background="@drawable/option_selector"
                             android:gravity="center"
-                            android:padding="@dimen/_12sdp"
+                            android:padding="@dimen/_9sdp"
                             android:text=""
                             android:textColor="@color/opt_text_selector"
-                            android:textSize="@dimen/_16ssp"
+                            android:textSize="@dimen/_14ssp"
                             android:visibility="visible" />
 
                         <TextView
@@ -207,10 +207,10 @@
                             android:layout_marginTop="@dimen/_15sdp"
                             android:background="@drawable/option_selector"
                             android:gravity="center"
-                            android:padding="@dimen/_12sdp"
+                            android:padding="@dimen/_9sdp"
                             android:text=""
                             android:textColor="@color/opt_text_selector"
-                            android:textSize="@dimen/_16ssp"
+                            android:textSize="@dimen/_14ssp"
                             android:visibility="visible" />
                     </LinearLayout>
 

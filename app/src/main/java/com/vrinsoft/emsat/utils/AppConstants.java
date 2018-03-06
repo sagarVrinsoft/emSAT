@@ -192,6 +192,7 @@ public class AppConstants {
 
     public interface GENDER {
         public static final int MALE = 1;
+        public static final String MALE_str = "Male";
         public static final int FEMALE = 2;
     }
 

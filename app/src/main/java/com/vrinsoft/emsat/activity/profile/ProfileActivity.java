@@ -114,57 +114,8 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                         profileBinding.etMobileNo.setText(mArrayList.get(0).getMobileNo());
                         profileBinding.etEmail.setText(mArrayList.get(0).getEmail());
                         profileBinding.txtDOB.setText(mArrayList.get(0).getDob());
-                        setGender(mArrayList.get(0).getGender());
-                    }
-                    else
-                    {
-                        ViewUtils.showToast(mActivity, getString(R.string.no_data_found), null);
-                    }
-                }
-                else
-                {
-                    ViewUtils.showToast(mActivity, beanViewProfile.get(0).getMessage(), null);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<BeanViewProfile>> call, Throwable t) {
-                ViewUtils.showDialog(mActivity, true);
-                ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
-            }
-        });
-    }
-
-    private void setListeners() {
-        profileBinding.ctMale.setOnClickListener(this);
-        profileBinding.ctFemale.setOnClickListener(this);
-        profileBinding.etFN.addTextChangedListener(new MyTextWatcher(profileBinding.etFN));
-        profileBinding.etEmail.addTextChangedListener(new MyTextWatcher(profileBinding.etEmail));
-        profileBinding.etMobileNo.addTextChangedListener(new MyTextWatcher(profileBinding.etMobileNo));
-        profileBinding.txtDOB.addTextChangedListener(new MyTextWatcher(profileBinding.txtDOB));
-    }
-
-    private void setProfileData() {
-        ViewUtils.showDialog(mActivity, false);
-        Call<ArrayList<BeanViewProfile>> listCall =
-                ApiClient.getApiInterface().viewProfile(
-                        Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR),
-                        Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR));
-
-        listCall.enqueue(new Callback<ArrayList<BeanViewProfile>>() {
-            @Override
-            public void onResponse(Call<ArrayList<BeanViewProfile>> call, Response<ArrayList<BeanViewProfile>> response) {
-                ArrayList<BeanViewProfile> beanViewProfile = response.body();
-                ViewUtils.showDialog(mActivity, true);
-                if (beanViewProfile.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
-                    ArrayList<BeanViewProfile.Result> mArrayList = beanViewProfile.get(0).getResult();
-                    if(mArrayList.size() > 0)
-                    {
-                        profileBinding.etFN.setText(mArrayList.get(0).getName());
-                        profileBinding.etMobileNo.setText(mArrayList.get(0).getMobileNo());
-                        profileBinding.etEmail.setText(mArrayList.get(0).getEmail());
-                        profileBinding.txtDOB.setText(mArrayList.get(0).getDob());
-                        setGender(mArrayList.get(0).getGender());
+                        boolean isMale = mArrayList.get(0).getGender().equalsIgnoreCase(AppConstants.GENDER.MALE_str);
+                        setGender(isMale);
                     }
                     else
                     {
@@ -413,10 +364,9 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         }
     }
 
-    int mGenderSel = AppConstants.GENDER.MALE;
-    private void setGender(String gender)
+    private void setGender(boolean isMale)
     {
-        mGenderSel = Integer.parseInt(gender);
+        /*mGenderSel = Integer.parseInt(gender);
         switch (mGenderSel)
         {
             case AppConstants.GENDER.MALE:
@@ -425,9 +375,13 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
             case AppConstants.GENDER.FEMALE:
                 profileBinding.ctFemale.setChecked(true);
                 break;
-        }
-    }
+        }*/
 
+        mGenderSel = isMale?AppConstants.GENDER.MALE:AppConstants.GENDER.FEMALE;
+        profileBinding.ctMale.setChecked(isMale);
+        profileBinding.ctFemale.setChecked(!isMale);
+    }
+    int mGenderSel = AppConstants.GENDER.MALE;
     @Override
     public void onClick(View v) {
         switch (v.getId())

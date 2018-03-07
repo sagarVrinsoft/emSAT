@@ -17,7 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.activity.subcategory.model.Result;
+import com.vrinsoft.emsat.apis.model.submodules.Result;
 import com.vrinsoft.emsat.databinding.CustomRowSubcategoryBinding;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class SubCategoryListAdapter extends RecyclerView.Adapter<SubCategoryList
     public void onBindViewHolder(ViewHolder holder, final int position)
     {
         holder.mBinding.txtName.setTag(position);
-        holder.mBinding.txtName.setText(getArrayList().get(position).getBroadcastMsg());
+        holder.mBinding.txtName.setText(getArrayList().get(position).getTestName());
         holder.mBinding.txtName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

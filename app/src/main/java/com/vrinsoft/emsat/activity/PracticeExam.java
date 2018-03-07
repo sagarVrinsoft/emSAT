@@ -89,6 +89,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     String mFrom = "";
     boolean is_view_only = false;
     private int pos = 0;
+    private String testID, testName;
 
     @Override
     public Activity getActivity() {
@@ -114,6 +115,15 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
 
         mBundle = getIntent().getExtras();
         if (mBundle != null) {
+            if(mBundle.containsKey(AppConstants.INTENT_TEST_ID))
+            {
+                testID = mBundle.getString(AppConstants.INTENT_TEST_ID);
+            }
+            if(mBundle.containsKey(AppConstants.INTENT_TEST_NAME))
+            {
+                testName = mBundle.getString(AppConstants.INTENT_TEST_NAME);
+                mBinding.toolbar.txtTitle.setText(testName);
+            }
             mFrom = mBundle.getString("FROM");
             if (mFrom.equals("CHECK_ANS")) {
                 is_view_only = true;
@@ -161,9 +171,9 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
         /*params.put(KEY_USER_ID, Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR));
         params.put(KEY_TOKEN, Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR));
         params.put(KEY_TEST_ID, NetworkConstants.QUESTION.TEMP_TEST_ID);*/
-        params.put(KEY_USER_ID, NetworkConstants.QUESTION.TEMP_USERid);
-        params.put(KEY_TOKEN, NetworkConstants.QUESTION.TEMP_TOKEN);
-        params.put(KEY_TEST_ID, NetworkConstants.QUESTION.TEMP_TEST_ID);
+        params.put(KEY_USER_ID, Pref.getUserId(mActivity));
+        params.put(KEY_TOKEN, Pref.getToken(mActivity));
+        params.put(KEY_TEST_ID, testID);
 
         LOGD("PARAMS::", params + "");
 

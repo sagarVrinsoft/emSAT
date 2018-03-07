@@ -70,7 +70,8 @@ public class Home extends MasterActivity {
             @Override
             public void getPosition(int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString(AppConstants.INTENT_NAME, mArrayList.get(position).getModuleName());
+                bundle.putString(AppConstants.INTENT_MODULE_NAME, mArrayList.get(position).getModuleName());
+                bundle.putString(AppConstants.INTENT_MODULE_ID, mArrayList.get(position).getModuleId());
                 NavigationUtils.startActivity(mActivity, SubCategory.class, bundle);
             }
         });
@@ -128,6 +129,7 @@ public class Home extends MasterActivity {
                         if (list.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
                             List<Result> listData = list.get(0).getResult();
                             if (listData != null && listData.size() > 0) {
+                                mArrayList.clear();
                                 mArrayList.addAll(listData);
                                 mAdapter.notifyDataSetChanged();
                                 binding.txtNoDataFound.setVisibility(View.GONE);

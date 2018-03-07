@@ -23,7 +23,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class AppConstants {
-    public static final String INTENT_NAME = "name";
+    public static final String INTENT_MODULE_NAME = "mode_name";
+    public static final String INTENT_MODULE_ID = "mod_id";
+    public static final String INTENT_TEST_ID = "test_id";
+    public static final String INTENT_TEST_NAME = "test_name";
     public static ArrayList<QuestionBean.Result> mQuestionList = null;
 
     public interface QUESTION_TYPE {

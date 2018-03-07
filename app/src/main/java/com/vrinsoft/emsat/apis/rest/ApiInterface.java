@@ -10,6 +10,7 @@ import com.vrinsoft.emsat.apis.model.modules.BinModulesResp;
 import com.vrinsoft.emsat.apis.model.register.BeanRegister;
 import com.vrinsoft.emsat.apis.model.sign_out.BeanLogOut;
 import com.vrinsoft.emsat.apis.model.signin.BeanLogin;
+import com.vrinsoft.emsat.apis.model.submodules.BinSubModulesResp;
 import com.vrinsoft.emsat.apis.model.user_profile.update_profile.BeanUpdateProfile;
 import com.vrinsoft.emsat.apis.model.user_profile.view_profile.BeanViewProfile;
 
@@ -101,5 +102,13 @@ public interface ApiInterface {
     @POST("module_list.php")
     Call<ArrayList<BinModulesResp>> getListOfModules(@Field("user_id") String user_id,
                                            @Field("token") String token
+    );
+
+    @FormUrlEncoded
+    @POST("test_list.php")
+    Call<ArrayList<BinSubModulesResp>> getListOfSubModules(@Field("user_id") String user_id,
+                                                        @Field("module_id") String module_id,
+                                                        @Field("token") String token,
+                                                        @Field("page_no") String page_no
     );
 }

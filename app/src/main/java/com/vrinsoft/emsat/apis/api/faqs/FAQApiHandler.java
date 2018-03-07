@@ -17,7 +17,7 @@ public class FAQApiHandler {
     public void fetchFAQList(String user_id, String token, int pageNo, final OnFAQ onFAQ) {
 
 //        Call<ArrayList<BeanFaqs>> listCall = ApiClient.getApiInterface().fetchFAQList(user_id, token, pageNo);
-        Call<ArrayList<BeanFaqs>> listCall = ApiClient.getApiInterface().fetchFAQList("45", "5jqFlj", pageNo);
+        Call<ArrayList<BeanFaqs>> listCall = ApiClient.getApiInterface().fetchFAQList(user_id, token, pageNo);
 
         listCall.enqueue(new Callback<ArrayList<BeanFaqs>>() {
             @Override

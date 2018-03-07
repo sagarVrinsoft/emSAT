@@ -43,7 +43,7 @@ public class Faq extends MasterActivity implements View.OnClickListener {
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
     private boolean loading = true;
     private int lastPage = 1;
-    private int total_record1 = 0;
+//    private int total_record1 = 0;
     //endregion
 
     @Override
@@ -134,8 +134,8 @@ public class Faq extends MasterActivity implements View.OnClickListener {
 
     private void fetchFAQList(final int pageNo) {
         ViewUtils.showDialog(mActivity, false);
-        faqApiHandler.fetchFAQList(Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, ""),
-                Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, ""), pageNo, new OnFAQ() {
+        faqApiHandler.fetchFAQList(Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, NetworkConstants.QUESTION.TEMP_USERid),
+                Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, NetworkConstants.QUESTION.TEMP_TOKEN), pageNo, new OnFAQ() {
                     @Override
                     public void getResponse(boolean isSuccess, ArrayList<BeanFaqs> beanFaq, String errorMsgSystem) {
                         if (isSuccess) {
@@ -143,7 +143,7 @@ public class Faq extends MasterActivity implements View.OnClickListener {
 
                                 ViewUtils.showDialog(mActivity, true);
 
-                                total_record1 = beanFaq.get(0).getTotalCount();
+//                                total_record1 = beanFaq.get(0).getTotalCount();
 
                                 if (beanFaq.get(0).getResult().size() != 0 && beanFaq.get(0).getResult() != null) {
 
@@ -166,12 +166,12 @@ public class Faq extends MasterActivity implements View.OnClickListener {
                                         //expListAdapter.addAll(beanFaq.get(0).getResult());
                                     }
 
-                                    if (total_record1 == expListAdapter.getArrayList().size()) {
+                                    /*if (total_record1 == expListAdapter.getArrayList().size()) {
                                         loading = false;
                                     } else {
                                         lastPage++;
                                         loading = true;
-                                    }
+                                    }*/
                                 }
                             } else {
                                 ViewUtils.showDialog(mActivity, true);

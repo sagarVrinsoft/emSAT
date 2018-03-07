@@ -59,7 +59,7 @@ public class AppConstants {
     public static boolean isUserPreferedLogOut = false;
     public static String PUSH_NOTIFICATION_INTENT_KEY = "notification_key";
     public static String PUSH_NOTIFICATION_INTENT_VALUE = "notification_value";
-    public static boolean isTestModeOn = true;
+    public static boolean isTestModeOn = false;
     public static String currencySymbol = "$";
     public static void rateUsOnPlayStore(Context context) {
         try {

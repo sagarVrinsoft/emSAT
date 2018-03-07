@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.activity.home.model.category.Result;
+import com.vrinsoft.emsat.apis.model.modules.Result;
 import com.vrinsoft.emsat.databinding.CustomRowCategoryGridBinding;
 
 import java.util.ArrayList;
@@ -54,8 +54,8 @@ public class MainCategoryListAdapter extends RecyclerView.Adapter<MainCategoryLi
             holder.mBinding.llBottomSeparator.setVisibility(View.INVISIBLE);
         }
         holder.mBinding.rlRootView.setTag(position);
-        holder.mBinding.txtCategory.setText(getArrayList().get(position).getBroadcastMsg());
-        holder.mBinding.imgLockUnlock.setImageResource((position%2)==0?R.drawable.ic_lock:R.drawable.ic_unlock);
+        holder.mBinding.txtCategory.setText(getArrayList().get(position).getModuleName());
+        holder.mBinding.imgLockUnlock.setImageResource(position==0?R.drawable.ic_unlock:R.drawable.ic_lock);
         holder.mBinding.rlRootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

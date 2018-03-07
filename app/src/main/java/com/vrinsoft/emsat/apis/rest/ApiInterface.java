@@ -6,6 +6,7 @@ import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
 import com.vrinsoft.emsat.apis.model.cms.BeanCMS;
 import com.vrinsoft.emsat.apis.model.faqs.BeanFaqs;
 import com.vrinsoft.emsat.apis.model.forgot_password.BeanForgotPwd;
+import com.vrinsoft.emsat.apis.model.modules.BinModulesResp;
 import com.vrinsoft.emsat.apis.model.register.BeanRegister;
 import com.vrinsoft.emsat.apis.model.sign_out.BeanLogOut;
 import com.vrinsoft.emsat.apis.model.signin.BeanLogin;
@@ -94,5 +95,11 @@ public interface ApiInterface {
     @POST("logout.php")
     Call<ArrayList<BeanLogOut>> logOut(@Field("user_id") String user_id,
                                        @Field("token") String token
+    );
+
+    @FormUrlEncoded
+    @POST("module_list.php")
+    Call<ArrayList<BinModulesResp>> getListOfModules(@Field("user_id") String user_id,
+                                           @Field("token") String token
     );
 }

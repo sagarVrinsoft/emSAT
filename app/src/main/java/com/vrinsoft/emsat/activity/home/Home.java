@@ -12,8 +12,13 @@ import android.view.View;
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.PracticeExam;
-import com.vrinsoft.emsat.activity.home.model.category.Result;
 import com.vrinsoft.emsat.activity.subcategory.SubCategory;
+import com.vrinsoft.emsat.apis.model.cms.BeanCMS;
+import com.vrinsoft.emsat.apis.model.modules.BinModulesResp;
+import com.vrinsoft.emsat.apis.model.modules.Result;
+import com.vrinsoft.emsat.apis.rest.ApiClient;
+import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
+import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivityHomeBinding;
 import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.AppConstants;
@@ -24,6 +29,11 @@ import com.vrinsoft.emsat.utils.Pref;
 import com.vrinsoft.emsat.utils.ViewUtils;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Home extends MasterActivity {
@@ -50,7 +60,7 @@ public class Home extends MasterActivity {
         mActivity = this;
         director = new Director(this);
         setUIConfig();
-        fetchNotificationList(1);
+        fetchData();
     }
 
     private void setUIConfig() {
@@ -60,7 +70,7 @@ public class Home extends MasterActivity {
             @Override
             public void getPosition(int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString(AppConstants.INTENT_NAME, mArrayList.get(position).getBroadcastMsg());
+                bundle.putString(AppConstants.INTENT_NAME, mArrayList.get(position).getModuleName());
                 NavigationUtils.startActivity(mActivity, SubCategory.class, bundle);
             }
         });
@@ -86,72 +96,59 @@ public class Home extends MasterActivity {
                 toggleDrawer();
             }
         });
-        /*masterBinding.toolbar.imgTopBanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("FROM", "NEWEST");
-                NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
-            }
-        });*/
     }
 
-    private void fetchNotificationList(int pageNo) {
+    private void fetchData() {
 
         if (AppConstants.isTestModeOn) {
             mArrayList.clear();
             for (int i = 1; i <= 4; i++) {
                 Result result = new Result();
-                result.setBroadcastMsg("Subject " + i);
+                result.setModuleName("Subject " + i);
                 mArrayList.add(result);
             }
             mAdapter.notifyDataSetChanged();
             binding.txtNoDataFound.setVisibility(View.GONE);
             binding.rvGridModules.setVisibility(View.VISIBLE);
-        } else {
-            // call APi
         }
+        else
+        {
+                ViewUtils.showDialog(mActivity, false);
+                Call<ArrayList<BinModulesResp>> listCall =
+                        ApiClient.getApiInterface().getListOfModules(
+                                Pref.getUserId(mActivity),
+                                Pref.getToken(mActivity)
+                        );
 
-        /*ViewUtils.showDialog(mActivity, false);
-        categoryListApiHandler.fetchCatData(Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_USER_ID, ""),
-                Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_TOKEN, ""),
-                pageNo, Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_USER_TYPE, 0), new OnCatList() {
+                listCall.enqueue(new Callback<ArrayList<BinModulesResp>>() {
                     @Override
-                    public void getResponse(boolean isSuccess, ArrayList<com.vrinsoft.emsat.activity.home.model.category.BeanNotificationList> beanNotificationList, String errorMsgSystem) {
+                    public void onResponse(Call<ArrayList<BinModulesResp>> call, Response<ArrayList<BinModulesResp>> response) {
+                        ArrayList<BinModulesResp> list = response.body();
                         ViewUtils.showDialog(mActivity, true);
-                        if (isSuccess) {
-                            if (beanNotificationList.get(0).getCode() == AppConstants.API_CODE_RESPONSE_SUCCESS) {
-                                mArrayList.clear();
-                                mArrayList.addAll(beanNotificationList.get(0).getResult());
-                                if (mArrayList.size() > 0) {
-                                    binding.txtNoDataFound.setVisibility(View.GONE);
-                                    binding.rvGridModules.setVisibility(View.VISIBLE);
-                                    mAdapter.notifyDataSetChanged();
-
-                                } else {
-                                    binding.txtNoDataFound.setVisibility(View.VISIBLE);
-                                    binding.rvGridModules.setVisibility(View.GONE);
-                                }
+                        if (list.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
+                            List<Result> listData = list.get(0).getResult();
+                            if (listData != null && listData.size() > 0) {
+                                mArrayList.addAll(listData);
+                                mAdapter.notifyDataSetChanged();
+                                binding.txtNoDataFound.setVisibility(View.GONE);
+                                binding.rvGridModules.setVisibility(View.VISIBLE);
                             } else {
-                                if (AppConstants.isTestModeOn) {
-                                    mArrayList.clear();
-                                    for (int i = 1; i <= 4; i++) {
-                                        Result result = new Result();
-                                        result.setBroadcastMsg("Subject " + i);
-                                        mArrayList.add(result);
-                                    }
-                                    mAdapter.notifyDataSetChanged();
-                                    binding.txtNoDataFound.setVisibility(View.GONE);
-                                    binding.rvGridModules.setVisibility(View.VISIBLE);
-                                } else {
-                                    binding.txtNoDataFound.setVisibility(View.VISIBLE);
-                                    binding.rvGridModules.setVisibility(View.GONE);
-                                }
+                                binding.txtNoDataFound.setVisibility(View.VISIBLE);
+                                binding.rvGridModules.setVisibility(View.GONE);
                             }
-                        } else {
-                            ViewUtils.showToast(mActivity, errorMsgSystem, null);
+                        }
+                        else {
+                            ViewUtils.showToast(mActivity, list.get(0).getMessage(), null);
                         }
                     }
-                });*/
+
+                    @Override
+                    public void onFailure(Call<ArrayList<BinModulesResp>> call, Throwable t) {
+                        ViewUtils.showDialog(mActivity, true);
+                        ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
+                    }
+                });
+        }
+
     }
 }

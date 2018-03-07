@@ -168,9 +168,6 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
         ViewUtils.showDialog(mActivity, false);
 
         HashMap<String, String> params = new HashMap<>();
-        /*params.put(KEY_USER_ID, Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR));
-        params.put(KEY_TOKEN, Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR));
-        params.put(KEY_TEST_ID, NetworkConstants.QUESTION.TEMP_TEST_ID);*/
         params.put(KEY_USER_ID, Pref.getUserId(mActivity));
         params.put(KEY_TOKEN, Pref.getToken(mActivity));
         params.put(KEY_TEST_ID, testID);
@@ -591,10 +588,8 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     }
 
     void getFinalScore() {
-
+        int obtained_score = 0, total_score = 0, skipped_ans = 0, correct_ans = 0, wrong_ans = 0;
         if (mArrayList != null && mArrayList.size() > 0) {
-
-            int obtained_score = 0, total_score = 0, skipped_ans = 0, correct_ans = 0, wrong_ans = 0;
             for (int i = 0; i < mArrayList.size(); i++) {
                 QuestionBean.Result result = mArrayList.get(i);
                 total_score = total_score + Integer.parseInt(mArrayList.get(i).getQuestionMark());
@@ -648,15 +643,15 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
 
             AppConstants.mQuestionList = mArrayList;
 
-            startActivity(new Intent(mActivity, ExamResult.class)
-                    .putExtra(TOTAL_SCORE, total_score)
-                    .putExtra(OBTAINED_SCORE, obtained_score)
-                    .putExtra(TOTAL_ANS, mArrayList.size())
-                    .putExtra(SKIPPED_ANS, skipped_ans)
-                    .putExtra(CORRECT_ANS, correct_ans)
-                    .putExtra(WRONG_ANS, wrong_ans));
-            finish();
         }
+        startActivity(new Intent(mActivity, ExamResult.class)
+                .putExtra(TOTAL_SCORE, total_score)
+                .putExtra(OBTAINED_SCORE, obtained_score)
+                .putExtra(TOTAL_ANS, mArrayList==null?0:mArrayList.size())
+                .putExtra(SKIPPED_ANS, skipped_ans)
+                .putExtra(CORRECT_ANS, correct_ans)
+                .putExtra(WRONG_ANS, wrong_ans));
+        finish();
 
     }
 

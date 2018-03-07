@@ -192,15 +192,25 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
 //                                mTotalCount = mainArray.get(0).getTotalRecords();
                                 mArrayList = new ArrayList<>();
                                 mArrayList = mainArray.get(0).getResult();
-                                setData();
-                                startCountDown();
+                                if(mArrayList!=null && mArrayList.size()>0) {
+                                    setData();
+                                    startCountDown();
+                                }
+                                else
+                                {
+                                    showToast(mActivity, mainArray.get(0).getMessage(), null);
+                                }
 
-                            } else if (mainArray.get(0).getCode() == 0) {
+                            } /*else if (mainArray.get(0).getCode() == 0) {
                                 showToast(mActivity, "No data found", null);
                             } else if (mainArray.get(0).getCode() == -2) {
                                 showToast(mActivity, "something_went_wrong_please_login_again", null);
                             } else if (mainArray.get(0).getCode() == -3) {//Account inactive
                                 showToast(mActivity, "your_account_inactive", null);
+                            }*/
+                            else
+                            {
+                                showToast(mActivity, mainArray.get(0).getMessage(), null);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();

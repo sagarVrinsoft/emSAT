@@ -1,6 +1,7 @@
 package com.vrinsoft.emsat;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -26,6 +27,8 @@ import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.ConnectivityReceiver;
 import com.vrinsoft.emsat.utils.NavigationUtils;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public abstract class MasterActivity extends AppCompatActivity
         implements ConnectivityReceiver.ConnectivityReceiverListener,
@@ -247,6 +250,11 @@ public abstract class MasterActivity extends AppCompatActivity
                     }
                 });
     }*/
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public void onBackPressed() {

@@ -2,6 +2,7 @@ package com.vrinsoft.emsat.activity.signin;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,8 @@ import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.utils.Validator;
 import com.vrinsoft.emsat.utils.ViewUtils;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.vrinsoft.emsat.utils.NavigationUtils.finishCurrentActivity;
 import static com.vrinsoft.emsat.utils.Validator.checkValidation;
@@ -216,6 +219,11 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         });
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

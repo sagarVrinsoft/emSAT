@@ -1,6 +1,7 @@
 package com.vrinsoft.emsat.activity.cms;
 
 import android.app.Activity;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CMS extends AppCompatActivity implements View.OnClickListener {
 
@@ -104,5 +106,10 @@ public class CMS extends AppCompatActivity implements View.OnClickListener {
                 NavigationUtils.finishCurrentActivity(this);
                 break;
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

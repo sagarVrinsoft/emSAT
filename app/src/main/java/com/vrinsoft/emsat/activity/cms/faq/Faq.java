@@ -1,6 +1,7 @@
 package com.vrinsoft.emsat.activity.cms.faq;
 
 import android.app.Activity;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,8 @@ import com.vrinsoft.emsat.utils.Pref;
 import com.vrinsoft.emsat.utils.ViewUtils;
 
 import java.util.ArrayList;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Faq extends MasterActivity implements View.OnClickListener {
 
@@ -189,5 +192,10 @@ public class Faq extends MasterActivity implements View.OnClickListener {
                 ((MasterActivity) mActivity).toggleDrawer();
                 break;
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

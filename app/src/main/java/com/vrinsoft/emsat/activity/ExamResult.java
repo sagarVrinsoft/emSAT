@@ -63,11 +63,6 @@ public class ExamResult extends AppCompatActivity implements View.OnClickListene
     }
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgBack:
@@ -89,5 +84,10 @@ public class ExamResult extends AppCompatActivity implements View.OnClickListene
                 finish();
                 break;
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

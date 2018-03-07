@@ -1,6 +1,7 @@
 package com.vrinsoft.emsat.activity.signup;
 
 import android.app.Activity;
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import com.vrinsoft.emsat.activity.home.Home;
 import com.vrinsoft.emsat.databinding.RegisterBinding;
 import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.utils.ViewUtils;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.vrinsoft.emsat.utils.AppConstants.isValidPhoneNumber;
 import static com.vrinsoft.emsat.utils.NavigationUtils.finishCurrentActivity;
@@ -221,6 +224,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 }
             }
         });
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
     @Override

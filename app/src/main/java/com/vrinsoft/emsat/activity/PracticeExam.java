@@ -3,6 +3,7 @@ package com.vrinsoft.emsat.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -47,6 +48,7 @@ import java.util.HashMap;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.vrinsoft.emsat.apis.rest.NetworkConstants.KEY_TOKEN;
 import static com.vrinsoft.emsat.apis.rest.NetworkConstants.KEY_USER_ID;
@@ -808,5 +810,10 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
             return true;
         }
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

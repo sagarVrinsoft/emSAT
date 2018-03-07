@@ -11,8 +11,6 @@ import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.PracticeExam;
 import com.vrinsoft.emsat.activity.subcategory.model.BeanNotificationList;
 import com.vrinsoft.emsat.activity.subcategory.model.Result;
-import com.vrinsoft.emsat.apis.api.subcategory_list.OnSubCatList;
-import com.vrinsoft.emsat.apis.api.subcategory_list.SubCategoryListApiHandler;
 import com.vrinsoft.emsat.databinding.ActivityMytestBinding;
 import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.AppConstants;
@@ -30,7 +28,6 @@ public class MyTestActivity extends MasterActivity {
     Activity mActivity;
     ArrayList<Result> mArrayList = new ArrayList<>();
     MyTestListAdapter mAdapter;
-    private SubCategoryListApiHandler subCategoryListApiHandler;
     private LinearLayoutManager linearLayoutManager;
 
     @Override
@@ -50,7 +47,6 @@ public class MyTestActivity extends MasterActivity {
         mActivity = this;
         setDrawerVisible(false);
         director = new Director(this);
-        subCategoryListApiHandler = new SubCategoryListApiHandler();
         setUIConfig();
         fetchNotificationList(1);
     }

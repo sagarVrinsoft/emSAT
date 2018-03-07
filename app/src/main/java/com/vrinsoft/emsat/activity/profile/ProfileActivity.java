@@ -15,9 +15,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.vrinsoft.emsat.EmsatApplication;
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
+import com.vrinsoft.emsat.apis.model.user_profile.update_profile.BeanUpdateProfile;
 import com.vrinsoft.emsat.apis.model.user_profile.view_profile.BeanViewProfile;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
@@ -92,6 +94,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
     private void setListeners() {
         profileBinding.ctMale.setOnClickListener(this);
         profileBinding.ctFemale.setOnClickListener(this);
+        profileBinding.txtSubmit.setOnClickListener(this);
         profileBinding.etFN.addTextChangedListener(new MyTextWatcher(profileBinding.etFN));
         profileBinding.etEmail.addTextChangedListener(new MyTextWatcher(profileBinding.etEmail));
         profileBinding.etMobileNo.addTextChangedListener(new MyTextWatcher(profileBinding.etMobileNo));
@@ -403,6 +406,52 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                     mGenderSel = AppConstants.GENDER.FEMALE;
                 }
                 break;
+            case R.id.txtSubmit:
+                callApiToUpdateProfile();
+                break;
         }
+    }
+
+    private void callApiToUpdateProfile()
+    {
+        ViewUtils.showDialog(mActivity, false);
+        String name = profileBinding.etFN.getText().toString().trim();
+        String mobile = profileBinding.etMobileNo.getText().toString().trim();
+        String email = profileBinding.etEmail.getText().toString().trim();
+        String dob = profileBinding.txtDOB.getText().toString().trim();
+        int gender = mGenderSel;
+
+        Call<ArrayList<BeanUpdateProfile>> listCall =
+                ApiClient.getApiInterface().updateProfile
+                        (Pref.getUserId(mActivity),
+                                name,
+                                mobile,
+                                email,
+                                dob,
+                                Pref.getProfileImage(mActivity),
+                                gender,
+                                Pref.getToken(mActivity));
+
+        listCall.enqueue(new Callback<ArrayList<BeanUpdateProfile>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BeanUpdateProfile>> call, Response<ArrayList<BeanUpdateProfile>> response) {
+                ArrayList<BeanUpdateProfile> beanUpdateProfile = response.body();
+
+                ViewUtils.showDialog(mActivity, true);
+                if (beanUpdateProfile.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS)
+                {
+                    ViewUtils.showToast(mActivity, beanUpdateProfile.get(0).getMessage(), null);
+                    finish();
+                } else {
+                    ViewUtils.showToast(mActivity, beanUpdateProfile.get(0).getMessage(), null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<BeanUpdateProfile>> call, Throwable t) {
+                ViewUtils.showDialog(mActivity, true);
+                ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
+            }
+        });
     }
 }

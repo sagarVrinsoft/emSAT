@@ -14,8 +14,6 @@ import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.PracticeExam;
 import com.vrinsoft.emsat.activity.home.model.category.Result;
 import com.vrinsoft.emsat.activity.subcategory.SubCategory;
-import com.vrinsoft.emsat.apis.api.category.subcategory_list.CategoryListApiHandler;
-import com.vrinsoft.emsat.apis.api.category.subcategory_list.OnCatList;
 import com.vrinsoft.emsat.databinding.ActivityHomeBinding;
 import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.AppConstants;
@@ -33,7 +31,6 @@ public class Home extends MasterActivity {
     Activity mActivity;
     MainCategoryListAdapter mAdapter;
     ArrayList<Result> mArrayList = new ArrayList<>();
-    private CategoryListApiHandler categoryListApiHandler;
     private LinearLayoutManager linearLayoutManager;
 
     @Override
@@ -52,7 +49,6 @@ public class Home extends MasterActivity {
         super.onCreate(savedInstanceState);
         mActivity = this;
         director = new Director(this);
-        categoryListApiHandler = new CategoryListApiHandler();
         setUIConfig();
         fetchNotificationList(1);
     }

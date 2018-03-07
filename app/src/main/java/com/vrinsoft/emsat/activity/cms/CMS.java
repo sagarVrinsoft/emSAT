@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.apis.api.cms.CMSApiHandler;
-import com.vrinsoft.emsat.apis.api.cms.OnCMS;
 import com.vrinsoft.emsat.apis.model.cms.BeanCMS;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;

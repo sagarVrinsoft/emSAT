@@ -45,13 +45,13 @@ public class BeanUpdateProfile {
         @SerializedName("user_id")
         @Expose
         private String userId;
-        @SerializedName("first_name")
+        @SerializedName("name")
         @Expose
-        private String firstName;
+        private String name;
         @SerializedName("last_name")
         @Expose
         private String lastName;
-        @SerializedName("mobile_no")
+        @SerializedName("mobile_number")
         @Expose
         private String mobileNo;
         @SerializedName("country_code")
@@ -81,9 +81,9 @@ public class BeanUpdateProfile {
         @SerializedName("profession")
         @Expose
         private String profession;
-        @SerializedName("user_image")
+        @SerializedName("image")
         @Expose
-        private String userImage;
+        private String image;
         @SerializedName("riding_companion_preferences")
         @Expose
         private String ridingCompanionPreferences;
@@ -120,12 +120,12 @@ public class BeanUpdateProfile {
             this.userId = userId;
         }
 
-        public String getFirstName() {
-            return firstName;
+        public String getName() {
+            return name;
         }
 
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
+        public void setName(String firstName) {
+            this.name = firstName;
         }
 
         public String getLastName() {
@@ -216,12 +216,12 @@ public class BeanUpdateProfile {
             this.profession = profession;
         }
 
-        public String getUserImage() {
-            return userImage;
+        public String getImage() {
+            return image;
         }
 
-        public void setUserImage(String userImage) {
-            this.userImage = userImage;
+        public void setImage(String image) {
+            this.image = image;
         }
 
         public String getRidingCompanionPreferences() {

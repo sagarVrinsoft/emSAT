@@ -63,42 +63,22 @@ public interface ApiInterface {
                                                        @Field("new_password") String new_password
     );
 
-    //region Update Profile
     @FormUrlEncoded
     @POST("update_profile.php")
     Call<ArrayList<BeanUpdateProfile>> updateProfile(@Field("user_id") String user_id,
-                                                     @Field("f_name") String f_name,
-                                                     @Field("l_name") String l_name,
-                                                     @Field("profession") String profession,
+                                                     @Field("name") String name,
+                                                     @Field("mobile_number") String mobile_number,
+                                                     @Field("email") String email,
                                                      @Field("dob") String dob,
-                                                     @Field("metro_area") String metro_area,
-                                                     @Field("mobile_no") String mobile_no,
                                                      @Field("image") String image,
                                                      @Field("gender") int gender,
-                                                     @Field("prefers_ride") int prefers_ride,
-                                                     @Field("allow_rider") int allow_rider,
-                                                     @Field("emergecy_mobile_number") String emergecy_mobile_number,
-                                                     @Field("vehicle_model") String vehicle_model,
-                                                     @Field("vehicle_year") String vehicle_year,
-                                                     @Field("vehicle_plate_no") String vehicle_plate_no,
-                                                     @Field("vehicle_state") String vehicle_state,
                                                      @Field("token") String token);
 
     @FormUrlEncoded
     @POST("view_profile.php")
     Call<ArrayList<BeanViewProfile>> viewProfile(@Field("user_id") String user_id,
                                                  @Field("token") String token);
-    //endregion
 
-    // region Notification List
-    @FormUrlEncoded
-    @POST("notifications_list.php")
-    Call<ArrayList<BeanNotificationList>> fetchNotificationList(@Field("user_id") String user_id,
-                                                                @Field("token") String token,
-                                                                @Field("page_no") int page_no,
-                                                                @Field("login_roll") int login_roll
-    );
-    // region FAQS
     @FormUrlEncoded
     @POST("view_faqs.php")
     Call<ArrayList<BeanFaqs>> fetchFAQList(@Field("user_id") String user_id,
@@ -106,11 +86,9 @@ public interface ApiInterface {
                                            @Field("page_no") int page_no
     );
 
-    // region CMS
     @FormUrlEncoded
     @POST("cms.php")
     Call<ArrayList<BeanCMS>> cms(@Field("cms_id") String cms_id);
-    //endregion
 
     @FormUrlEncoded
     @POST("logout.php")

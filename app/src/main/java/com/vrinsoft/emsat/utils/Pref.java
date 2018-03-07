@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
+import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 
 /**
  * Created by pratik on 2/5/17.
@@ -190,4 +191,44 @@ public class Pref {
         return result;
     }
     //  ======================= RUNTIME PERMISSIONS =====================================
+    public static String getUserId(Context context)
+    {
+        return Pref.getValue(context, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR);
+    }
+
+    public static String getName(Context context)
+    {
+        return Pref.getValue(context, AppPreference.USER_INFO.NAME, AppPreference.DEFAULT_STR);
+    }
+
+    public static String getMobileNo(Context context)
+    {
+        return Pref.getValue(context, AppPreference.USER_INFO.MOBILE_NO, AppPreference.DEFAULT_STR);
+    }
+
+    public static String getEmail(Context context)
+    {
+        return Pref.getValue(context, AppPreference.USER_INFO.EMAIL_ID, AppPreference.DEFAULT_STR);
+    }
+
+    public static String getDob(Context context)
+    {
+        return Pref.getValue(context, AppPreference.USER_INFO.DOB, AppPreference.DEFAULT_STR);
+    }
+
+    public static String getProfileImage(Context context)
+    {
+        return Pref.getValue(context, AppPreference.USER_INFO.USER_PROFILE, AppPreference.DEFAULT_STR);
+    }
+
+    public static int getGender(Context context)
+    {
+        return Pref.getValue(context, AppPreference.USER_INFO.GENDER, AppConstants.GENDER.MALE);
+    }
+
+    public static String getToken(Context context)
+    {
+        return Pref.getValue(context, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR);
+    }
+
 }

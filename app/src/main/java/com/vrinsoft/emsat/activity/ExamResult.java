@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.databinding.ActivityExamResultBinding;
 import com.vrinsoft.emsat.utils.NavigationUtils;
@@ -20,7 +21,7 @@ import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.TOTAL_ANS;
 import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.TOTAL_SCORE;
 import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.WRONG_ANS;
 
-public class ExamResult extends AppCompatActivity implements View.OnClickListener {
+public class ExamResult extends MasterActivity implements View.OnClickListener {
 
     ActivityExamResultBinding mBinding;
     Activity mActivity;
@@ -28,16 +29,27 @@ public class ExamResult extends AppCompatActivity implements View.OnClickListene
     int obtained_score = 0, total_score = 0, total_ans = 0, skipped_ans = 0, correct_ans = 0, wrong_ans = 0;
 
     @Override
+    public Activity getActivity() {
+        return this;
+    }
+
+    @Override
+    public View getContentLayout() {
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_exam_result, null, false);
+        return mBinding.getRoot();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_exam_result);
+//        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_exam_result);
         mActivity = ExamResult.this;
         mBundle = getIntent().getExtras();
 
-        mBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
-        mBinding.toolbar.txtRight.setVisibility(View.VISIBLE);
-        mBinding.toolbar.txtRight.setText(getString(R.string.done));
-        mBinding.toolbar.txtTitle.setText(getString(R.string.score_card));
+        masterBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
+        masterBinding.toolbar.txtRight.setVisibility(View.VISIBLE);
+        masterBinding.toolbar.txtRight.setText(getString(R.string.done));
+        masterBinding.toolbar.txtTitle.setText(getString(R.string.score_card));
 
         if (mBundle != null) {
 
@@ -57,8 +69,8 @@ public class ExamResult extends AppCompatActivity implements View.OnClickListene
 
         mBinding.txtReTake.setOnClickListener(this);
         mBinding.txtCheckAns.setOnClickListener(this);
-        mBinding.toolbar.txtRight.setOnClickListener(this);
-        mBinding.toolbar.imgBack.setOnClickListener(this);
+        masterBinding.toolbar.txtRight.setOnClickListener(this);
+        masterBinding.toolbar.imgBack.setOnClickListener(this);
 
     }
 

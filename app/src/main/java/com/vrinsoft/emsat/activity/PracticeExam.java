@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.DragEvent;
@@ -22,6 +21,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.vrinsoft.emsat.Adapter.WordsAdapter;
+import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.apis.handler_interface.ApiHandler;
 import com.vrinsoft.emsat.apis.handler_interface.OnResponse;
@@ -71,7 +71,7 @@ import static com.vrinsoft.emsat.utils.ViewUtils.showDoubleBtnAlert;
 import static com.vrinsoft.emsat.utils.ViewUtils.showSingleBtnAlert;
 import static com.vrinsoft.emsat.utils.ViewUtils.showToast;
 
-public class PracticeExam extends AppCompatActivity implements View.OnClickListener {
+public class PracticeExam extends MasterActivity implements View.OnClickListener {
     ApiHandler apiHandler;
     Activity mActivity;
     ArrayList<QuestionBean.Result> mArrayList;
@@ -91,23 +91,34 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
     private int pos = 0;
 
     @Override
+    public Activity getActivity() {
+        return this;
+    }
+
+    @Override
+    public View getContentLayout() {
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_practice_exam, null, false);
+        return mBinding.getRoot();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_practice_exam);
+//        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_practice_exam);
 
         mActivity = PracticeExam.this;
         apiHandler = new ApiHandler();
         tagLayout = (TagLayout) findViewById(R.id.mFrameLayout);
 
-        mBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
-        mBinding.toolbar.txtTitle.setText(getString(R.string.practice_exam));
+        masterBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
+        masterBinding.toolbar.txtTitle.setText(getString(R.string.practice_exam));
 
         mBundle = getIntent().getExtras();
         if (mBundle != null) {
             mFrom = mBundle.getString("FROM");
             if (mFrom.equals("CHECK_ANS")) {
                 is_view_only = true;
-                mBinding.toolbar.txtRight.setVisibility(View.GONE);
+                masterBinding.toolbar.txtRight.setVisibility(View.GONE);
                 mBinding.headerBar.setVisibility(View.GONE);
 
                 if (AppConstants.mQuestionList != null && AppConstants.mQuestionList.size() > 0)
@@ -115,7 +126,7 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
 
             } else {
                 is_view_only = false;
-                mBinding.toolbar.txtRight.setVisibility(View.VISIBLE);
+                masterBinding.toolbar.txtRight.setVisibility(View.VISIBLE);
                 mBinding.headerBar.setVisibility(View.VISIBLE);
             }
         }
@@ -139,8 +150,8 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
         mBinding.txtNext.setOnClickListener(this);
         mBinding.txtPrev.setOnClickListener(this);
         mBinding.llHint.setOnClickListener(this);
-        mBinding.toolbar.txtRight.setOnClickListener(this);
-        mBinding.toolbar.imgBack.setOnClickListener(this);
+        masterBinding.toolbar.txtRight.setOnClickListener(this);
+        masterBinding.toolbar.imgBack.setOnClickListener(this);
     }
 
     private void getQuestionList() {
@@ -346,10 +357,10 @@ public class PracticeExam extends AppCompatActivity implements View.OnClickListe
                 mBinding.txtPrev.setVisibility(View.VISIBLE);
                 if (pos == mArrayList.size() - 1) {
                     mBinding.txtNext.setVisibility(View.INVISIBLE);
-                    mBinding.toolbar.txtRight.setText(getString(R.string.done));
+                    masterBinding.toolbar.txtRight.setText(getString(R.string.done));
                 } else {
                     mBinding.txtNext.setVisibility(View.VISIBLE);
-                    mBinding.toolbar.txtRight.setText(getString(R.string.quit));
+                    masterBinding.toolbar.txtRight.setText(getString(R.string.quit));
                 }
             } else {
                 mBinding.txtPrev.setVisibility(View.INVISIBLE);

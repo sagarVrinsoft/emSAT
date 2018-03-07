@@ -104,8 +104,6 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_practice_exam);
-
         mActivity = PracticeExam.this;
         apiHandler = new ApiHandler();
         tagLayout = (TagLayout) findViewById(R.id.mFrameLayout);

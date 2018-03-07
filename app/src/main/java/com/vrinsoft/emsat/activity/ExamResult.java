@@ -42,7 +42,6 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_exam_result);
         mActivity = ExamResult.this;
         mBundle = getIntent().getExtras();
 

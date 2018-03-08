@@ -259,7 +259,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                 }
                 break;
             case R.id.txtRight:
-                if (pos == mArrayList.size() - 1) {
+                if (mArrayList!=null && pos == mArrayList.size() - 1) {
                     stopCountDown();
                     getFinalScore();
                 } else {

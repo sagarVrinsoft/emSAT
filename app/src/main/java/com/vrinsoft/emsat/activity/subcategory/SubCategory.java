@@ -9,6 +9,7 @@ import android.view.View;
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.PracticeExam;
+import com.vrinsoft.emsat.activity.mytest.MyTestActivity;
 import com.vrinsoft.emsat.activity.subcategory.model.BeanNotificationList;
 import com.vrinsoft.emsat.activity.subcategory.model.Result;
 import com.vrinsoft.emsat.apis.api.subcategory_list.OnSubCatList;
@@ -67,9 +68,7 @@ public class SubCategory extends MasterActivity
                 PERCENT = (position+1)*vOf1;
                 binding.progressBarChart.setPercent(PERCENT);*/
 
-                Bundle bundle = new Bundle();
-                bundle.putString("FROM", "NEWEST");
-                NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
+                NavigationUtils.startActivity(mActivity, MyTestActivity.class, null);
             }
         });
         binding.rvSubCategory.setAdapter(mAdapter);

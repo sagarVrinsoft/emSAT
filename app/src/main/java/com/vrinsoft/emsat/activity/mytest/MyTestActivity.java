@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
+import com.vrinsoft.emsat.activity.PracticeExam;
 import com.vrinsoft.emsat.activity.subcategory.model.BeanNotificationList;
 import com.vrinsoft.emsat.activity.subcategory.model.Result;
 import com.vrinsoft.emsat.apis.api.subcategory_list.OnSubCatList;
@@ -60,7 +61,9 @@ public class MyTestActivity extends MasterActivity {
         mAdapter = new MyTestListAdapter(mActivity, mArrayList, new MyTestListAdapter.OnClickable() {
             @Override
             public void getPosition(int position) {
-                ViewUtils.showToast(mActivity, ""+position, null);
+                Bundle bundle = new Bundle();
+                bundle.putString("FROM", "NEWEST");
+                NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
             }
         });
         binding.rvSubCategory.setAdapter(mAdapter);

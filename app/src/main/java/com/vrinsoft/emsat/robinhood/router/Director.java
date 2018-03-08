@@ -37,9 +37,6 @@ public class Director {
                 case AppConstants.MENU_ITEM.MENU_ITEM_PROFILE:
                     NavigationUtils.startActivity(context, ProfileActivity.class, bundle);
                     break;
-                case AppConstants.MENU_ITEM.MENU_ITEM_MY_TEST:
-                    NavigationUtils.startActivity(context, MyTestActivity.class, bundle);
-                    break;
                 case AppConstants.MENU_ITEM.MENU_ITEM_HELP:
                     NavigationUtils.startActivity(context, Help.class, bundle);
                     break;

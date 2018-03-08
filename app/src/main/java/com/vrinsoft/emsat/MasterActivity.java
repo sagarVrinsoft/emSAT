@@ -92,18 +92,15 @@ public abstract class MasterActivity extends AppCompatActivity
             AppConstants.cur_sel_pos = AppConstants.MENU_ITEM.MENU_ITEM_HOME;
             masterBinding.toolbar.toolbarActionbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.transparent));
             masterBinding.toolbar.imgTopBanner.setVisibility(View.VISIBLE);
-//            masterBinding.toolbar.imgBlurred.setVisibility(View.GONE);
         }
         else if (getActivity() instanceof ProfileActivity) {
             masterBinding.toolbar.toolbarActionbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.transparent));
             masterBinding.toolbar.imgTopBanner.setVisibility(View.GONE);
-//            masterBinding.toolbar.imgBlurred.setVisibility(View.VISIBLE);
         }
         else
         {
             masterBinding.toolbar.toolbarActionbar.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.colorPrimary));
             masterBinding.toolbar.imgTopBanner.setVisibility(View.GONE);
-//            masterBinding.toolbar.imgBlurred.setVisibility(View.GONE);
         }
     }
 

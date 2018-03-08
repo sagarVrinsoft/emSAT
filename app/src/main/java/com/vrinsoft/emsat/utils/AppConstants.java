@@ -245,9 +245,9 @@ public class AppConstants {
     public interface MENU_ITEM {
         public static int MENU_ITEM_HOME = 0;
         public static int MENU_ITEM_PROFILE = 1;
-        public static int MENU_ITEM_MY_TEST = 2;
-        public static int MENU_ITEM_HELP = 3;
-        public static int MENU_ITEM_SIGN_OUT = 4;
+//        public static int MENU_ITEM_MY_TEST = 2;
+        public static int MENU_ITEM_HELP = 2;
+        public static int MENU_ITEM_SIGN_OUT = 3;
     }
 
     public interface GENDER {

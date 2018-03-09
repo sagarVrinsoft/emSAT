@@ -78,14 +78,13 @@ public class MyTestActivity extends MasterActivity {
     public void setToolBarConfig() {
         masterBinding.toolbar.txtTitle.setVisibility(View.VISIBLE);
         masterBinding.toolbar.txtTitle.setText(getString(R.string.menu_my_test));
-        masterBinding.toolbar.imgHome.setVisibility(View.VISIBLE);
-        masterBinding.toolbar.imgHome.setImageResource(R.drawable.ic_home_black);
-        masterBinding.toolbar.imgBack.setVisibility(View.GONE);
+        masterBinding.toolbar.imgHome.setVisibility(View.GONE);
+        masterBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
         masterBinding.toolbar.rlNotification.setVisibility(View.GONE);
-        masterBinding.toolbar.imgHome.setOnClickListener(new View.OnClickListener() {
+        masterBinding.toolbar.imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleDrawer();
+                NavigationUtils.finishCurrentActivity(mActivity);
             }
         });
     }

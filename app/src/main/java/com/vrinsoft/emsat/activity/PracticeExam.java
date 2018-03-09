@@ -148,6 +148,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
         mBinding.txtNext.setOnClickListener(this);
         mBinding.txtPrev.setOnClickListener(this);
         mBinding.llHint.setOnClickListener(this);
+        mBinding.llResetDraggableOptions.setOnClickListener(this);
         masterBinding.toolbar.txtRight.setOnClickListener(this);
         masterBinding.toolbar.imgBack.setOnClickListener(this);
     }
@@ -244,7 +245,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                 if (!is_view_only)
                     setFillData();
 
-                if (pos < mArrayList.size() - 1) {
+                if (mArrayList!=null && pos < mArrayList.size() - 1) {
                     pos++;
                     setData();
                 }
@@ -275,11 +276,14 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                 }
                 break;
             case R.id.llHint:
-//                showHintDialog();
-                if (questionBean.getQuestionType().equals(FILL_BLANK))
+                showHintDialog();
+                /*if (questionBean.getQuestionType().equals(FILL_BLANK))
                     reset();
                 else
-                    showHintDialog();
+                    showHintDialog();*/
+                break;
+            case R.id.llResetDraggableOptions:
+                reset();
                 break;
         }
     }
@@ -330,7 +334,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                         getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                getFinalScore();
+//                                getFinalScore();
                             }
                         });
             }
@@ -340,7 +344,8 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
 
     void stopCountDown() {
         mBinding.circleCountDownView.setProgress(endTime, endTime);
-        countDownTimer.cancel();
+        if(countDownTimer!=null)
+            countDownTimer.cancel();
     }
 
     void setData() {
@@ -367,6 +372,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
             String type = questionBean.getQuestionType();
             switch (type) {
                 case MCQ:
+                    mBinding.llResetDraggableOptions.setVisibility(View.GONE);
                     mBinding.rvWords.setVisibility(View.GONE);
                     tagLayout.setVisibility(View.GONE);
                     mBinding.llTrueFalse.setVisibility(View.GONE);
@@ -409,6 +415,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
 
                     break;
                 case TRUE_FALSE:
+                    mBinding.llResetDraggableOptions.setVisibility(View.GONE);
                     tagLayout.setVisibility(View.GONE);
                     mBinding.rvWords.setVisibility(View.GONE);
                     mBinding.llTrueFalse.setVisibility(View.VISIBLE);
@@ -440,7 +447,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
 
                     break;
                 case FILL_BLANK:
-
+                    mBinding.llResetDraggableOptions.setVisibility(View.GONE);
                     mBinding.llTrueFalse.setVisibility(View.GONE);
                     mBinding.llMCQ.setVisibility(View.GONE);
 
@@ -469,6 +476,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                         }
 
                     } else {
+                        mBinding.llResetDraggableOptions.setVisibility(View.VISIBLE);
                         tagLayout.setVisibility(View.VISIBLE);
                         mBinding.rvWords.setVisibility(View.VISIBLE);
                         mBinding.txtQuestion.setVisibility(View.GONE);

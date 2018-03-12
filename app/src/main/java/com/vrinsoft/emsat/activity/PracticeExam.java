@@ -105,6 +105,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = PracticeExam.this;
+        setDrawerVisible(false);
         apiHandler = new ApiHandler();
         tagLayout = (TagLayout) findViewById(R.id.mFrameLayout);
 

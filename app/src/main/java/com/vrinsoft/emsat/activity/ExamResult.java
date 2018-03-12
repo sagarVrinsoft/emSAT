@@ -43,6 +43,7 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = ExamResult.this;
+        setDrawerVisible(false);
         mBundle = getIntent().getExtras();
 
         masterBinding.toolbar.imgBack.setVisibility(View.VISIBLE);

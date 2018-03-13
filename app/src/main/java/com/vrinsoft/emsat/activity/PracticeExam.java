@@ -591,7 +591,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     }
 
     void setFillData() {
-        if (questionBean.getQuestionType().equals(FILL_BLANK)) {
+        if (questionBean!=null && questionBean.getQuestionType().equals(FILL_BLANK)) {
             mArrayList.get(pos).setUser_ans(getSentence(tagLayout).replaceAll(getString(R.string.blanks), "####"));
             mArrayList.get(pos).setRemaining_options(getRemianingOptions());
         }

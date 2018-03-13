@@ -13,6 +13,7 @@ import com.vrinsoft.emsat.apis.model.sign_out.BeanLogOut;
 import com.vrinsoft.emsat.apis.model.signin.BeanLogin;
 import com.vrinsoft.emsat.apis.model.user_profile.update_profile.BeanUpdateProfile;
 import com.vrinsoft.emsat.apis.model.user_profile.view_profile.BeanViewProfile;
+import com.vrinsoft.emsat.apis.test_list.BinTestList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,5 +111,13 @@ public interface ApiInterface {
     Call<ArrayList<BinSubCategory>> getListOfSubCategories(@Field("user_id") String user_id,
                                                         @Field("category_id") String category_id,
                                                         @Field("token") String token
+    );
+
+    @FormUrlEncoded
+    @POST("test_list.php")
+    Call<ArrayList<BinTestList>> getListOfTests(@Field("user_id") String user_id,
+                                                @Field("sub_category_id") String category_id,
+                                                @Field("token") String token,
+                                                @Field("page_no") String page_no
     );
 }

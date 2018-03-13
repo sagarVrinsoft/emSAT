@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.activity.subcategory.model.Result;
+import com.vrinsoft.emsat.apis.test_list.Result;
 import com.vrinsoft.emsat.databinding.CustomRowMytestBinding;
 
 import java.util.ArrayList;
@@ -44,9 +44,9 @@ public class MyTestListAdapter extends RecyclerView.Adapter<MyTestListAdapter.Vi
     {
         holder.mBinding.swipe.setClickToClose(true);
         holder.mBinding.txtProgress.setText(""+Math.round(holder.mBinding.progressScore.getPercent())+"/"+100);
-        holder.mBinding.txtCategory.setText(getArrayList().get(position).getBroadcastMsg());
-        holder.mBinding.txtSubCategory.setText(getArrayList().get(position).getBroadcastMsg());
-        holder.mBinding.txtEndDate.setText("10 Jan, 2018");
+        holder.mBinding.txtCategory.setText(getArrayList().get(position).getCategoryName());
+        holder.mBinding.txtSubCategory.setText(getArrayList().get(position).getSubCategoryName());
+        holder.mBinding.txtEndDate.setText(getArrayList().get(position).getDateTime());
         holder.mBinding.swipe.setTag(position);
         holder.mBinding.llMain.setTag(holder.mBinding.swipe);
         holder.mBinding.llRetakeQuiz.setTag(holder.mBinding.swipe);

@@ -9,8 +9,11 @@ import android.view.View;
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.PracticeExam;
-import com.vrinsoft.emsat.activity.subcategory.model.BeanNotificationList;
-import com.vrinsoft.emsat.activity.subcategory.model.Result;
+import com.vrinsoft.emsat.apis.rest.ApiClient;
+import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
+import com.vrinsoft.emsat.apis.rest.NetworkConstants;
+import com.vrinsoft.emsat.apis.test_list.BinTestList;
+import com.vrinsoft.emsat.apis.test_list.Result;
 import com.vrinsoft.emsat.databinding.ActivityMytestBinding;
 import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.AppConstants;
@@ -20,6 +23,11 @@ import com.vrinsoft.emsat.utils.Pref;
 import com.vrinsoft.emsat.utils.ViewUtils;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MyTestActivity extends MasterActivity {
@@ -29,7 +37,9 @@ public class MyTestActivity extends MasterActivity {
     ArrayList<Result> mArrayList = new ArrayList<>();
     MyTestListAdapter mAdapter;
     private LinearLayoutManager linearLayoutManager;
-
+    String subCatId, subCatName;
+    Bundle bundle;
+    String pageNo = "1";
     @Override
     public Activity getActivity() {
         return this;
@@ -47,8 +57,11 @@ public class MyTestActivity extends MasterActivity {
         mActivity = this;
         setDrawerVisible(false);
         director = new Director(this);
+        bundle = getIntent().getExtras();
+        subCatId = bundle.getString(AppConstants.INTENT_SUBCAT_ID);
+        subCatName = bundle.getString(AppConstants.INTENT_SUBCAT_NAME);
         setUIConfig();
-        fetchNotificationList(1);
+        fetchData();
     }
 
     private void setUIConfig() {
@@ -60,6 +73,8 @@ public class MyTestActivity extends MasterActivity {
             public void getPosition(int position) {
                 Bundle bundle = new Bundle();
                 bundle.putString("FROM", "NEWEST");
+                bundle.putString(AppConstants.INTENT_TEST_ID, mArrayList.get(position).getTestId());
+                bundle.putString(AppConstants.INTENT_TEST_NAME, mArrayList.get(position).getTestName());
                 NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
             }
         });
@@ -74,7 +89,7 @@ public class MyTestActivity extends MasterActivity {
 
     public void setToolBarConfig() {
         masterBinding.toolbar.txtTitle.setVisibility(View.VISIBLE);
-        masterBinding.toolbar.txtTitle.setText(getString(R.string.menu_my_test));
+        masterBinding.toolbar.txtTitle.setText(subCatName);
         masterBinding.toolbar.imgHome.setVisibility(View.GONE);
         masterBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
         masterBinding.toolbar.rlNotification.setVisibility(View.GONE);
@@ -86,13 +101,13 @@ public class MyTestActivity extends MasterActivity {
         });
     }
 
-    private void fetchNotificationList(int pageNo) {
+    private void fetchData() {
 
         if (AppConstants.isTestModeOn) {
             mArrayList.clear();
             for (int i = 1; i <= 4; i++) {
                 Result result = new Result();
-                result.setBroadcastMsg("Topic " + i);
+                result.setTestName("Topic " + i);
                 mArrayList.add(result);
             }
             mAdapter.notifyDataSetChanged();
@@ -100,6 +115,44 @@ public class MyTestActivity extends MasterActivity {
             binding.rvSubCategory.setVisibility(View.VISIBLE);
         } else {
 //            call APi
+            ViewUtils.showDialog(mActivity, false);
+            Call<ArrayList<BinTestList>> listCall =
+                    ApiClient.getApiInterface().getListOfTests(
+                            Pref.getUserId(mActivity),
+                            subCatId,
+                            Pref.getToken(mActivity),
+                            pageNo
+                    );
+
+            listCall.enqueue(new Callback<ArrayList<BinTestList>>() {
+                @Override
+                public void onResponse(Call<ArrayList<BinTestList>> call, Response<ArrayList<BinTestList>> response) {
+                    ArrayList<BinTestList> list = response.body();
+                    ViewUtils.showDialog(mActivity, true);
+                    if (list.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
+                        List<Result> listData = list.get(0).getResult();
+                        if (listData != null && listData.size() > 0) {
+                            mArrayList.clear();
+                            mArrayList.addAll(listData);
+                            mAdapter.notifyDataSetChanged();
+                            binding.txtNoDataFound.setVisibility(View.GONE);
+                            binding.rvSubCategory.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.txtNoDataFound.setVisibility(View.VISIBLE);
+                            binding.rvSubCategory.setVisibility(View.GONE);
+                        }
+                    }
+                    else {
+                        ViewUtils.showToast(mActivity, list.get(0).getMessage(), null);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<BinTestList>> call, Throwable t) {
+                    ViewUtils.showDialog(mActivity, true);
+                    ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
+                }
+            });
         }
     }
 

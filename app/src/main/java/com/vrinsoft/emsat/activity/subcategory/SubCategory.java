@@ -9,6 +9,7 @@ import android.view.View;
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.PracticeExam;
+import com.vrinsoft.emsat.activity.mytest.MyTestActivity;
 import com.vrinsoft.emsat.apis.model.SubCategory.BinSubCategory;
 import com.vrinsoft.emsat.apis.model.SubCategory.Result;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
@@ -77,9 +78,9 @@ public class SubCategory extends MasterActivity
 
                 Bundle bundle = new Bundle();
                 bundle.putString("FROM", "NEWEST");
-                bundle.putString(AppConstants.INTENT_TEST_ID, mArrayList.get(position).getSubCategoryId());
-                bundle.putString(AppConstants.INTENT_TEST_NAME, mArrayList.get(position).getSubCategoryName());
-                NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
+                bundle.putString(AppConstants.INTENT_SUBCAT_ID, mArrayList.get(position).getSubCategoryId());
+                bundle.putString(AppConstants.INTENT_SUBCAT_NAME, mArrayList.get(position).getSubCategoryName());
+                NavigationUtils.startActivity(mActivity, MyTestActivity.class, bundle);
             }
         });
         binding.rvSubCategory.setAdapter(mAdapter);

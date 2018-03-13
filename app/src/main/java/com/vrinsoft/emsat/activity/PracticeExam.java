@@ -122,7 +122,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
             if(mBundle.containsKey(AppConstants.INTENT_TEST_NAME))
             {
                 testName = mBundle.getString(AppConstants.INTENT_TEST_NAME);
-                mBinding.toolbar.txtTitle.setText(testName);
+                masterBinding.toolbar.txtTitle.setText(testName);
             }
             mFrom = mBundle.getString("FROM");
             if (mFrom.equals("CHECK_ANS")) {

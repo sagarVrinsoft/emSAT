@@ -71,8 +71,8 @@ public class Home extends MasterActivity {
             @Override
             public void getPosition(int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString(AppConstants.INTENT_MODULE_NAME, mArrayList.get(position).getCategoryName());
-                bundle.putString(AppConstants.INTENT_MODULE_ID, mArrayList.get(position).getCategoryId());
+                bundle.putString(AppConstants.INTENT_CAT_NAME, mArrayList.get(position).getCategoryName());
+                bundle.putString(AppConstants.INTENT_CAT_ID, mArrayList.get(position).getCategoryId());
                 NavigationUtils.startActivity(mActivity, SubCategory.class, bundle);
             }
         });

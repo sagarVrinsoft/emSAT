@@ -2,6 +2,7 @@ package com.vrinsoft.emsat.apis.rest;
 
 
 import com.vrinsoft.emsat.activity.subcategory.model.BeanNotificationList;
+import com.vrinsoft.emsat.apis.model.SubCategory.BinSubCategory;
 import com.vrinsoft.emsat.apis.model.category.BinCategory;
 import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
 import com.vrinsoft.emsat.apis.model.cms.BeanCMS;
@@ -10,7 +11,6 @@ import com.vrinsoft.emsat.apis.model.forgot_password.BeanForgotPwd;
 import com.vrinsoft.emsat.apis.model.register.BeanRegister;
 import com.vrinsoft.emsat.apis.model.sign_out.BeanLogOut;
 import com.vrinsoft.emsat.apis.model.signin.BeanLogin;
-import com.vrinsoft.emsat.apis.model.submodules.BinSubModulesResp;
 import com.vrinsoft.emsat.apis.model.user_profile.update_profile.BeanUpdateProfile;
 import com.vrinsoft.emsat.apis.model.user_profile.view_profile.BeanViewProfile;
 
@@ -106,10 +106,9 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("test_list.php")
-    Call<ArrayList<BinSubModulesResp>> getListOfSubModules(@Field("user_id") String user_id,
-                                                        @Field("module_id") String module_id,
-                                                        @Field("token") String token,
-                                                        @Field("page_no") String page_no
+    @POST("sub_category_list.php")
+    Call<ArrayList<BinSubCategory>> getListOfSubCategories(@Field("user_id") String user_id,
+                                                        @Field("category_id") String category_id,
+                                                        @Field("token") String token
     );
 }

@@ -9,10 +9,8 @@ import android.view.View;
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.PracticeExam;
-import com.vrinsoft.emsat.activity.mytest.MyTestActivity;
-import com.vrinsoft.emsat.activity.subcategory.model.BeanNotificationList;
-import com.vrinsoft.emsat.apis.model.submodules.BinSubModulesResp;
-import com.vrinsoft.emsat.apis.model.submodules.Result;
+import com.vrinsoft.emsat.apis.model.SubCategory.BinSubCategory;
+import com.vrinsoft.emsat.apis.model.SubCategory.Result;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
 import com.vrinsoft.emsat.apis.rest.NetworkConstants;
@@ -41,7 +39,7 @@ public class SubCategory extends MasterActivity
     SubCategoryListAdapter mAdapter;
     private LinearLayoutManager linearLayoutManager;
     Bundle bundle;
-    String mod_name, mod_id;
+    String CAT_name, CAT_id;
 
     @Override
     public Activity getActivity() {
@@ -59,8 +57,8 @@ public class SubCategory extends MasterActivity
         super.onCreate(savedInstanceState);
         mActivity = this;
         bundle = getIntent().getExtras();
-        mod_id = bundle.getString(AppConstants.INTENT_MODULE_ID);
-        mod_name = bundle.getString(AppConstants.INTENT_MODULE_NAME);
+        CAT_id = bundle.getString(AppConstants.INTENT_CAT_ID);
+        CAT_name = bundle.getString(AppConstants.INTENT_CAT_NAME);
         setDrawerVisible(false);
         director = new Director(this);
         setUIConfig();
@@ -79,8 +77,8 @@ public class SubCategory extends MasterActivity
 
                 Bundle bundle = new Bundle();
                 bundle.putString("FROM", "NEWEST");
-                bundle.putString(AppConstants.INTENT_TEST_ID, mArrayList.get(position).getTestId());
-                bundle.putString(AppConstants.INTENT_TEST_NAME, mArrayList.get(position).getTestName());
+                bundle.putString(AppConstants.INTENT_TEST_ID, mArrayList.get(position).getSubCategoryId());
+                bundle.putString(AppConstants.INTENT_TEST_NAME, mArrayList.get(position).getSubCategoryName());
                 NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
             }
         });
@@ -95,7 +93,7 @@ public class SubCategory extends MasterActivity
 
     public void setToolBarConfig() {
         masterBinding.toolbar.txtTitle.setVisibility(View.VISIBLE);
-        masterBinding.toolbar.txtTitle.setText(mod_name);
+        masterBinding.toolbar.txtTitle.setText(CAT_name);
         masterBinding.toolbar.imgHome.setVisibility(View.GONE);
         masterBinding.toolbar.imgBack.setVisibility(View.VISIBLE);
         masterBinding.toolbar.rlNotification.setVisibility(View.GONE);
@@ -113,30 +111,30 @@ public class SubCategory extends MasterActivity
             mArrayList.clear();
             for (int i = 1; i <= 4; i++) {
                 Result result = new Result();
-                result.setTestName("Topic " + i);
+                result.setSubCategoryName("Topic " + i);
                 mArrayList.add(result);
             }
             mAdapter.notifyDataSetChanged();
             binding.txtNoDataFound.setVisibility(View.GONE);
             binding.rvSubCategory.setVisibility(View.VISIBLE);
 
-            binding.txtRefresh2.setText(mArrayList.get(0).getTestName());
-            binding.txtRefresh4.setText(mArrayList.get(1).getTestName());
-            binding.txtRefresh6.setText(mArrayList.get(2).getTestName());
-            binding.txtRefresh8.setText(mArrayList.get(3).getTestName());
+            binding.txtRefresh2.setText(mArrayList.get(0).getSubCategoryName());
+            binding.txtRefresh4.setText(mArrayList.get(1).getSubCategoryName());
+            binding.txtRefresh6.setText(mArrayList.get(2).getSubCategoryName());
+            binding.txtRefresh8.setText(mArrayList.get(3).getSubCategoryName());
         }
         else
         {
             ViewUtils.showDialog(mActivity, false);
-            Call<ArrayList<BinSubModulesResp>> list = ApiClient.getApiInterface().getListOfSubModules
+            Call<ArrayList<BinSubCategory>> list =
+                    ApiClient.getApiInterface().getListOfSubCategories
                     (Pref.getUserId(mActivity),
-                            mod_id,
-                            Pref.getToken(mActivity),
-                            "1");
-            list.enqueue(new Callback<ArrayList<BinSubModulesResp>>() {
+                            CAT_id,
+                            Pref.getToken(mActivity));
+            list.enqueue(new Callback<ArrayList<BinSubCategory>>() {
                 @Override
-                public void onResponse(retrofit2.Call<ArrayList<BinSubModulesResp>> call, Response<ArrayList<BinSubModulesResp>> response) {
-                    ArrayList<BinSubModulesResp> list = response.body();
+                public void onResponse(retrofit2.Call<ArrayList<BinSubCategory>> call, Response<ArrayList<BinSubCategory>> response) {
+                    ArrayList<BinSubCategory> list = response.body();
                     ViewUtils.showDialog(mActivity, true);
                     if (list.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
                         List<Result> listData = list.get(0).getResult();
@@ -146,24 +144,69 @@ public class SubCategory extends MasterActivity
                             mAdapter.notifyDataSetChanged();
                             binding.txtNoDataFound.setVisibility(View.GONE);
                             binding.rvSubCategory.setVisibility(View.VISIBLE);
+
+                            if(mArrayList.size()>0) {
+                                binding.txtRefresh2.setText(mArrayList.get(0).getSubCategoryName());
+                                binding.txtRefresh2.setVisibility(View.VISIBLE);
+                                binding.txtRefresh4.setVisibility(View.GONE);
+                                binding.txtRefresh6.setVisibility(View.GONE);
+                                binding.txtRefresh8.setVisibility(View.GONE);
+                            }
+                            if(mArrayList.size()>1) {
+                                binding.txtRefresh4.setText(mArrayList.get(1).getSubCategoryName());
+                                binding.txtRefresh2.setVisibility(View.VISIBLE);
+                                binding.txtRefresh4.setVisibility(View.VISIBLE);
+                                binding.txtRefresh6.setVisibility(View.GONE);
+                                binding.txtRefresh8.setVisibility(View.GONE);
+                            }
+                            if(mArrayList.size()>2) {
+                                binding.txtRefresh6.setText(mArrayList.get(2).getSubCategoryName());
+                                binding.txtRefresh2.setVisibility(View.VISIBLE);
+                                binding.txtRefresh4.setVisibility(View.VISIBLE);
+                                binding.txtRefresh6.setVisibility(View.VISIBLE);
+                                binding.txtRefresh8.setVisibility(View.GONE);
+                            }
+                            if(mArrayList.size()>3) {
+                                binding.txtRefresh8.setText(mArrayList.get(3).getSubCategoryName());
+                                binding.txtRefresh2.setVisibility(View.VISIBLE);
+                                binding.txtRefresh4.setVisibility(View.VISIBLE);
+                                binding.txtRefresh6.setVisibility(View.VISIBLE);
+                                binding.txtRefresh8.setVisibility(View.VISIBLE);
+                            }
+
+                            if(mArrayList.size()==0)
+                            {
+                                setDefaultText();
+                            }
                         } else {
+                            setDefaultText();
                             binding.txtNoDataFound.setVisibility(View.VISIBLE);
                             binding.rvSubCategory.setVisibility(View.GONE);
                         }
                     }
                     else {
+                        setDefaultText();
                         ViewUtils.showToast(mActivity, list.get(0).getMessage(), null);
                     }
                 }
 
                 @Override
-                public void onFailure(retrofit2.Call<ArrayList<BinSubModulesResp>> call, Throwable t) {
+                public void onFailure(retrofit2.Call<ArrayList<BinSubCategory>> call, Throwable t) {
                     ViewUtils.showDialog(mActivity, true);
                     ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
+                    setDefaultText();
                 }
             });
         }
 
+    }
+
+    public void setDefaultText()
+    {
+        binding.txtRefresh2.setText("");
+        binding.txtRefresh4.setText("");
+        binding.txtRefresh6.setText("");
+        binding.txtRefresh8.setText("");
     }
 
 }

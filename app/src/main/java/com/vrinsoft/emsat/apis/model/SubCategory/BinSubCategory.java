@@ -1,10 +1,10 @@
-package com.vrinsoft.emsat.apis.model.submodules;
+package com.vrinsoft.emsat.apis.model.SubCategory;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class BinSubModulesResp {
+public class BinSubCategory {
 
 @SerializedName("code")
 @Expose

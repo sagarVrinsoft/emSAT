@@ -14,8 +14,8 @@
             android:gravity="center">
 
             <com.github.andreilisun.circular_layout.CircularLayout
-                android:layout_width="@dimen/_235sdp"
-                android:layout_height="@dimen/_235sdp"
+                android:layout_width="@dimen/_245sdp"
+                android:layout_height="@dimen/_245sdp"
                 android:layout_centerHorizontal="true">
 
                 <TextView
@@ -24,7 +24,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/crpv"
                     android:layout_centerHorizontal="true"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
                     android:text="Refresh"
                     android:textColor="@color/black"
                     android:visibility="invisible" />
@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/crpv"
                     android:layout_centerHorizontal="true"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
                     android:rotation="45"
                     android:textSize="@dimen/_12ssp"
                     android:text="Refresh"
@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/crpv"
                     android:layout_centerHorizontal="true"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
                     android:text="Refresh"
                     android:textColor="@color/black"
                     android:visibility="invisible" />
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/crpv"
                     android:layout_centerHorizontal="true"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
                     android:rotation="-45"
                     android:text="Refresh"
                     android:textColor="@color/black" />
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/crpv"
                     android:layout_centerHorizontal="true"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
                     android:text="Refresh"
                     android:textColor="@color/black"
                     android:visibility="invisible" />
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/crpv"
                     android:layout_centerHorizontal="true"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
                     android:rotation="45"
                     android:text="Refresh"
                     android:textColor="@color/black" />
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/crpv"
                     android:layout_centerHorizontal="true"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
                     android:text="Refresh"
                     android:textColor="@color/black"
                     android:visibility="invisible" />
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/crpv"
                     android:layout_centerHorizontal="true"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
                     android:rotation="-45"
                     android:text="Refresh"
                     android:textColor="@color/black" />
@@ -114,10 +114,10 @@
 
             <com.timqi.sectorprogressview.SectorProgressView
                 android:id="@+id/progressBar_Chart"
-                android:layout_width="@dimen/_235sdp"
-                android:layout_height="@dimen/_235sdp"
+                android:layout_width="@dimen/_245sdp"
+                android:layout_height="@dimen/_245sdp"
                 android:layout_centerHorizontal="true"
-                android:padding="@dimen/_40sdp"
+                android:padding="@dimen/_60sdp"
                 app:bgColor="@color/colorPrimary"
                 app:fgColor="@color/colorPrimaryDark"
                 app:percent="75"

@@ -13,9 +13,9 @@ import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.PracticeExam;
 import com.vrinsoft.emsat.activity.subcategory.SubCategory;
+import com.vrinsoft.emsat.apis.model.category.BinCategory;
+import com.vrinsoft.emsat.apis.model.category.Result;
 import com.vrinsoft.emsat.apis.model.cms.BeanCMS;
-import com.vrinsoft.emsat.apis.model.modules.BinModulesResp;
-import com.vrinsoft.emsat.apis.model.modules.Result;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
 import com.vrinsoft.emsat.apis.rest.NetworkConstants;
@@ -42,6 +42,7 @@ public class Home extends MasterActivity {
     MainCategoryListAdapter mAdapter;
     ArrayList<Result> mArrayList = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
+    String pageNo = "1";
 
     @Override
     public Activity getActivity() {
@@ -70,8 +71,8 @@ public class Home extends MasterActivity {
             @Override
             public void getPosition(int position) {
                 Bundle bundle = new Bundle();
-                bundle.putString(AppConstants.INTENT_MODULE_NAME, mArrayList.get(position).getModuleName());
-                bundle.putString(AppConstants.INTENT_MODULE_ID, mArrayList.get(position).getModuleId());
+                bundle.putString(AppConstants.INTENT_MODULE_NAME, mArrayList.get(position).getCategoryName());
+                bundle.putString(AppConstants.INTENT_MODULE_ID, mArrayList.get(position).getCategoryId());
                 NavigationUtils.startActivity(mActivity, SubCategory.class, bundle);
             }
         });
@@ -105,7 +106,7 @@ public class Home extends MasterActivity {
             mArrayList.clear();
             for (int i = 1; i <= 4; i++) {
                 Result result = new Result();
-                result.setModuleName("Subject " + i);
+                result.setCategoryName("Subject " + i);
                 mArrayList.add(result);
             }
             mAdapter.notifyDataSetChanged();
@@ -115,16 +116,17 @@ public class Home extends MasterActivity {
         else
         {
                 ViewUtils.showDialog(mActivity, false);
-                Call<ArrayList<BinModulesResp>> listCall =
-                        ApiClient.getApiInterface().getListOfModules(
+                Call<ArrayList<BinCategory>> listCall =
+                        ApiClient.getApiInterface().getListOfCategories(
                                 Pref.getUserId(mActivity),
-                                Pref.getToken(mActivity)
+                                Pref.getToken(mActivity),
+                                pageNo
                         );
 
-                listCall.enqueue(new Callback<ArrayList<BinModulesResp>>() {
+                listCall.enqueue(new Callback<ArrayList<BinCategory>>() {
                     @Override
-                    public void onResponse(Call<ArrayList<BinModulesResp>> call, Response<ArrayList<BinModulesResp>> response) {
-                        ArrayList<BinModulesResp> list = response.body();
+                    public void onResponse(Call<ArrayList<BinCategory>> call, Response<ArrayList<BinCategory>> response) {
+                        ArrayList<BinCategory> list = response.body();
                         ViewUtils.showDialog(mActivity, true);
                         if (list.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
                             List<Result> listData = list.get(0).getResult();
@@ -145,7 +147,7 @@ public class Home extends MasterActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<ArrayList<BinModulesResp>> call, Throwable t) {
+                    public void onFailure(Call<ArrayList<BinCategory>> call, Throwable t) {
                         ViewUtils.showDialog(mActivity, true);
                         ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
                     }

@@ -11,7 +11,6 @@ import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.activity.PracticeExam;
 import com.vrinsoft.emsat.activity.mytest.MyTestActivity;
 import com.vrinsoft.emsat.activity.subcategory.model.BeanNotificationList;
-import com.vrinsoft.emsat.apis.model.modules.BinModulesResp;
 import com.vrinsoft.emsat.apis.model.submodules.BinSubModulesResp;
 import com.vrinsoft.emsat.apis.model.submodules.Result;
 import com.vrinsoft.emsat.apis.rest.ApiClient;

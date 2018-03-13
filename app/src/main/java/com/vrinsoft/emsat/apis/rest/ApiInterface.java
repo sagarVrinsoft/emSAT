@@ -2,11 +2,11 @@ package com.vrinsoft.emsat.apis.rest;
 
 
 import com.vrinsoft.emsat.activity.subcategory.model.BeanNotificationList;
+import com.vrinsoft.emsat.apis.model.category.BinCategory;
 import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
 import com.vrinsoft.emsat.apis.model.cms.BeanCMS;
 import com.vrinsoft.emsat.apis.model.faqs.BeanFaqs;
 import com.vrinsoft.emsat.apis.model.forgot_password.BeanForgotPwd;
-import com.vrinsoft.emsat.apis.model.modules.BinModulesResp;
 import com.vrinsoft.emsat.apis.model.register.BeanRegister;
 import com.vrinsoft.emsat.apis.model.sign_out.BeanLogOut;
 import com.vrinsoft.emsat.apis.model.signin.BeanLogin;
@@ -99,9 +99,10 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
-    @POST("module_list.php")
-    Call<ArrayList<BinModulesResp>> getListOfModules(@Field("user_id") String user_id,
-                                           @Field("token") String token
+    @POST("category_list.php")
+    Call<ArrayList<BinCategory>> getListOfCategories(@Field("user_id") String user_id,
+                                                     @Field("token") String token,
+                                                     @Field("page_no") String page_no
     );
 
     @FormUrlEncoded

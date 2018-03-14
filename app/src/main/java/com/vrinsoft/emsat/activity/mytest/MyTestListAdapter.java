@@ -12,6 +12,7 @@ import com.daimajia.swipe.SwipeLayout;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.apis.test_list.Result;
 import com.vrinsoft.emsat.databinding.CustomRowMytestBinding;
+import com.vrinsoft.emsat.utils.Validator;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,9 @@ public class MyTestListAdapter extends RecyclerView.Adapter<MyTestListAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position)
     {
+//        boolean isTestAttempted = !Validator.isNullEmpty(scoreAchieved) && Integer.parseInt(scoreAchieved) > 0;
+        String isApply = getArrayList().get(position).getIsApply();
+        boolean isTestAttempted = !Validator.isNullEmpty(isApply) && Integer.parseInt(isApply) == 1;
         holder.mBinding.swipe.setClickToClose(true);
         holder.mBinding.txtProgress.setText(""+Math.round(holder.mBinding.progressScore.getPercent())+"/"+100);
         holder.mBinding.txtCategory.setText(getArrayList().get(position).getCategoryName());
@@ -49,6 +53,29 @@ public class MyTestListAdapter extends RecyclerView.Adapter<MyTestListAdapter.Vi
         holder.mBinding.txtEndDate.setText(getArrayList().get(position).getDateTime());
         holder.mBinding.swipe.setTag(position);
         holder.mBinding.llMain.setTag(holder.mBinding.swipe);
+        if(isTestAttempted)
+        {
+            String scoreAchieved = getArrayList().get(position).getObtainScore();
+            String totalScore = getArrayList().get(position).getTotalScore();
+            if(!Validator.isNullEmpty(totalScore))
+            {
+                int scoreAchiev = Validator.isNullEmpty(scoreAchieved)?0:Integer.parseInt(scoreAchieved);
+                int result = (scoreAchiev * 100) / Integer.parseInt(totalScore);
+                holder.mBinding.progressScore.setPercent(result);
+                holder.mBinding.txtProgress.setText(result+"/"+100);
+                holder.mBinding.rlProgressBar.setVisibility(View.VISIBLE);
+                holder.mBinding.txtRetakeQuiz.setText(mActivity.getString(R.string.retake_quiz));
+            }
+            else {
+                holder.mBinding.rlProgressBar.setVisibility(View.GONE);
+                holder.mBinding.txtRetakeQuiz.setText(mActivity.getString(R.string.retake_quiz));
+            }
+        }
+        else
+        {
+            holder.mBinding.rlProgressBar.setVisibility(View.GONE);
+            holder.mBinding.txtRetakeQuiz.setText(mActivity.getString(R.string.take_quiz));
+        }
         holder.mBinding.llRetakeQuiz.setTag(holder.mBinding.swipe);
         holder.mBinding.llRetakeQuiz.setOnClickListener(new View.OnClickListener() {
             @Override

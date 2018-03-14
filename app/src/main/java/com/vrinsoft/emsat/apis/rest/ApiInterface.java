@@ -6,6 +6,7 @@ import com.vrinsoft.emsat.apis.model.SubCategory.BinSubCategory;
 import com.vrinsoft.emsat.apis.model.category.BinCategory;
 import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
 import com.vrinsoft.emsat.apis.model.cms.BeanCMS;
+import com.vrinsoft.emsat.apis.model.common.BinGeneralApiResp;
 import com.vrinsoft.emsat.apis.model.faqs.BeanFaqs;
 import com.vrinsoft.emsat.apis.model.forgot_password.BeanForgotPwd;
 import com.vrinsoft.emsat.apis.model.register.BeanRegister;
@@ -120,4 +121,14 @@ public interface ApiInterface {
                                                 @Field("token") String token,
                                                 @Field("page_no") String page_no
     );
+
+    @FormUrlEncoded
+    @POST("add_score.php")
+    Call<ArrayList<BinGeneralApiResp>> submitTestScore(@Field("user_id") String user_id,
+                                                      @Field("sub_category_id") String category_id,
+                                                      @Field("test_id") String test_id,
+                                                      @Field("test_score") String test_score,
+                                                      @Field("taken_time") String taken_time,
+                                                      @Field("token") String token
+                                                      );
 }

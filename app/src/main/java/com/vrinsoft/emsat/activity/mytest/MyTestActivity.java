@@ -61,7 +61,6 @@ public class MyTestActivity extends MasterActivity {
         subCatId = bundle.getString(AppConstants.INTENT_SUBCAT_ID);
         subCatName = bundle.getString(AppConstants.INTENT_SUBCAT_NAME);
         setUIConfig();
-        fetchData();
     }
 
     private void setUIConfig() {
@@ -75,6 +74,7 @@ public class MyTestActivity extends MasterActivity {
                 bundle.putString("FROM", "NEWEST");
                 bundle.putString(AppConstants.INTENT_TEST_ID, mArrayList.get(position).getTestId());
                 bundle.putString(AppConstants.INTENT_TEST_NAME, mArrayList.get(position).getTestName());
+                bundle.putString(AppConstants.INTENT_SUBCAT_ID, subCatId);
                 NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
             }
         });
@@ -85,6 +85,7 @@ public class MyTestActivity extends MasterActivity {
     protected void onResume() {
         super.onResume();
         setToolBarConfig();
+        fetchData();
     }
 
     public void setToolBarConfig() {

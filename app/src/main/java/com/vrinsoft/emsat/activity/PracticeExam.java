@@ -89,7 +89,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     String mFrom = "";
     boolean is_view_only = false;
     private int pos = 0;
-    private String testID, testName;
+    private String testID, testName, subCatId;
 
     @Override
     public Activity getActivity() {
@@ -123,6 +123,10 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
             {
                 testName = mBundle.getString(AppConstants.INTENT_TEST_NAME);
                 masterBinding.toolbar.txtTitle.setText(testName);
+            }
+            if(mBundle.containsKey(AppConstants.INTENT_SUBCAT_ID))
+            {
+                subCatId = mBundle.getString(AppConstants.INTENT_SUBCAT_ID);
             }
             mFrom = mBundle.getString("FROM");
             if (mFrom.equals("CHECK_ANS")) {
@@ -660,7 +664,10 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                 .putExtra(TOTAL_ANS, mArrayList==null?0:mArrayList.size())
                 .putExtra(SKIPPED_ANS, skipped_ans)
                 .putExtra(CORRECT_ANS, correct_ans)
-                .putExtra(WRONG_ANS, wrong_ans));
+                .putExtra(WRONG_ANS, wrong_ans)
+                .putExtra(AppConstants.INTENT_TEST_ID, testID)
+                .putExtra(AppConstants.INTENT_TEST_NAME, testName)
+                .putExtra(AppConstants.INTENT_SUBCAT_ID, subCatId));
         finish();
 
     }

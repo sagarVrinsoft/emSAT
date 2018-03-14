@@ -2,28 +2,22 @@ package com.vrinsoft.emsat.activity.home;
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.activity.PracticeExam;
 import com.vrinsoft.emsat.activity.subcategory.SubCategory;
 import com.vrinsoft.emsat.apis.model.category.BinCategory;
 import com.vrinsoft.emsat.apis.model.category.Result;
-import com.vrinsoft.emsat.apis.model.cms.BeanCMS;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
 import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivityHomeBinding;
 import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.AppConstants;
-import com.vrinsoft.emsat.utils.AppPreference;
-import com.vrinsoft.emsat.utils.LogUtils;
 import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.utils.Pref;
 import com.vrinsoft.emsat.utils.ViewUtils;
@@ -41,8 +35,8 @@ public class Home extends MasterActivity {
     Activity mActivity;
     MainCategoryListAdapter mAdapter;
     ArrayList<Result> mArrayList = new ArrayList<>();
-    private LinearLayoutManager linearLayoutManager;
     String pageNo = "1";
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     public Activity getActivity() {
@@ -112,46 +106,43 @@ public class Home extends MasterActivity {
             mAdapter.notifyDataSetChanged();
             binding.txtNoDataFound.setVisibility(View.GONE);
             binding.rvGridModules.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-                ViewUtils.showDialog(mActivity, false);
-                Call<ArrayList<BinCategory>> listCall =
-                        ApiClient.getApiInterface().getListOfCategories(
-                                Pref.getUserId(mActivity),
-                                Pref.getToken(mActivity),
-                                pageNo
-                        );
+        } else {
+            ViewUtils.showDialog(mActivity, false);
+            Call<ArrayList<BinCategory>> listCall =
+                    ApiClient.getApiInterface().getListOfCategories(
+                            Pref.getUserId(mActivity),
+                            Pref.getToken(mActivity),
+                            pageNo
+                    );
 
-                listCall.enqueue(new Callback<ArrayList<BinCategory>>() {
-                    @Override
-                    public void onResponse(Call<ArrayList<BinCategory>> call, Response<ArrayList<BinCategory>> response) {
-                        ArrayList<BinCategory> list = response.body();
-                        ViewUtils.showDialog(mActivity, true);
-                        if (list.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
-                            List<Result> listData = list.get(0).getResult();
-                            if (listData != null && listData.size() > 0) {
-                                mArrayList.clear();
-                                mArrayList.addAll(listData);
-                                mAdapter.notifyDataSetChanged();
-                                binding.txtNoDataFound.setVisibility(View.GONE);
-                                binding.rvGridModules.setVisibility(View.VISIBLE);
-                            } else {
-                                binding.txtNoDataFound.setVisibility(View.VISIBLE);
-                                binding.rvGridModules.setVisibility(View.GONE);
-                            }
+            listCall.enqueue(new Callback<ArrayList<BinCategory>>() {
+                @Override
+                public void onResponse(Call<ArrayList<BinCategory>> call, Response<ArrayList<BinCategory>> response) {
+                    ArrayList<BinCategory> list = response.body();
+                    ViewUtils.showDialog(mActivity, true);
+                    if (list.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
+                        List<Result> listData = list.get(0).getResult();
+                        if (listData != null && listData.size() > 0) {
+                            mArrayList.clear();
+                            mArrayList.addAll(listData);
+                            mAdapter.notifyDataSetChanged();
+                            binding.txtNoDataFound.setVisibility(View.GONE);
+                            binding.rvGridModules.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.txtNoDataFound.setVisibility(View.VISIBLE);
+                            binding.rvGridModules.setVisibility(View.GONE);
                         }
-                        else {
-                            ViewUtils.showToast(mActivity, list.get(0).getMessage(), null);
-                        }
+                    } else {
+                        ViewUtils.showToast(mActivity, list.get(0).getMessage(), null);
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<ArrayList<BinCategory>> call, Throwable t) {
-                        ViewUtils.showDialog(mActivity, true);
-                        ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
-                    }
-                });
+                @Override
+                public void onFailure(Call<ArrayList<BinCategory>> call, Throwable t) {
+                    ViewUtils.showDialog(mActivity, true);
+                    ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
+                }
+            });
         }
 
     }

@@ -9,9 +9,24 @@ import android.view.View;
 
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
+import com.vrinsoft.emsat.apis.model.common.BinGeneralApiResp;
+import com.vrinsoft.emsat.apis.rest.ApiClient;
+import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
+import com.vrinsoft.emsat.apis.rest.NetworkConstants;
+import com.vrinsoft.emsat.apis.test_list.BinTestList;
+import com.vrinsoft.emsat.apis.test_list.Result;
 import com.vrinsoft.emsat.databinding.ActivityExamResultBinding;
+import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.NavigationUtils;
+import com.vrinsoft.emsat.utils.Pref;
+import com.vrinsoft.emsat.utils.ViewUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.CORRECT_ANS;
@@ -27,6 +42,7 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
     Activity mActivity;
     Bundle mBundle;
     int obtained_score = 0, total_score = 0, total_ans = 0, skipped_ans = 0, correct_ans = 0, wrong_ans = 0;
+    private String testID, testName, subCatId;
 
     @Override
     public Activity getActivity() {
@@ -59,6 +75,9 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
             skipped_ans = mBundle.getInt(SKIPPED_ANS);
             correct_ans = mBundle.getInt(CORRECT_ANS);
             wrong_ans = mBundle.getInt(WRONG_ANS);
+            testID = mBundle.getString(AppConstants.INTENT_TEST_ID);
+            testName = mBundle.getString(AppConstants.INTENT_TEST_NAME);
+            subCatId = mBundle.getString(AppConstants.INTENT_SUBCAT_ID);
 
             mBinding.circleProgressView.setProgress(obtained_score, total_score);
 
@@ -78,14 +97,17 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgBack:
-                onBackPressed();
+                NavigationUtils.finishCurrentActivity(mActivity);
                 break;
             case R.id.txtRight:
-                onBackPressed();
+                callApiToSubmitScore();
                 break;
             case R.id.txtReTake:
                 Bundle bundle = new Bundle();
                 bundle.putString("FROM", "RE_TAKE");
+                bundle.putString(AppConstants.INTENT_TEST_ID, testID);
+                bundle.putString(AppConstants.INTENT_TEST_NAME, testName);
+                bundle.putString(AppConstants.INTENT_SUBCAT_ID, subCatId);
                 NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
                 finish();
                 break;
@@ -96,6 +118,33 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
                 finish();
                 break;
         }
+    }
+
+    private void callApiToSubmitScore()
+    {
+        ViewUtils.showDialog(mActivity, false);
+        Call<ArrayList<BinGeneralApiResp>> listCall = ApiClient.getApiInterface().submitTestScore
+                (Pref.getUserId(mActivity),
+                        subCatId,
+                        testID,
+                        String.valueOf(obtained_score),
+                        "30",
+                        Pref.getToken(mActivity));
+        listCall.enqueue(new Callback<ArrayList<BinGeneralApiResp>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BinGeneralApiResp>> call, Response<ArrayList<BinGeneralApiResp>> response) {
+                ArrayList<BinGeneralApiResp> list = response.body();
+                ViewUtils.showDialog(mActivity, true);
+                ViewUtils.showToast(mActivity, list.get(0).getMessage(), null);
+                NavigationUtils.finishCurrentActivity(mActivity);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<BinGeneralApiResp>> call, Throwable t) {
+                ViewUtils.showDialog(mActivity, true);
+                ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
+            }
+        });
     }
 
     @Override

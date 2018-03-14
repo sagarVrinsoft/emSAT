@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
-import com.vrinsoft.emsat.activity.PracticeExam;
 import com.vrinsoft.emsat.activity.mytest.MyTestActivity;
 import com.vrinsoft.emsat.apis.model.SubCategory.BinSubCategory;
 import com.vrinsoft.emsat.apis.model.SubCategory.Result;
@@ -18,7 +17,6 @@ import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivitySubcategoryBinding;
 import com.vrinsoft.emsat.robinhood.router.Director;
 import com.vrinsoft.emsat.utils.AppConstants;
-import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.utils.Pref;
 import com.vrinsoft.emsat.utils.ViewUtils;
@@ -31,16 +29,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class SubCategory extends MasterActivity
-{
+public class SubCategory extends MasterActivity {
     private static int PERCENT = 0;
     ActivitySubcategoryBinding binding;
     Activity mActivity;
     ArrayList<Result> mArrayList = new ArrayList<>();
     SubCategoryListAdapter mAdapter;
-    private LinearLayoutManager linearLayoutManager;
     Bundle bundle;
     String CAT_name, CAT_id;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     public Activity getActivity() {
@@ -65,6 +62,7 @@ public class SubCategory extends MasterActivity
         setUIConfig();
         fetchData(1);
     }
+
     private void setUIConfig() {
         binding.rvSubCategory.setNestedScrollingEnabled(false);
         linearLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
@@ -108,7 +106,7 @@ public class SubCategory extends MasterActivity
 
     private void fetchData(int pageNo) {
 
-        if(AppConstants.isTestModeOn) {
+        if (AppConstants.isTestModeOn) {
             mArrayList.clear();
             for (int i = 1; i <= 4; i++) {
                 Result result = new Result();
@@ -123,15 +121,13 @@ public class SubCategory extends MasterActivity
             binding.txtRefresh4.setText(mArrayList.get(1).getSubCategoryName());
             binding.txtRefresh6.setText(mArrayList.get(2).getSubCategoryName());
             binding.txtRefresh8.setText(mArrayList.get(3).getSubCategoryName());
-        }
-        else
-        {
+        } else {
             ViewUtils.showDialog(mActivity, false);
             Call<ArrayList<BinSubCategory>> list =
                     ApiClient.getApiInterface().getListOfSubCategories
-                    (Pref.getUserId(mActivity),
-                            CAT_id,
-                            Pref.getToken(mActivity));
+                            (Pref.getUserId(mActivity),
+                                    CAT_id,
+                                    Pref.getToken(mActivity));
             list.enqueue(new Callback<ArrayList<BinSubCategory>>() {
                 @Override
                 public void onResponse(retrofit2.Call<ArrayList<BinSubCategory>> call, Response<ArrayList<BinSubCategory>> response) {
@@ -146,28 +142,28 @@ public class SubCategory extends MasterActivity
                             binding.txtNoDataFound.setVisibility(View.GONE);
                             binding.rvSubCategory.setVisibility(View.VISIBLE);
 
-                            if(mArrayList.size()>0) {
+                            if (mArrayList.size() > 0) {
                                 binding.txtRefresh2.setText(mArrayList.get(0).getSubCategoryName());
                                 binding.txtRefresh2.setVisibility(View.VISIBLE);
                                 binding.txtRefresh4.setVisibility(View.GONE);
                                 binding.txtRefresh6.setVisibility(View.GONE);
                                 binding.txtRefresh8.setVisibility(View.GONE);
                             }
-                            if(mArrayList.size()>1) {
+                            if (mArrayList.size() > 1) {
                                 binding.txtRefresh4.setText(mArrayList.get(1).getSubCategoryName());
                                 binding.txtRefresh2.setVisibility(View.VISIBLE);
                                 binding.txtRefresh4.setVisibility(View.VISIBLE);
                                 binding.txtRefresh6.setVisibility(View.GONE);
                                 binding.txtRefresh8.setVisibility(View.GONE);
                             }
-                            if(mArrayList.size()>2) {
+                            if (mArrayList.size() > 2) {
                                 binding.txtRefresh6.setText(mArrayList.get(2).getSubCategoryName());
                                 binding.txtRefresh2.setVisibility(View.VISIBLE);
                                 binding.txtRefresh4.setVisibility(View.VISIBLE);
                                 binding.txtRefresh6.setVisibility(View.VISIBLE);
                                 binding.txtRefresh8.setVisibility(View.GONE);
                             }
-                            if(mArrayList.size()>3) {
+                            if (mArrayList.size() > 3) {
                                 binding.txtRefresh8.setText(mArrayList.get(3).getSubCategoryName());
                                 binding.txtRefresh2.setVisibility(View.VISIBLE);
                                 binding.txtRefresh4.setVisibility(View.VISIBLE);
@@ -175,8 +171,7 @@ public class SubCategory extends MasterActivity
                                 binding.txtRefresh8.setVisibility(View.VISIBLE);
                             }
 
-                            if(mArrayList.size()==0)
-                            {
+                            if (mArrayList.size() == 0) {
                                 setDefaultText();
                             }
                         } else {
@@ -184,8 +179,7 @@ public class SubCategory extends MasterActivity
                             binding.txtNoDataFound.setVisibility(View.VISIBLE);
                             binding.rvSubCategory.setVisibility(View.GONE);
                         }
-                    }
-                    else {
+                    } else {
                         setDefaultText();
                         ViewUtils.showToast(mActivity, list.get(0).getMessage(), null);
                     }
@@ -202,8 +196,7 @@ public class SubCategory extends MasterActivity
 
     }
 
-    public void setDefaultText()
-    {
+    public void setDefaultText() {
         binding.txtRefresh2.setText("");
         binding.txtRefresh4.setText("");
         binding.txtRefresh6.setText("");

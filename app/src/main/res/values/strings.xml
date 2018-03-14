@@ -67,6 +67,7 @@
     <string name="please_enter_new_password">Please enter new password</string>
     <string name="please_enter_confirm_password">Please enter confirm password</string>
     <string name="retake_quiz">Re-take Quiz</string>
+    <string name="take_quiz">Take Quiz</string>
 
     <string name="practice_exam">Practice Exam</string>
     <string name="quit">Quit</string>
@@ -77,7 +78,6 @@
     <!--<string name="blanks">____________</string>-->
     <string name="blanks">______</string>
     <string name="your_score">Your score</string>
-    <string name="re_take_quiz">Re-take Quiz</string>
     <string name="check_answers">Check Answers</string>
 
     <string name="skip_ans">Skip answers\n</string>

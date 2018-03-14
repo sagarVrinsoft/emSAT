@@ -11,8 +11,8 @@
 
         <LinearLayout
             android:id="@+id/llRetakeQuiz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_90sdp"
             android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:orientation="vertical"
@@ -37,25 +37,29 @@
         <LinearLayout
             android:id="@+id/llMain"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/_90sdp"
             android:orientation="vertical">
 
-            <View
+            <!--<View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorPrimaryDark" />
-
+-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <RelativeLayout
+                    android:id="@+id/rlProgressBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_20sdp">
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:gravity="center_vertical"
+                    android:visibility="visible">
 
                     <com.timqi.sectorprogressview.SectorProgressView
                         android:id="@+id/progressBar_BgOnly"
@@ -75,7 +79,7 @@
                         app:bgColor="@color/grey_line"
                         app:fgColorEnd="@color/black"
                         app:fgColorStart="@color/black"
-                        app:percent="70"
+                        app:percent="25"
                         app:startAngle="0"
                         app:strokeWidth="2dp" />
 
@@ -97,7 +101,8 @@
                 <LinearLayout
                     android:id="@+id/llTextLabel"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -125,8 +130,9 @@
                 <TextView
                     android:id="@+id/txtEndDate"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/_20sdp"
+                    android:gravity="center_vertical"
                     android:text="08 Jan, 2018"
                     android:textColor="@color/hint_text_color"
                     android:textSize="@dimen/_10ssp" />
@@ -137,7 +143,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/colorPrimaryDark" />
         </LinearLayout>
 

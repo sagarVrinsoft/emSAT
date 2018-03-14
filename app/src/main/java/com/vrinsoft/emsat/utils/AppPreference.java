@@ -3,6 +3,7 @@ package com.vrinsoft.emsat.utils;
 public class AppPreference {
 
     public static String DEFAULT_STR = "";
+    public static int DEFAULT_INT = 0;
     public static String LOGIN = "login";
     public static String FCM_REG_ID = "regId";
     public static String IS_DEVICE_REGISTER_FCM = "IS_DEVICE_REGISTER_FCM";

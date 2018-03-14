@@ -66,7 +66,7 @@
                 android:background="@drawable/bg_opt_selected"
                 android:gravity="center"
                 android:padding="@dimen/_12sdp"
-                android:text="@string/re_take_quiz"
+                android:text="@string/retake_quiz"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_16ssp"
                 android:visibility="visible" />

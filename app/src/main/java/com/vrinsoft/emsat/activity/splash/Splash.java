@@ -5,8 +5,11 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.vrinsoft.emsat.R;
+import com.vrinsoft.emsat.activity.home.Home;
 import com.vrinsoft.emsat.activity.signin.SignIn;
+import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.NavigationUtils;
+import com.vrinsoft.emsat.utils.Pref;
 
 public class Splash extends AppCompatActivity {
 
@@ -25,11 +28,10 @@ public class Splash extends AppCompatActivity {
     }
 
     private void chooseAction() {
-        /*if (!Pref.getValue(Splash.this, AppPreference.PREF_LOGIN, "").equals("1")) {
+        if (Pref.getValue(Splash.this, AppPreference.LOGIN, AppPreference.DEFAULT_INT) == (AppPreference.USER_STATUS.LOGOFF)) {
             NavigationUtils.startActivityWithClearStack(this, SignIn.class, null);
         } else {
             NavigationUtils.startActivityWithClearStack(this, Home.class, null);
-        }*/
-        NavigationUtils.startActivityWithClearStack(this, SignIn.class, null);
+        }
     }
 }

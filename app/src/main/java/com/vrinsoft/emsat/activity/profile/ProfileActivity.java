@@ -7,10 +7,13 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
@@ -24,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.vrinsoft.emsat.BuildConfig;
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
@@ -46,6 +50,7 @@ import com.vrinsoft.emsat.utils.file_chooser.FileUtils;
 import java.io.File;
 import java.util.ArrayList;
 
+import jp.wasabeef.blurry.Blurry;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -444,8 +449,13 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                 IMAGE_NAME,
                 uri,
                 profileBinding.imgTop);
+
         ImageUtils.loadProfileImageLocal
                 (mActivity, photoURI, profileBinding.imgTop, profileBinding.mProgress);
+
+        ImageUtils.loadBigBlurImage
+                (mActivity, R.drawable.bg_profile_top_banner, photoURI,
+                        profileBinding.imgBlurred, profileBinding.mProgress);
 
         finalFile = new File(photoURI.getPath());
 

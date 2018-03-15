@@ -7,6 +7,7 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -21,6 +22,8 @@ import com.vrinsoft.emsat.utils.file_chooser.FileUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+
+import jp.wasabeef.blurry.Blurry;
 
 public class ImageUtils {
 
@@ -143,6 +146,57 @@ public class ImageUtils {
             }).placeholder(R.drawable.ic_user_profile).crossFade().transform(new CircleTransform(context)).into(imgProfile);
 
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadBigBlurImage(final Context context, int drawable_res, Uri uri,
+                                        final ImageView imageView, final ProgressBar mProgress) {
+        try {
+
+            Bitmap bigPlaceHolder = BitmapFactory.decodeResource
+                    (context.getResources(), drawable_res);
+
+            mProgress.setVisibility(View.VISIBLE);
+            Glide.
+                with(context).
+                load(uri).
+                listener(new RequestListener<Uri, GlideDrawable>() {
+                @Override
+                public boolean onException(Exception e, Uri model,
+                                           Target<GlideDrawable> target,
+                                           boolean isFirstResource) {
+                    mProgress.setVisibility(View.GONE);
+                    return false;
+                }
+
+                @Override
+                public boolean onResourceReady(GlideDrawable resource,
+                                               Uri model, Target<GlideDrawable> target,
+                                               boolean isFromMemoryCache,
+                                               boolean isFirstResource) {
+                    mProgress.setVisibility(View.GONE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Blurry.with(context)
+                                    .radius(8)
+                                    .sampling(2)
+                                    .async()
+                                    .capture(imageView)
+                                    .into(imageView);
+                        }
+                    },500);
+                    return false;
+                }
+            }).placeholder(R.drawable.ic_user_profile).
+                    crossFade().
+                    centerCrop().
+                    override(bigPlaceHolder.getWidth(),bigPlaceHolder.getHeight()).
+                    into(imageView);
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }

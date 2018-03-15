@@ -43,7 +43,6 @@ public class MyTestListAdapter extends RecyclerView.Adapter<MyTestListAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position)
     {
-//        boolean isTestAttempted = !Validator.isNullEmpty(scoreAchieved) && Integer.parseInt(scoreAchieved) > 0;
         String isApply = getArrayList().get(position).getIsApply();
         boolean isTestAttempted = !Validator.isNullEmpty(isApply) && Integer.parseInt(isApply) == 1;
         holder.mBinding.swipe.setClickToClose(true);
@@ -57,7 +56,7 @@ public class MyTestListAdapter extends RecyclerView.Adapter<MyTestListAdapter.Vi
         {
             String scoreAchieved = getArrayList().get(position).getObtainScore();
             String totalScore = getArrayList().get(position).getTotalScore();
-            if(!Validator.isNullEmpty(totalScore))
+            if(!Validator.isNullEmpty(totalScore) && !totalScore.equalsIgnoreCase("0"))
             {
                 int scoreAchiev = Validator.isNullEmpty(scoreAchieved)?0:Integer.parseInt(scoreAchieved);
                 int result = (scoreAchiev * 100) / Integer.parseInt(totalScore);

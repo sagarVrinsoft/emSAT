@@ -432,6 +432,10 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         ImageUtils.loadProfileImageLocal
                 (mActivity, photoURI, profileBinding.imgTop, profileBinding.mProgress);
 
+        ImageUtils.loadBigBlurImage
+                (mActivity, R.drawable.bg_profile_top_banner, photoURI,
+                        profileBinding.imgBlurred, profileBinding.mProgress);
+
         finalFile = new File(photoURI.getPath());
         if (finalFile != null) {
             // do upload file logic here

@@ -60,6 +60,14 @@
                         android:gravity="center"
                         android:src="@drawable/ic_cam_edit"
                         android:textSize="45sp" />
+
+                    <ProgressBar
+                        android:id="@+id/mProgress"
+                        style="?android:attr/progressBarStyleLarge"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_centerInParent="true"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
                 <LinearLayout

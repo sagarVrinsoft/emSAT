@@ -94,20 +94,6 @@ public class ImageUtils {
         File file = FileUtils.getFileForAndroid_O_Pattern(context, photoURI, IMAGE_NAME);
         // Reduced File
         File fileReduced = ImageUtils.getReducedSizeFile(file);
-
-//        try {
-//            Glide.with(context).
-//                    load(photoURI).
-//                    asBitmap().
-//                    centerCrop().
-//                    transform(new CircleTransform(context)).
-//                    placeholder(R.drawable.chat_profile).
-//                    into(imgProfile);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
         // Return Uri of reduced Image Size to Upload
         if (fileReduced != null)
             return Uri.fromFile(fileReduced);
@@ -115,9 +101,8 @@ public class ImageUtils {
             return null;
     }
 
-    public static void loadDriverImage(Context context, String url,
-                                       ImageView imgProfile, int placeholder, final ProgressBar mProgress) {
-
+    public static void loadProfileImageLive(Context context, String url,
+                                        ImageView imgProfile, final ProgressBar mProgress) {
         try {
             mProgress.setVisibility(View.VISIBLE);
             Glide.with(context).load(url).listener(new RequestListener<String, GlideDrawable>() {
@@ -132,101 +117,31 @@ public class ImageUtils {
                     mProgress.setVisibility(View.GONE);
                     return false;
                 }
-            }).placeholder(placeholder).crossFade().transform(new CircleTransform(context)).into(imgProfile);
+            }).placeholder(R.drawable.ic_user_profile).crossFade().transform(new CircleTransform(context)).into(imgProfile);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void loadProfileImage(Context context, String url,
+    public static void loadProfileImageLocal(Context context, Uri uri,
                                         ImageView imgProfile, final ProgressBar mProgress) {
         try {
 
-           // Glide.with(context).load(url).transform(new CircleTransform(context)).into(imgProfile);
-
             mProgress.setVisibility(View.VISIBLE);
-            Glide.with(context).load(url).listener(new RequestListener<String, GlideDrawable>() {
+            Glide.with(context).load(uri).listener(new RequestListener<Uri, GlideDrawable>() {
                 @Override
-                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
                     mProgress.setVisibility(View.GONE);
                     return false;
                 }
 
                 @Override
-                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                     mProgress.setVisibility(View.GONE);
                     return false;
                 }
             }).placeholder(R.drawable.ic_user_profile).crossFade().transform(new CircleTransform(context)).into(imgProfile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    public static void loadRideHistoryImage(Context context, String url,
-                                            ImageView imgProfile, final ProgressBar mProgress) {
-        try {
-
-            mProgress.setVisibility(View.VISIBLE);
-            Glide.with(context).load(url).listener(new RequestListener<String, GlideDrawable>() {
-                @Override
-                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                    mProgress.setVisibility(View.GONE);
-                    return false;
-                }
-
-                @Override
-                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                    mProgress.setVisibility(View.GONE);
-                    return false;
-                }
-            }).placeholder(R.drawable.ic_user_profile).transform(new CircleTransform(context)).crossFade().into(imgProfile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void loadDiscussionBoardImage(Context context, String url,
-                                                ImageView imgProfile, final ProgressBar mProgress) {
-        try {
-
-            mProgress.setVisibility(View.VISIBLE);
-            Glide.with(context).load(url).listener(new RequestListener<String, GlideDrawable>() {
-                @Override
-                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                    mProgress.setVisibility(View.GONE);
-                    return false;
-                }
-
-                @Override
-                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                    mProgress.setVisibility(View.GONE);
-                    return false;
-                }
-            }).placeholder(R.drawable.ic_user_profile).crossFade().transform(new CircleTransform(context)).into(imgProfile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void loadAcceptRejectImage(Context context, String url,
-                                             ImageView imgProfile, final ProgressBar mProgress) {
-        try {
-
-            mProgress.setVisibility(View.VISIBLE);
-            Glide.with(context).load(url).listener(new RequestListener<String, GlideDrawable>() {
-                @Override
-                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                    mProgress.setVisibility(View.GONE);
-                    return false;
-                }
-
-                @Override
-                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                    mProgress.setVisibility(View.GONE);
-                    return false;
-                }
-            }).placeholder(R.drawable.ic_user_profile).crossFade().transform(new CircleTransform(context)).into(imgProfile);
         } catch (Exception e) {
             e.printStackTrace();
         }

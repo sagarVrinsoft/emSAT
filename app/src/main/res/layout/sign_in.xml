@@ -58,6 +58,7 @@
                                 android:layout_height="@dimen/_40sdp"
                                 android:cursorVisible="true"
                                 android:hint="@string/email_hint"
+                                android:text="sagar.shah@vrinsofts.com"
                                 android:inputType="textEmailAddress"
                                 android:textColor="@color/white"
                                 android:textColorHint="@color/white"
@@ -97,6 +98,7 @@
                         android:orientation="vertical">
 
                         <EditText
+                            android:text="11111111"
                             android:id="@+id/etPassword"
                             style="@style/BoxEditText"
                             android:layout_width="match_parent"

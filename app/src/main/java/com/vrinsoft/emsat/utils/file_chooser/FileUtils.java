@@ -56,7 +56,7 @@ public class FileUtils {
 
     public static File getAppDirectoryExternalStorage()
     {
-        String FlexiDir = APP_HOME +"/Flexipool/Profile";  // must be same as in res>>xml>>provider_paths
+        String FlexiDir = APP_HOME +"/emSAT/Profile";  // must be same as in res>>xml>>provider_paths
         File subDir = new File(FlexiDir);
         if(!subDir.exists())
             subDir.mkdirs();

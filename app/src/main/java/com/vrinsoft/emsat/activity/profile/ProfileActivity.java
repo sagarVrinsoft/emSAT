@@ -1,10 +1,19 @@
 package com.vrinsoft.emsat.activity.profile;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -15,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.vrinsoft.emsat.EmsatApplication;
+import com.vrinsoft.emsat.BuildConfig;
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
@@ -24,26 +33,18 @@ import com.vrinsoft.emsat.apis.model.user_profile.view_profile.BeanViewProfile;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
 import com.vrinsoft.emsat.apis.rest.NetworkConstants;
-import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
-import com.vrinsoft.emsat.apis.rest.ApiClient;
-import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
-import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivityProfileBinding;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
+import com.vrinsoft.emsat.utils.ImageUtils;
 import com.vrinsoft.emsat.utils.Pref;
+import com.vrinsoft.emsat.utils.SystemPermissionsUtils;
 import com.vrinsoft.emsat.utils.Validator;
 import com.vrinsoft.emsat.utils.ViewUtils;
+import com.vrinsoft.emsat.utils.file_chooser.FileUtils;
 
+import java.io.File;
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,6 +59,9 @@ import static com.vrinsoft.emsat.utils.ViewUtils.setTextInputLayout;
  */
 
 public class ProfileActivity extends MasterActivity implements View.OnClickListener {
+    public static final int CAMERA_PIC_REQUEST = 1000;
+    private static final int LIBRARY_REQUEST = 1400;
+    public static String IMAGE_NAME = "";
     ActivityProfileBinding profileBinding;
     Activity mActivity;
     TextView txtPassword, txtNewPassword, txtConfirmPassword, txtChangePassword, txtUpdate;
@@ -65,6 +69,12 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
     View vPassword, vNewPassword, vConfirmPassword;
     EditText etPassword, etNewPassword, etConfirmPassword;
     ImageView imgClose;
+    String selectedImagePath;
+    Uri photoURI;
+    int mGenderSel = AppConstants.GENDER.MALE;
+    View v;
+    boolean isFromGallery;
+    private File finalFile;
 
     @Override
     public Activity getActivity() {
@@ -94,6 +104,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
     private void setListeners() {
         profileBinding.ctMale.setOnClickListener(this);
         profileBinding.ctFemale.setOnClickListener(this);
+        profileBinding.imgTop.setOnClickListener(this);
         profileBinding.txtSubmit.setOnClickListener(this);
         profileBinding.etFN.addTextChangedListener(new MyTextWatcher(profileBinding.etFN));
         profileBinding.etEmail.addTextChangedListener(new MyTextWatcher(profileBinding.etEmail));
@@ -115,22 +126,17 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                 ViewUtils.showDialog(mActivity, true);
                 if (beanViewProfile.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
                     ArrayList<BeanViewProfile.Result> mArrayList = beanViewProfile.get(0).getResult();
-                    if(mArrayList.size() > 0)
-                    {
+                    if (mArrayList.size() > 0) {
                         profileBinding.etFN.setText(mArrayList.get(0).getName());
                         profileBinding.etMobileNo.setText(mArrayList.get(0).getMobileNo());
                         profileBinding.etEmail.setText(mArrayList.get(0).getEmail());
                         profileBinding.txtDOB.setText(mArrayList.get(0).getDob());
                         boolean isMale = mArrayList.get(0).getGender().equalsIgnoreCase(AppConstants.GENDER.MALE_str);
                         setGender(isMale);
-                    }
-                    else
-                    {
+                    } else {
                         ViewUtils.showToast(mActivity, getString(R.string.no_data_found), null);
                     }
-                }
-                else
-                {
+                } else {
                     ViewUtils.showToast(mActivity, beanViewProfile.get(0).getMessage(), null);
                 }
             }
@@ -216,10 +222,8 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
 
         txtUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                if (changePasswordValidation())
-                {
+            public void onClick(View v) {
+                if (changePasswordValidation()) {
                     ViewUtils.showDialog(mActivity, false);
                     String userId = Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR);
                     String token = Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR);
@@ -235,8 +239,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                                                Response<ArrayList<BeanChangePassword>> response) {
                             ArrayList<BeanChangePassword> beanChangePassword = response.body();
                             ViewUtils.showDialog(mActivity, true);
-                            if (beanChangePassword.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS)
-                            {
+                            if (beanChangePassword.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
                                 ViewUtils.showToast(mActivity, getString(R.string.password_changed_successfully), null);
                                 dialog.dismiss();
                                 signOut();
@@ -288,6 +291,208 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         } else {
             return true;
         }
+    }
+
+    private void setGender(boolean isMale) {
+        mGenderSel = isMale ? AppConstants.GENDER.MALE : AppConstants.GENDER.FEMALE;
+        profileBinding.ctMale.setChecked(isMale);
+        profileBinding.ctFemale.setChecked(!isMale);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ctMale:
+                if (!profileBinding.ctMale.isChecked()) {
+                    ViewUtils.setCheckedTextView(AppConstants.NUM_OF_CHECKED_VIEWS.TWO, profileBinding.ctMale, profileBinding.ctFemale, null, null);
+                    mGenderSel = AppConstants.GENDER.MALE;
+                }
+                break;
+            case R.id.ctFemale:
+                if (!profileBinding.ctFemale.isChecked()) {
+                    ViewUtils.setCheckedTextView(AppConstants.NUM_OF_CHECKED_VIEWS.TWO, profileBinding.ctFemale, profileBinding.ctMale, null, null);
+                    mGenderSel = AppConstants.GENDER.FEMALE;
+                }
+                break;
+            case R.id.txtSubmit:
+                callApiToUpdateProfile();
+                break;
+            case R.id.imgTop:
+                alertPhoto(v);
+                break;
+        }
+    }
+
+    public void alertPhoto(final View view) {
+        v = view;
+        final CharSequence[] items = {
+                getString(R.string.take_photo),
+                getString(R.string.choose_from_library),
+                getString(R.string.cancel)};
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+        builder.setTitle(getString(R.string.select_image));
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals(getString(R.string.take_photo))) {
+                    isFromGallery = false;
+                    if (SystemPermissionsUtils.checkCameraStoragePermission(mActivity, view)) {
+                        cameraIntent();
+                    }
+                } else if (items[item].equals(getString(R.string.choose_from_library))) {
+                    isFromGallery = true;
+                    if (SystemPermissionsUtils.checkStoragePermission(mActivity, view)) {
+                        galleryIntent();
+                    }
+                } else if (items[item].equals(
+                        getString(R.string.cancel))) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    private void galleryIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        startActivityForResult(Intent.createChooser(intent, "Select File"), LIBRARY_REQUEST);
+    }
+
+    private void cameraIntent() {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            IMAGE_NAME = System.currentTimeMillis() + ".jpg";
+            File photoFile = FileUtils.createImageFile(IMAGE_NAME);
+            if (Build.VERSION.SDK_INT >= 24) {
+                photoURI = FileProvider.getUriForFile(mActivity,
+                        BuildConfig.APPLICATION_ID + ".provider",
+                        photoFile);
+            } else {
+                photoURI = Uri.fromFile(FileUtils.createImageFile(IMAGE_NAME));
+            }
+            selectedImagePath = photoFile.getAbsolutePath();
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            startActivityForResult(takePictureIntent, CAMERA_PIC_REQUEST);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        for (int i = 0; i < permissions.length; i++) {
+            switch (permissions[i]) {
+                case Manifest.permission.WRITE_EXTERNAL_STORAGE:
+                    if (SystemPermissionsUtils.checkStoragePermission(mActivity, v)) {
+                        if (isFromGallery) {
+                            galleryIntent();
+                        } else {
+                            SystemPermissionsUtils.checkCameraStoragePermission(mActivity, v);
+                        }
+                    }
+                    break;
+                case Manifest.permission.CAMERA:
+                    if (SystemPermissionsUtils.checkCameraStoragePermission(mActivity, v)) {
+                        cameraIntent();
+                    }
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == LIBRARY_REQUEST)
+                onSelectFromGalleryResult(data);
+            else if (requestCode == CAMERA_PIC_REQUEST)
+                onCaptureImageResult(data);
+        } else {
+            photoURI = null;// prevent from crashing while canceling capture feature by uploading wrong URI
+        }
+    }
+
+    private void onCaptureImageResult(Intent data) {
+
+        photoURI = ImageUtils.getURIProfileImage(mActivity,
+                IMAGE_NAME,
+                photoURI,
+                profileBinding.imgTop);
+        ImageUtils.loadProfileImageLocal
+                (mActivity, photoURI, profileBinding.imgTop, profileBinding.mProgress);
+
+        finalFile = new File(photoURI.getPath());
+        if (finalFile != null) {
+            // do upload file logic here
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void onSelectFromGalleryResult(Intent data) {
+
+        final Uri uri = data.getData();
+        IMAGE_NAME = System.currentTimeMillis() + ".jpg";
+        // here assigning value to photoURI is imporatant bcoz this uri will
+        // use to upload image in Multipart Entity.
+        photoURI = ImageUtils.getURIProfileImage(mActivity,
+                IMAGE_NAME,
+                uri,
+                profileBinding.imgTop);
+        ImageUtils.loadProfileImageLocal
+                (mActivity, photoURI, profileBinding.imgTop, profileBinding.mProgress);
+
+        finalFile = new File(photoURI.getPath());
+
+        if (finalFile != null) {
+            // do upload file logic here
+        }
+    }
+
+    private void callApiToUpdateProfile() {
+        ViewUtils.showDialog(mActivity, false);
+        String name = profileBinding.etFN.getText().toString().trim();
+        String mobile = profileBinding.etMobileNo.getText().toString().trim();
+        String email = profileBinding.etEmail.getText().toString().trim();
+        String dob = profileBinding.txtDOB.getText().toString().trim();
+        int gender = mGenderSel;
+
+        Call<ArrayList<BeanUpdateProfile>> listCall =
+                ApiClient.getApiInterface().updateProfile
+                        (Pref.getUserId(mActivity),
+                                name,
+                                mobile,
+                                email,
+                                dob,
+                                Pref.getProfileImage(mActivity),
+                                gender,
+                                Pref.getToken(mActivity));
+
+        listCall.enqueue(new Callback<ArrayList<BeanUpdateProfile>>() {
+            @Override
+            public void onResponse(Call<ArrayList<BeanUpdateProfile>> call, Response<ArrayList<BeanUpdateProfile>> response) {
+                ArrayList<BeanUpdateProfile> beanUpdateProfile = response.body();
+
+                ViewUtils.showDialog(mActivity, true);
+                if (beanUpdateProfile.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
+                    ViewUtils.showToast(mActivity, beanUpdateProfile.get(0).getMessage(), null);
+                    finish();
+                } else {
+                    ViewUtils.showToast(mActivity, beanUpdateProfile.get(0).getMessage(), null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<BeanUpdateProfile>> call, Throwable t) {
+                ViewUtils.showDialog(mActivity, true);
+                ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
+            }
+        });
     }
 
     public class MyTextWatcher implements TextWatcher {
@@ -370,88 +575,5 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         public void afterTextChanged(Editable s) {
 
         }
-    }
-
-    private void setGender(boolean isMale)
-    {
-        /*mGenderSel = Integer.parseInt(gender);
-        switch (mGenderSel)
-        {
-            case AppConstants.GENDER.MALE:
-                profileBinding.ctMale.setChecked(true);
-                break;
-            case AppConstants.GENDER.FEMALE:
-                profileBinding.ctFemale.setChecked(true);
-                break;
-        }*/
-
-        mGenderSel = isMale?AppConstants.GENDER.MALE:AppConstants.GENDER.FEMALE;
-        profileBinding.ctMale.setChecked(isMale);
-        profileBinding.ctFemale.setChecked(!isMale);
-    }
-    int mGenderSel = AppConstants.GENDER.MALE;
-    @Override
-    public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.ctMale:
-                if (!profileBinding.ctMale.isChecked()) {
-                    ViewUtils.setCheckedTextView(AppConstants.NUM_OF_CHECKED_VIEWS.TWO, profileBinding.ctMale, profileBinding.ctFemale, null, null);
-                    mGenderSel = AppConstants.GENDER.MALE;
-                }
-                break;
-            case R.id.ctFemale:
-                if (!profileBinding.ctFemale.isChecked()) {
-                    ViewUtils.setCheckedTextView(AppConstants.NUM_OF_CHECKED_VIEWS.TWO, profileBinding.ctFemale, profileBinding.ctMale, null, null);
-                    mGenderSel = AppConstants.GENDER.FEMALE;
-                }
-                break;
-            case R.id.txtSubmit:
-                callApiToUpdateProfile();
-                break;
-        }
-    }
-
-    private void callApiToUpdateProfile()
-    {
-        ViewUtils.showDialog(mActivity, false);
-        String name = profileBinding.etFN.getText().toString().trim();
-        String mobile = profileBinding.etMobileNo.getText().toString().trim();
-        String email = profileBinding.etEmail.getText().toString().trim();
-        String dob = profileBinding.txtDOB.getText().toString().trim();
-        int gender = mGenderSel;
-
-        Call<ArrayList<BeanUpdateProfile>> listCall =
-                ApiClient.getApiInterface().updateProfile
-                        (Pref.getUserId(mActivity),
-                                name,
-                                mobile,
-                                email,
-                                dob,
-                                Pref.getProfileImage(mActivity),
-                                gender,
-                                Pref.getToken(mActivity));
-
-        listCall.enqueue(new Callback<ArrayList<BeanUpdateProfile>>() {
-            @Override
-            public void onResponse(Call<ArrayList<BeanUpdateProfile>> call, Response<ArrayList<BeanUpdateProfile>> response) {
-                ArrayList<BeanUpdateProfile> beanUpdateProfile = response.body();
-
-                ViewUtils.showDialog(mActivity, true);
-                if (beanUpdateProfile.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS)
-                {
-                    ViewUtils.showToast(mActivity, beanUpdateProfile.get(0).getMessage(), null);
-                    finish();
-                } else {
-                    ViewUtils.showToast(mActivity, beanUpdateProfile.get(0).getMessage(), null);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<BeanUpdateProfile>> call, Throwable t) {
-                ViewUtils.showDialog(mActivity, true);
-                ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
-            }
-        });
     }
 }

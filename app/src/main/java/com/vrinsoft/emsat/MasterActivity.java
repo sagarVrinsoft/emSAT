@@ -216,8 +216,8 @@ public abstract class MasterActivity extends AppCompatActivity
         builder.setMessage(getString(R.string.are_you_sure_you_want_to_sign_out))
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-//                        signOut();
-                        NavigationUtils.startActivityWithClearStack(mActivity, SignIn.class, null);
+                        signOut();
+//                        NavigationUtils.startActivityWithClearStack(mActivity, SignIn.class, null);
                         dialog.dismiss();
                     }
                 })
@@ -231,14 +231,10 @@ public abstract class MasterActivity extends AppCompatActivity
     }
 
     public void signOut() {
-//  -------------   TEMP    ---------------------------
-        AppConstants.isUserPreferedLogOut = true;
-        AppConstants.setLogoutFromApp(mActivity);
-//  ---------------------------------------------------
-        /*ViewUtils.showDialog(mActivity, false);
+        ViewUtils.showDialog(mActivity, false);
         Call<ArrayList<BeanLogOut>> listCall = ApiClient.getApiInterface().
-                logOut(Pref.getValue(mActivity, AppPreference.USER_INFO.USER_ID, AppPreference.DEFAULT_STR),
-                        Pref.getValue(mActivity, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR));
+                logOut(Pref.getUserId(mActivity),
+                        Pref.getToken(mActivity));
 
         listCall.enqueue(new Callback<ArrayList<BeanLogOut>>() {
             @Override
@@ -264,7 +260,7 @@ public abstract class MasterActivity extends AppCompatActivity
                 ViewUtils.showDialog(mActivity, true);
                 ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
             }
-        });*/
+        });
     }
 
     @Override

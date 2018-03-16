@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -30,6 +32,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckedTextView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -37,6 +40,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vrinsoft.emsat.R;
+import com.vrinsoft.emsat.interfaces.OnDateSelectedListener;
 import com.vrinsoft.emsat.model.phonebook.BinPhoneBook;
 import com.vrinsoft.emsat.utils.dialog.adapter.MyRecyclerViewAdapter;
 import com.vrinsoft.emsat.utils.dialog.model.BinItems;
@@ -54,13 +58,12 @@ import static com.vrinsoft.emsat.utils.LogUtils.LOGD;
 public class ViewUtils {
     public static boolean isCancelRideDialogOpenByPassenger = false;
 
-    public static String DATE_TIME_FORMAT = "dd MMM yyy HH:mm";
-    public static String DATE_FORMAT = "dd MMM yyy";
-    public static String DATE_FORMAT_DD_MMM = "dd MMM";
-    public static String TIME_FORMAT = "hh:mm a";
-    public static String DATE_TIME_SEC_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    public static String DATE_TIME_SEC_FORMAT_12_hour = "yyyy-MM-dd hh:mm a";
-    public static ArrayList<BinItems> cancelReasonsList = new ArrayList<>();
+//    public static String DATE_TIME_FORMAT = "dd MMM yyy HH:mm";
+//    public static String DATE_FORMAT = "dd MMM yyy";
+//    public static String DATE_FORMAT_DD_MMM = "dd MMM";
+//    public static String TIME_FORMAT = "hh:mm a";
+//    public static String DATE_TIME_SEC_FORMAT = "yyyy-MM-dd HH:mm:ss";
+//    public static String DATE_TIME_SEC_FORMAT_12_hour = "yyyy-MM-dd hh:mm a";
     static ProgressDialog progress;
     static SimpleDateFormat sdf;
     static DatePickerDialog datePickerDialog;
@@ -201,12 +204,7 @@ public class ViewUtils {
         if (!Validator.isNullEmpty(message))
             alertDialog.setMessage(message);
         alertDialog.setPositiveButton(btnText1, onClickListener);
-        alertDialog.setNegativeButton(btnText2, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
+        alertDialog.setNegativeButton(btnText2, onClickListener);
         alertDialog.show();
     }
 
@@ -236,18 +234,18 @@ public class ViewUtils {
         return cal.get(Calendar.YEAR);
     }
 
-    public static String getCurrentDate() {
+    /*public static String getCurrentDate() {
         sdf = new SimpleDateFormat(AppConstants.DATE_FORMAT.API_DD_MM_YYYY, Locale.US);
         return sdf.format(new Date());
-    }
+    }*/
 
-    public static String getDateAfterOneWeek() {
+    /*public static String getDateAfterOneWeek() {
         Date oneWeek = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(oneWeek);
         cal.add(Calendar.DATE, 7);
         oneWeek = cal.getTime();
-        sdf = new SimpleDateFormat(AppConstants.DATE_FORMAT.DD_MM_YYYY, Locale.US);
+        sdf = new SimpleDateFormat(AppConstants.DATE_FORMAT.API_DD_MM_YYYY, Locale.US);
         return sdf.format(oneWeek);
     }
 
@@ -257,9 +255,9 @@ public class ViewUtils {
         cal.setTime(oneMonth);
         cal.add(Calendar.MONTH, 1);
         oneMonth = cal.getTime();
-        sdf = new SimpleDateFormat(AppConstants.DATE_FORMAT.DD_MM_YYYY, Locale.US);
+        sdf = new SimpleDateFormat(AppConstants.DATE_FORMAT.API_DD_MM_YYYY, Locale.US);
         return sdf.format(oneMonth);
-    }
+    }*/
 
     public static void sendMessage(Activity activity, String cellNo, String msg) {
         if (cellNo != null) {
@@ -268,13 +266,6 @@ public class ViewUtils {
             intent.putExtra("sms_body", msg);
             activity.startActivity(intent);
         }
-    }
-
-    public static void shareMyRideInfo(Activity activity, String cellNo, String msg) {
-        Uri uri = Uri.parse("smsto:" + cellNo);
-        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-        intent.putExtra("sms_body", msg);
-        activity.startActivity(intent);
     }
 
     public static void showDialog(Activity context, boolean isDismiss) {
@@ -320,7 +311,7 @@ public class ViewUtils {
         return String.format("%.2f", value);
     }
 
-    public static String getFormattedDate(String strDate, String outputPattern) {
+    /*public static String getFormattedDate(String strDate, String outputPattern) {
         //Date Format 2017-07-06 07:16:00
         // 06 Jul 2007 15:03
         if (!strDate.equals("")) {
@@ -339,7 +330,7 @@ public class ViewUtils {
             return final_str;
         }
         return "";
-    }
+    }*/
 
     public static void enableDisableView(View view, boolean enabled) {
         view.setEnabled(enabled);
@@ -411,6 +402,56 @@ public class ViewUtils {
                 ctInActive2.setTextColor(context.getResources().getColor(R.color.hint_label_color));
                 ctInActive3.setTextColor(context.getResources().getColor(R.color.hint_label_color));
                 break;*/
+        }
+    }
+
+    public static void showDOBDatePickerDialog(final Activity mActivity, final String strDate, final OnDateSelectedListener onDateSelectedListener) {
+        try {
+            final Calendar maxDate = Calendar.getInstance();
+            final Calendar minDate = Calendar.getInstance();
+            final Calendar calSelDate = Calendar.getInstance();
+
+            maxDate.add(Calendar.YEAR, -18);
+            minDate.add(Calendar.YEAR, -50);
+
+            if (strDate.equalsIgnoreCase("")) {
+                calSelDate.setTimeInMillis(maxDate.getTimeInMillis());
+            } else {
+                String[] split = strDate.split("-");
+                int yearr = Integer.valueOf(split[0]);
+                int month = Integer.valueOf(split[1]);
+                int day = Integer.valueOf(split[2]);
+                calSelDate.set(yearr, month - 1, day);
+            }
+
+            sdf = new SimpleDateFormat(Pref.getApiDateFormat(mActivity), Locale.US);
+            datePickerDialog = new DatePickerDialog
+                    (mActivity,
+                            new DatePickerDialog.OnDateSetListener() {
+
+                                @SuppressWarnings("unused")
+                                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                                    Calendar selectedCal = Calendar.getInstance();
+                                    Calendar cal = Calendar.getInstance();
+                                    selectedCal.set(year, monthOfYear, dayOfMonth);
+
+                                    String date = sdf.format(selectedCal.getTime());
+
+                                    String strAge = String.valueOf(cal.get(Calendar.YEAR) - year);
+
+                                    if (!date.equals("") && date != null)
+                                        onDateSelectedListener.getSelectedDate(date, strAge);
+                                }
+
+                            }, calSelDate.get(Calendar.YEAR), calSelDate.get(Calendar.MONTH), calSelDate.get(Calendar.DAY_OF_MONTH));
+
+            datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+            datePickerDialog.getDatePicker().setMinDate(minDate.getTimeInMillis());
+            datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+            datePickerDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

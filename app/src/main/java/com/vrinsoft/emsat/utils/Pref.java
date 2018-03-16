@@ -231,4 +231,17 @@ public class Pref {
         return Pref.getValue(context, AppPreference.USER_INFO.TOKEN, AppPreference.DEFAULT_STR);
     }
 
+    public static void setApiDateFormat(Context context, String dtFormat) {
+        Pref.openPref(context);
+        SharedPreferences.Editor prefsPrivateEditor = Pref.sharedPreferences.edit();
+        prefsPrivateEditor.commit();
+        prefsPrivateEditor.putString(AppPreference.DATE_FORMAT, dtFormat);
+        prefsPrivateEditor = null;
+        Pref.sharedPreferences = null;
+    }
+
+    public static String getApiDateFormat(Context context)
+    {
+        return Pref.getValue(context, AppPreference.DATE_FORMAT, AppPreference.DEF_DATE_FORMAT);
+    }
 }

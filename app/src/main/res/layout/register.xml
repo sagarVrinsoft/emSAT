@@ -4,7 +4,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorAccent"
+        android:background="@color/colorAccent_dup"
         android:descendantFocusability="beforeDescendants"
         android:focusableInTouchMode="true"
         android:orientation="vertical">
@@ -70,7 +70,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:text="@string/name"
-                            android:background="@color/colorAccent"
+                            android:background="@color/colorAccent_dup"
                             android:textColor="@color/white"
                             android:visibility="gone" />
 
@@ -136,7 +136,7 @@
                             style="@style/BoxEditTextLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@color/colorAccent"
+                            android:background="@color/colorAccent_dup"
                             android:text="@string/mobile_no"
                             android:textColor="@color/white"
                             android:visibility="gone" />
@@ -180,7 +180,7 @@
                             style="@style/BoxEditTextLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@color/colorAccent"
+                            android:background="@color/colorAccent_dup"
                             android:text="@string/email_hint"
                             android:textColor="@color/white"
                             android:visibility="gone" />
@@ -226,7 +226,7 @@
                             style="@style/BoxEditTextLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@color/colorAccent"
+                            android:background="@color/colorAccent_dup"
                             android:text="@string/password"
                             android:textColor="@color/white"
                             android:visibility="gone" />

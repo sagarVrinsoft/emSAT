@@ -95,4 +95,10 @@
     <string name="select_image">Select Image</string>
     <string name="picture_not_taken">Picture is not taken</string>
     <string name="cancel">Cancel</string>
+    <string name="invalid_age">Age must be at least 18</string>
+
+    <string name="dialog_title_are_you_sure">Are you sure?</string>
+    <string name="dialog_desc_go_without_submit_score">You want to go back without submit your score?</string>
+    <string name="submit">Submit</string>
+    <string name="yes">Yes</string>
 </resources>

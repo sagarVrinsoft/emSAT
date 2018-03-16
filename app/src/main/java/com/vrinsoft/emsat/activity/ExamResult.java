@@ -2,6 +2,7 @@ package com.vrinsoft.emsat.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -79,8 +80,7 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
             testName = mBundle.getString(AppConstants.INTENT_TEST_NAME);
             subCatId = mBundle.getString(AppConstants.INTENT_SUBCAT_ID);
 
-            mBinding.circleProgressView.setProgress(obtained_score, total_score);
-
+            mBinding.circleProgressView.setProgress(obtained_score * 100, 100);
             mBinding.txtSkip.setText(getString(R.string.skip_ans) + skipped_ans + "/" + total_ans);
             mBinding.txtCorrect.setText(getString(R.string.correct_ans) + correct_ans + "/" + total_ans);
             mBinding.txtWrong.setText(getString(R.string.wrong_ans) + wrong_ans + "/" + total_ans);
@@ -97,7 +97,24 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgBack:
-                NavigationUtils.finishCurrentActivity(mActivity);
+                ViewUtils.showDoubleBtnAlert(mActivity, getString(R.string.dialog_title_are_you_sure),
+                        getString(R.string.dialog_desc_go_without_submit_score),
+                        getString(R.string.yes),
+                        getString(R.string.submit),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which)
+                                {
+                                    case DialogInterface.BUTTON_POSITIVE:
+                                        NavigationUtils.finishCurrentActivity(mActivity);
+                                        break;
+                                    case DialogInterface.BUTTON_NEGATIVE:
+                                        callApiToSubmitScore();
+                                        break;
+                                }
+                            }
+                        });
                 break;
             case R.id.txtRight:
                 callApiToSubmitScore();
@@ -150,5 +167,10 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed() {
+        masterBinding.toolbar.imgBack.performClick();
     }
 }

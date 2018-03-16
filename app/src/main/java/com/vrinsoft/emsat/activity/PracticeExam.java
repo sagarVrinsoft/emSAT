@@ -33,6 +33,7 @@ import com.vrinsoft.emsat.databinding.ActivityPracticeExamBinding;
 import com.vrinsoft.emsat.databinding.DialogHintBinding;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
+import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.utils.Pref;
 import com.vrinsoft.emsat.utils.ViewUtils;
 import com.vrinsoft.emsat.utils.widget.TagLayout;
@@ -291,8 +292,16 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    stopCountDown();
-                                    getFinalScore();
+                                    switch (i)
+                                    {
+                                        case DialogInterface.BUTTON_POSITIVE:
+                                            stopCountDown();
+                                            getFinalScore();
+                                            break;
+                                        case DialogInterface.BUTTON_NEGATIVE:
+                                            dialogInterface.dismiss();
+                                            break;
+                                    }
                                 }
                             });
                 }
@@ -771,8 +780,16 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            stopCountDown();
-                            getFinalScore();
+                            switch (i)
+                            {
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    stopCountDown();
+                                    getFinalScore();
+                                    break;
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    dialogInterface.dismiss();
+                                    break;
+                            }
                         }
                     });
         }

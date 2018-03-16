@@ -57,7 +57,7 @@ public class AppConstants {
     }
 
 
-    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+//    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static DecimalFormat decimalFormat = new DecimalFormat("0.00");
     public static final int VALIDATE_DOB_YEAR = -18;
     public static int cur_sel_pos = MENU_ITEM.MENU_ITEM_HOME;
@@ -105,9 +105,9 @@ public class AppConstants {
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
-    public static String getCurrentTime() {
+    /*public static String getCurrentTime() {
         return new SimpleDateFormat(DATE_TIME_FORMAT).format(new Date());
-    }
+    }*/
 
     public static int pxToDp(int px, Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
@@ -182,8 +182,6 @@ public class AppConstants {
     }
 
     public interface DATE_FORMAT {
-        public static String DD_MM_YYYY = "dd MMM yyy";
-
         public static String API_DD_MM_YYYY = "yyyy-MM-dd";
     }
 

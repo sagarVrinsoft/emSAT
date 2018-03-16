@@ -216,8 +216,8 @@
                                         style="@style/BoxEditText"
                                         android:layout_width="match_parent"
                                         android:layout_height="@dimen/_40sdp"
-                                        android:hint="@string/email_hint"
                                         android:enabled="false"
+                                        android:hint="@string/email_hint"
                                         android:inputType="textEmailAddress" />
 
                                     <View
@@ -239,6 +239,8 @@
                             </RelativeLayout>
 
                             <RelativeLayout
+                                android:id="@+id/rlDOB"
+                                android:clickable="true"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp">
@@ -255,16 +257,9 @@
                                         style="@style/BoxEditText"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:enabled="false"
-                                        android:focusable="true"
-                                        android:focusableInTouchMode="true"
+                                        android:clickable="true"
                                         android:hint="@string/date_of_birth"
-                                        android:imeOptions="actionNext"
-                                        android:padding="@dimen/_10sdp">
-
-                                        <requestFocus />
-
-                                    </TextView>
+                                        android:padding="@dimen/_10sdp"></TextView>
 
                                     <View
                                         android:id="@+id/vDOB"

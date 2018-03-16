@@ -38,6 +38,7 @@ import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
 import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivityProfileBinding;
+import com.vrinsoft.emsat.interfaces.OnDateSelectedListener;
 import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.ImageUtils;
@@ -111,10 +112,12 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         profileBinding.ctFemale.setOnClickListener(this);
         profileBinding.imgTop.setOnClickListener(this);
         profileBinding.txtSubmit.setOnClickListener(this);
+        profileBinding.txtDOB.setOnClickListener(this);
         profileBinding.etFN.addTextChangedListener(new MyTextWatcher(profileBinding.etFN));
         profileBinding.etEmail.addTextChangedListener(new MyTextWatcher(profileBinding.etEmail));
         profileBinding.etMobileNo.addTextChangedListener(new MyTextWatcher(profileBinding.etMobileNo));
-        profileBinding.txtDOB.addTextChangedListener(new MyTextWatcher(profileBinding.txtDOB));
+        setTextInputLayout(profileBinding.txtDOB, null,
+                profileBinding.llDOB, getEtBackground(mActivity), profileBinding.txtLabelDOB, View.VISIBLE, profileBinding.vDOB, View.GONE);
     }
 
     private void setProfileData() {
@@ -172,6 +175,26 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 toggleDrawer();
+            }
+        });
+    }
+
+    public void showDobDialog()
+    {
+        ViewUtils.showDOBDatePickerDialog(mActivity,
+                profileBinding.txtDOB.getText().toString().trim(),
+                new OnDateSelectedListener() {
+            @Override
+            public void getSelectedDate(String date, String age) {
+                if (Integer.parseInt(age) >= 18) {
+                    profileBinding.txtDOB.setText(date);
+                    profileBinding.txtDOB.setBackground(getEtBackground(mActivity));
+                    profileBinding.vDOB.setVisibility(View.GONE);
+                    profileBinding.txtLabelDOB.setVisibility(View.VISIBLE);
+                } else {
+                    ViewUtils.showToast(mActivity,
+                            getString(R.string.invalid_age), null);
+                }
             }
         });
     }
@@ -321,6 +344,9 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                 break;
             case R.id.txtSubmit:
                 callApiToUpdateProfile();
+                break;
+            case R.id.txtDOB:
+                showDobDialog();
                 break;
             case R.id.imgTop:
                 alertPhoto(v);
@@ -573,7 +599,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                                 getString(R.string.mobile_no), profileBinding.llMobileNo, null, profileBinding.txtMobileNo, View.GONE, profileBinding.vMobileNo, View.VISIBLE);
                     }
                     break;
-                case R.id.txtDOB:
+                /*case R.id.txtDOB:
                     if (s.length() > 0) {
                         setTextInputLayout(profileBinding.txtDOB, null,
                                 profileBinding.llDOB, getEtBackground(mActivity), profileBinding.txtLabelDOB, View.VISIBLE, profileBinding.vDOB, View.GONE);
@@ -581,7 +607,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                         setTextInputLayout(profileBinding.txtDOB,
                                 getString(R.string.date_of_birth), profileBinding.llDOB, null, profileBinding.txtLabelDOB, View.GONE, profileBinding.vDOB, View.VISIBLE);
                     }
-                    break;
+                    break;*/
             }
         }
 

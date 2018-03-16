@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.TextView;
 
 import com.vrinsoft.emsat.MasterActivity;
 import com.vrinsoft.emsat.R;
@@ -141,46 +142,14 @@ public class SubCategory extends MasterActivity {
                             mAdapter.notifyDataSetChanged();
                             binding.txtNoDataFound.setVisibility(View.GONE);
                             binding.rvSubCategory.setVisibility(View.VISIBLE);
-
-                            if (mArrayList.size() > 0) {
-                                binding.txtRefresh2.setText(mArrayList.get(0).getSubCategoryName());
-                                binding.txtRefresh2.setVisibility(View.VISIBLE);
-                                binding.txtRefresh4.setVisibility(View.GONE);
-                                binding.txtRefresh6.setVisibility(View.GONE);
-                                binding.txtRefresh8.setVisibility(View.GONE);
-                            }
-                            if (mArrayList.size() > 1) {
-                                binding.txtRefresh4.setText(mArrayList.get(1).getSubCategoryName());
-                                binding.txtRefresh2.setVisibility(View.VISIBLE);
-                                binding.txtRefresh4.setVisibility(View.VISIBLE);
-                                binding.txtRefresh6.setVisibility(View.GONE);
-                                binding.txtRefresh8.setVisibility(View.GONE);
-                            }
-                            if (mArrayList.size() > 2) {
-                                binding.txtRefresh6.setText(mArrayList.get(2).getSubCategoryName());
-                                binding.txtRefresh2.setVisibility(View.VISIBLE);
-                                binding.txtRefresh4.setVisibility(View.VISIBLE);
-                                binding.txtRefresh6.setVisibility(View.VISIBLE);
-                                binding.txtRefresh8.setVisibility(View.GONE);
-                            }
-                            if (mArrayList.size() > 3) {
-                                binding.txtRefresh8.setText(mArrayList.get(3).getSubCategoryName());
-                                binding.txtRefresh2.setVisibility(View.VISIBLE);
-                                binding.txtRefresh4.setVisibility(View.VISIBLE);
-                                binding.txtRefresh6.setVisibility(View.VISIBLE);
-                                binding.txtRefresh8.setVisibility(View.VISIBLE);
-                            }
-
-                            if (mArrayList.size() == 0) {
-                                setDefaultText();
-                            }
+                            setPieChart();
                         } else {
-                            setDefaultText();
+                            setPieChart();
                             binding.txtNoDataFound.setVisibility(View.VISIBLE);
                             binding.rvSubCategory.setVisibility(View.GONE);
                         }
                     } else {
-                        setDefaultText();
+                        setPieChart();
                         ViewUtils.showToast(mActivity, list.get(0).getMessage(), null);
                     }
                 }
@@ -189,18 +158,90 @@ public class SubCategory extends MasterActivity {
                 public void onFailure(retrofit2.Call<ArrayList<BinSubCategory>> call, Throwable t) {
                     ViewUtils.showDialog(mActivity, true);
                     ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
-                    setDefaultText();
+                    setPieChart();
                 }
             });
         }
 
     }
 
-    public void setDefaultText() {
-        binding.txtRefresh2.setText("");
-        binding.txtRefresh4.setText("");
-        binding.txtRefresh6.setText("");
-        binding.txtRefresh8.setText("");
+    int counter = 0;
+    private void setPieChart()
+    {
+        counter = 0;
+        switch (mArrayList.size())
+        {
+            case 0:
+                for(int i=0 ;i< binding.layoutCircular.getChildCount();i++)
+                {
+                    View child = binding.layoutCircular.getChildAt(i);
+                    child.setVisibility(View.INVISIBLE);
+                }
+                break;
+            case 1:
+                for(int i=0 ;i< binding.layoutCircular.getChildCount();i++)
+                {
+                    View child = binding.layoutCircular.getChildAt(i);
+                    if(i==0)
+                    {
+                        ((TextView)child).setText(mArrayList.get(counter).getSubCategoryName());
+                        child.setVisibility(View.VISIBLE);
+                        ++counter;
+                    }
+                    else
+                    {
+                        child.setVisibility(View.INVISIBLE);
+                    }
+                }
+                break;
+            case 2:
+                for(int i=0 ;i< binding.layoutCircular.getChildCount();i++)
+                {
+                    View child = binding.layoutCircular.getChildAt(i);
+                    if(i==2 || i==6)
+                    {
+                        ((TextView)child).setText(mArrayList.get(counter).getSubCategoryName());
+                        child.setVisibility(View.VISIBLE);
+                        ++counter;
+                    }
+                    else
+                    {
+                        child.setVisibility(View.INVISIBLE);
+                    }
+                }
+                break;
+            case 3:
+                for(int i=0 ;i< binding.layoutCircular.getChildCount();i++)
+                {
+                    View child = binding.layoutCircular.getChildAt(i);
+                    if(i==1 || i==4 || i==7)
+                    {
+                        child.setVisibility(View.VISIBLE);
+                        ((TextView)child).setText(mArrayList.get(counter).getSubCategoryName());
+                        ++counter;
+                    }
+                    else
+                    {
+                        child.setVisibility(View.INVISIBLE);
+                    }
+                }
+                break;
+            case 4:
+                for(int i=0 ;i< binding.layoutCircular.getChildCount();i++)
+                {
+                    View child = binding.layoutCircular.getChildAt(i);
+                    if(i==1 || i==3 || i==5 || i==7)
+                    {
+                        child.setVisibility(View.VISIBLE);
+                        ((TextView)child).setText(mArrayList.get(counter).getSubCategoryName());
+                        ++counter;
+                    }
+                    else
+                    {
+                        child.setVisibility(View.INVISIBLE);
+                    }
+                }
+                break;
+        }
     }
-
 }

@@ -240,54 +240,74 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/footer_bar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimary">
+            android:background="@color/colorAccent_dup"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txtPrev"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_30sdp"
-                android:drawableTop="@drawable/left_arrow"
+                android:id="@+id/txtSuggestion"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_above="@+id/rlDirection"
+                android:background="@color/bg_notification_count"
                 android:gravity="center"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingRight="@dimen/_20sdp"
-                android:text="@string/prev"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp" />
+                android:text="@string/suggestion"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14ssp"
+                android:visibility="visible" />
 
-            <TextView
-                android:id="@+id/txtCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:padding="@dimen/_10sdp"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/_13ssp" />
+            <RelativeLayout
+                android:id="@+id/rlDirection"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                android:visibility="visible">
 
-            <TextView
-                android:id="@+id/txtNext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/_30sdp"
-                android:drawableTop="@drawable/right_arrow"
-                android:gravity="center"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingRight="@dimen/_20sdp"
-                android:text="@string/next"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_13ssp" />
+                <TextView
+                    android:id="@+id/txtPrev"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_30sdp"
+                    android:drawableTop="@drawable/left_arrow"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:text="@string/prev"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp" />
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/txtCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="@dimen/_10sdp"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_13ssp" />
 
-
+                <TextView
+                    android:id="@+id/txtNext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/_30sdp"
+                    android:drawableTop="@drawable/right_arrow"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingRight="@dimen/_20sdp"
+                    android:text="@string/next"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_13ssp" />
+            </RelativeLayout>
+        </LinearLayout>
     </RelativeLayout>
 </layout>

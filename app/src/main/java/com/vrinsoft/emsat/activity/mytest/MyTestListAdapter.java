@@ -48,7 +48,7 @@ public class MyTestListAdapter extends RecyclerView.Adapter<MyTestListAdapter.Vi
         holder.mBinding.swipe.setClickToClose(true);
         holder.mBinding.txtProgress.setText(""+Math.round(holder.mBinding.progressScore.getPercent())+"/"+100);
         holder.mBinding.txtCategory.setText(getArrayList().get(position).getCategoryName());
-        holder.mBinding.txtSubCategory.setText(getArrayList().get(position).getSubCategoryName());
+        holder.mBinding.txtTestName.setText(getArrayList().get(position).getTestName());
         holder.mBinding.txtEndDate.setText(getArrayList().get(position).getDateTime());
         holder.mBinding.swipe.setTag(position);
         holder.mBinding.llMain.setTag(holder.mBinding.swipe);

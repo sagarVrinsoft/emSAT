@@ -57,6 +57,8 @@
     <string name="password_star">Password*</string>
     <string name="update">Update</string>
     <string name="no_data_found">No Data Found</string>
+    <string name="no_hint_available">No hint available at the moment</string>
+    <string name="no_suggestion_available">No suggestion available</string>
     <string name="password_must_contains_atleast_8_characters">Passsword must contain atleast 8 characters</string>
     <string name="old_password_must_contains_atleast_8_characters">Old Passsword must contain atleast 8 characters</string>
     <string name="new_password_must_contains_atleast_8_characters">New Passsword must contain atleast 8 characters</string>
@@ -68,6 +70,8 @@
     <string name="please_enter_confirm_password">Please enter confirm password</string>
     <string name="retake_quiz">Re-take Quiz</string>
     <string name="take_quiz">Take Quiz</string>
+    <string name="suggestion">Click here for Suggestion</string>
+    <string name="suggestion_title">Suggestion</string>
 
     <string name="practice_exam">Practice Exam</string>
     <string name="quit">Quit</string>

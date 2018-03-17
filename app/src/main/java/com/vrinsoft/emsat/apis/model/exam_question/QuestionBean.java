@@ -65,6 +65,11 @@ public class QuestionBean {
         @SerializedName("question_hint")
         @Expose
         private String questionHint;
+
+        @SerializedName("suggestion")
+        @Expose
+        private String suggestion;
+
         @SerializedName("option_1")
         @Expose
         private String option1;
@@ -231,5 +236,12 @@ public class QuestionBean {
             this.answer = answer;
         }
 
+        public String getSuggestion() {
+            return suggestion;
+        }
+
+        public void setSuggestion(String suggestion) {
+            this.suggestion = suggestion;
+        }
     }
 }

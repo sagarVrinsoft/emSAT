@@ -16,6 +16,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/rlTitle"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
                 android:background="@drawable/bg_top_curved_gold"

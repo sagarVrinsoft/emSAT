@@ -80,7 +80,7 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
             testName = mBundle.getString(AppConstants.INTENT_TEST_NAME);
             subCatId = mBundle.getString(AppConstants.INTENT_SUBCAT_ID);
 
-            mBinding.circleProgressView.setProgress(obtained_score * 100, 100);
+            mBinding.circleProgressView.setProgress(obtained_score * 100/total_ans, 100);
             mBinding.txtSkip.setText(getString(R.string.skip_ans) + skipped_ans + "/" + total_ans);
             mBinding.txtCorrect.setText(getString(R.string.correct_ans) + correct_ans + "/" + total_ans);
             mBinding.txtWrong.setText(getString(R.string.wrong_ans) + wrong_ans + "/" + total_ans);
@@ -131,6 +131,9 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
             case R.id.txtCheckAns:
                 bundle = new Bundle();
                 bundle.putString("FROM", "CHECK_ANS");
+                bundle.putString(AppConstants.INTENT_TEST_ID, testID);
+                bundle.putString(AppConstants.INTENT_TEST_NAME, testName);
+                bundle.putString(AppConstants.INTENT_SUBCAT_ID, subCatId);
                 NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
                 finish();
                 break;

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.DragEvent;
@@ -28,13 +29,12 @@ import com.vrinsoft.emsat.apis.handler_interface.OnResponse;
 import com.vrinsoft.emsat.apis.model.exam_question.QuestionBean;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
-import com.vrinsoft.emsat.apis.rest.NetworkConstants;
 import com.vrinsoft.emsat.databinding.ActivityPracticeExamBinding;
 import com.vrinsoft.emsat.databinding.DialogHintBinding;
 import com.vrinsoft.emsat.utils.AppConstants;
-import com.vrinsoft.emsat.utils.AppPreference;
 import com.vrinsoft.emsat.utils.NavigationUtils;
 import com.vrinsoft.emsat.utils.Pref;
+import com.vrinsoft.emsat.utils.Validator;
 import com.vrinsoft.emsat.utils.ViewUtils;
 import com.vrinsoft.emsat.utils.widget.TagLayout;
 
@@ -134,13 +134,14 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                 is_view_only = true;
                 masterBinding.toolbar.txtRight.setVisibility(View.GONE);
                 mBinding.headerBar.setVisibility(View.GONE);
-
+                mBinding.txtSuggestion.setVisibility(View.GONE);
                 if (AppConstants.mQuestionList != null && AppConstants.mQuestionList.size() > 0)
-                    mArrayList.clear();
-                    mArrayList.addAll(AppConstants.mQuestionList);
+                        mArrayList.clear();
+                mArrayList.addAll(AppConstants.mQuestionList);
 
             } else {
                 is_view_only = false;
+                mBinding.txtSuggestion.setVisibility(View.GONE);
                 masterBinding.toolbar.txtRight.setVisibility(View.VISIBLE);
                 mBinding.headerBar.setVisibility(View.VISIBLE);
             }
@@ -165,6 +166,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
         mBinding.txtNext.setOnClickListener(this);
         mBinding.txtPrev.setOnClickListener(this);
         mBinding.llHint.setOnClickListener(this);
+        mBinding.txtSuggestion.setOnClickListener(this);
         mBinding.llResetDraggableOptions.setOnClickListener(this);
         masterBinding.toolbar.txtRight.setOnClickListener(this);
         masterBinding.toolbar.imgBack.setOnClickListener(this);
@@ -313,11 +315,12 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                 }
                 break;
             case R.id.llHint:
-                showHintDialog();
-                /*if (questionBean.getQuestionType().equals(FILL_BLANK))
-                    reset();
-                else
-                    showHintDialog();*/
+                if (mArrayList != null && mArrayList.size() > 0) {
+                    showHintDialog(true);
+                }
+                break;
+            case R.id.txtSuggestion:
+                showHintDialog(false);
                 break;
             case R.id.llResetDraggableOptions:
                 reset();
@@ -325,15 +328,31 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
         }
     }
 
-    private void showHintDialog() {
+    private void showHintDialog(boolean isHint) {
         final Dialog dialog = new Dialog(mActivity, android.R.style.Theme_DeviceDefault_Dialog);
         DialogHintBinding dialogHintBinding = DataBindingUtil.inflate
                 (getLayoutInflater(), R.layout.dialog_hint, null, false);
         dialog.setContentView(dialogHintBinding.getRoot());
         dialog.getWindow().setWindowAnimations(R.style.CustomDialogStyle);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-//            dialogHintBinding.txtDescription.setText();
-
+        String hintStr = questionBean.getQuestionHint();
+        String SuggestionStr = questionBean.getSuggestion();
+        if(isHint)
+        {
+            dialogHintBinding.rlTitle.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.bg_top_curved_gold));
+            dialogHintBinding.txtTitle.setText(getString(R.string.hint));
+            dialogHintBinding.txtDescription.setText(Validator.isNullEmpty(hintStr)?
+                    mActivity.getString(R.string.no_hint_available):
+                    hintStr);
+        }
+        else
+        {
+            dialogHintBinding.rlTitle.setBackground(ContextCompat.getDrawable(mActivity, R.drawable.bg_top_curved_green));
+            dialogHintBinding.txtTitle.setText(getString(R.string.suggestion_title));
+            dialogHintBinding.txtDescription.setText(Validator.isNullEmpty(SuggestionStr)?
+                    mActivity.getString(R.string.no_suggestion_available):
+                    SuggestionStr);
+        }
         dialogHintBinding.imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -388,21 +407,19 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     void setData() {
         LOGD("POSITION :: SET_DATA", pos + "");
 
-        if (mArrayList != null && mArrayList.size() > 0) {
+        if (mArrayList != null && mArrayList.size() > 0)
+        {
             questionBean = mArrayList.get(pos);
-
             mBinding.txtCount.setText(pos + 1 + "/" + mArrayList.size());
+            if(is_view_only && !Validator.isNullEmpty(questionBean.getSuggestion()))
+            {
+                mBinding.txtSuggestion.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                mBinding.txtSuggestion.setVisibility(View.GONE);
+            }
 
-            /*if (pos > 0) {
-                mBinding.txtPrev.setVisibility(View.VISIBLE);
-                if (pos == mArrayList.size() - 1) {
-                    mBinding.txtNext.setVisibility(View.INVISIBLE);
-                    masterBinding.toolbar.txtRight.setText(getString(R.string.done));
-                } else {
-                    mBinding.txtNext.setVisibility(View.VISIBLE);
-                    masterBinding.toolbar.txtRight.setText(getString(R.string.quit));
-                }
-            }*/
             if(pos == 0)
             {
                 mBinding.txtPrev.setVisibility(View.INVISIBLE);

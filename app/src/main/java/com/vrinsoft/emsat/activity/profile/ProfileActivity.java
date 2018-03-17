@@ -34,6 +34,8 @@ import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.apis.model.change_password.BeanChangePassword;
 import com.vrinsoft.emsat.apis.model.user_profile.update_profile.BeanUpdateProfile;
 import com.vrinsoft.emsat.apis.model.user_profile.view_profile.BeanViewProfile;
+import com.vrinsoft.emsat.apis.multipart_entity.common.UploadImageHandler;
+import com.vrinsoft.emsat.apis.multipart_entity.profile.OnProfileUpdate;
 import com.vrinsoft.emsat.apis.rest.ApiClient;
 import com.vrinsoft.emsat.apis.rest.ApiErrorUtils;
 import com.vrinsoft.emsat.apis.rest.NetworkConstants;
@@ -81,6 +83,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
     View v;
     boolean isFromGallery;
     private File finalFile;
+    private UploadImageHandler uploadImageHandler;
 
     @Override
     public Activity getActivity() {
@@ -97,6 +100,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = this;
+        uploadImageHandler = new UploadImageHandler();
         setProfileData();
         setListeners();
         profileBinding.rlChangePwd.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +125,12 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
     }
 
     private void setProfileData() {
+        ImageUtils.loadProfileImageLive
+                (mActivity,
+                        Pref.getProfileImage(mActivity),
+                        profileBinding.imgTop,
+                        profileBinding.mProgress);
+
         ViewUtils.showDialog(mActivity, false);
         Call<ArrayList<BeanViewProfile>> listCall =
                 ApiClient.getApiInterface().viewProfile(
@@ -139,6 +149,21 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                         profileBinding.etMobileNo.setText(mArrayList.get(0).getMobileNo());
                         profileBinding.etEmail.setText(mArrayList.get(0).getEmail());
                         profileBinding.txtDOB.setText(mArrayList.get(0).getDob());
+                        Pref.setValue(mActivity, AppPreference.USER_INFO.USER_PROFILE, mArrayList.get(0).getUserImage());
+                        if(!Validator.isNullEmpty(mArrayList.get(0).getUserImage()))
+                        {
+                            ImageUtils.loadProfileImageLive
+                                    (mActivity,
+                                            mArrayList.get(0).getUserImage(),
+                                            profileBinding.imgTop,
+                                            profileBinding.mProgress);
+
+                            ImageUtils.loadBigBlurImage
+                                    (mActivity, R.drawable.bg_profile_top_banner,
+                                            Uri.parse(mArrayList.get(0).getUserImage()),
+                                            profileBinding.imgBlurred,
+                                            profileBinding.mProgress);;
+                        }
                         boolean isMale = mArrayList.get(0).getGender().equalsIgnoreCase(AppConstants.GENDER.MALE_str);
                         setGender(isMale);
                     } else {
@@ -502,37 +527,39 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         String dob = profileBinding.txtDOB.getText().toString().trim();
         int gender = mGenderSel;
 
-        Call<ArrayList<BeanUpdateProfile>> listCall =
-                ApiClient.getApiInterface().updateProfile
-                        (Pref.getUserId(mActivity),
-                                name,
-                                mobile,
-                                email,
-                                dob,
-                                Pref.getProfileImage(mActivity),
-                                gender,
-                                Pref.getToken(mActivity));
-
-        listCall.enqueue(new Callback<ArrayList<BeanUpdateProfile>>() {
-            @Override
-            public void onResponse(Call<ArrayList<BeanUpdateProfile>> call, Response<ArrayList<BeanUpdateProfile>> response) {
-                ArrayList<BeanUpdateProfile> beanUpdateProfile = response.body();
-
-                ViewUtils.showDialog(mActivity, true);
-                if (beanUpdateProfile.get(0).getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
-                    ViewUtils.showToast(mActivity, beanUpdateProfile.get(0).getMessage(), null);
-                    finish();
-                } else {
-                    ViewUtils.showToast(mActivity, beanUpdateProfile.get(0).getMessage(), null);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ArrayList<BeanUpdateProfile>> call, Throwable t) {
-                ViewUtils.showDialog(mActivity, true);
-                ViewUtils.showToast(mActivity, ApiErrorUtils.getErrorMsg(t), null);
-            }
-        });
+        uploadImageHandler.requestProfileUpdate(mActivity,
+                Pref.getUserId(mActivity),
+                name,
+                mobile,
+                email,
+                dob,
+                Pref.getToken(mActivity),
+                String.valueOf(gender),
+                photoURI,
+                new OnProfileUpdate() {
+                    @Override
+                    public void getResponse(boolean isSuccess, BeanUpdateProfile binProfileUpdate, String errorMsgSystem)
+                    {
+                        ViewUtils.showDialog(mActivity, true);
+                        if(isSuccess) {
+                            if (binProfileUpdate.getCode() == NetworkConstants.API_CODE_RESPONSE_SUCCESS) {
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.USER_PROFILE, binProfileUpdate.getResult().get(0).getImage());
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.NAME, binProfileUpdate.getResult().get(0).getName());
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.EMAIL_ID, binProfileUpdate.getResult().get(0).getEmail());
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.DOB, binProfileUpdate.getResult().get(0).getDob());
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.GENDER, binProfileUpdate.getResult().get(0).getGender());
+                                ViewUtils.showToast(mActivity, binProfileUpdate.getMessage(), null);
+                                finish();
+                            } else {
+                                ViewUtils.showToast(mActivity, binProfileUpdate.getMessage(), null);
+                            }
+                        }
+                        else
+                        {
+                            ViewUtils.showToast(mActivity, errorMsgSystem, null);
+                        }
+                    }
+                });
     }
 
     public class MyTextWatcher implements TextWatcher {

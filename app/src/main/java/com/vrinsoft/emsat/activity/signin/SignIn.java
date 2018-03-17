@@ -110,6 +110,7 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                             {
                                 BeanLogin.Result binLogin = beanLogin.get(0).getResult().get(0);
                                 Pref.setValue(mActivity, AppPreference.LOGIN, AppPreference.USER_STATUS.LOGON);
+                                Pref.setValue(mActivity, AppPreference.USER_INFO.USER_PROFILE, binLogin.getUserImage());
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.NAME, binLogin.getName());
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.EMAIL_ID, binLogin.getEmail());
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.PASSWORD, password);

@@ -19,14 +19,20 @@ import com.vrinsoft.emsat.apis.test_list.BinTestList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 import static com.vrinsoft.emsat.apis.rest.NetworkConstants.QUESTION.METHOD_TEST_QUESTION;
@@ -67,7 +73,7 @@ public interface ApiInterface {
                                                        @Field("new_password") String new_password
     );
 
-    @FormUrlEncoded
+    /*@FormUrlEncoded
     @POST("update_profile.php")
     Call<ArrayList<BeanUpdateProfile>> updateProfile(@Field("user_id") String user_id,
                                                      @Field("name") String name,
@@ -76,8 +82,12 @@ public interface ApiInterface {
                                                      @Field("dob") String dob,
                                                      @Field("image") String image,
                                                      @Field("gender") int gender,
-                                                     @Field("token") String token);
+                                                     @Field("token") String token);*/
 
+    @Multipart
+    @POST("update_profile.php")
+    Call<List<BeanUpdateProfile>> updateProfile(@PartMap() Map<String, RequestBody> partMap,
+                                                     @Part MultipartBody.Part file);
     @FormUrlEncoded
     @POST("view_profile.php")
     Call<ArrayList<BeanViewProfile>> viewProfile(@Field("user_id") String user_id,

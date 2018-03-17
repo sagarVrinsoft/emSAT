@@ -29,6 +29,7 @@ public class AppConstants {
     public static final String INTENT_SUBCAT_ID = "subcat_id";
     public static final String INTENT_TEST_ID = "test_id";
     public static final String INTENT_TEST_NAME = "test_name";
+    public static final int REQUEST_CODE_CHECK_ANS = 1222;
     public static ArrayList<QuestionBean.Result> mQuestionList = new ArrayList<>();
 
     public interface QUESTION_TYPE {

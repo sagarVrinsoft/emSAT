@@ -141,6 +141,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
 
             } else {
                 is_view_only = false;
+                AppConstants.mQuestionList.clear();
                 mBinding.txtSuggestion.setVisibility(View.GONE);
                 masterBinding.toolbar.txtRight.setVisibility(View.VISIBLE);
                 mBinding.headerBar.setVisibility(View.VISIBLE);
@@ -827,7 +828,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     @Override
     public void onBackPressed() {
         if (is_view_only) {
-            AppConstants.mQuestionList.clear();
+//            AppConstants.mQuestionList.clear();
             super.onBackPressed();
         } else {
             if(mArrayList.size()==0)

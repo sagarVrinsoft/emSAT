@@ -3,6 +3,7 @@ package com.vrinsoft.emsat.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -107,6 +108,7 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
                                 switch (which)
                                 {
                                     case DialogInterface.BUTTON_POSITIVE:
+                                        AppConstants.mQuestionList.clear();
                                         NavigationUtils.finishCurrentActivity(mActivity);
                                         break;
                                     case DialogInterface.BUTTON_NEGATIVE:
@@ -134,8 +136,9 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
                 bundle.putString(AppConstants.INTENT_TEST_ID, testID);
                 bundle.putString(AppConstants.INTENT_TEST_NAME, testName);
                 bundle.putString(AppConstants.INTENT_SUBCAT_ID, subCatId);
-                NavigationUtils.startActivity(mActivity, PracticeExam.class, bundle);
-                finish();
+                Intent intent2 = new Intent(mActivity, PracticeExam.class);
+                intent2.putExtras(bundle);
+                NavigationUtils.startActivityForResult(mActivity, intent2, AppConstants.REQUEST_CODE_CHECK_ANS);
                 break;
         }
     }
@@ -156,6 +159,7 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
                 ArrayList<BinGeneralApiResp> list = response.body();
                 ViewUtils.showDialog(mActivity, true);
                 ViewUtils.showToast(mActivity, list.get(0).getMessage(), null);
+                AppConstants.mQuestionList.clear();
                 NavigationUtils.finishCurrentActivity(mActivity);
             }
 

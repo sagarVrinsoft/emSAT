@@ -29,7 +29,7 @@ public class AppConstants {
     public static final String INTENT_SUBCAT_ID = "subcat_id";
     public static final String INTENT_TEST_ID = "test_id";
     public static final String INTENT_TEST_NAME = "test_name";
-    public static ArrayList<QuestionBean.Result> mQuestionList = null;
+    public static ArrayList<QuestionBean.Result> mQuestionList = new ArrayList<>();
 
     public interface QUESTION_TYPE {
         public static String MCQ = "1";

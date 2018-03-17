@@ -75,7 +75,7 @@ import static com.vrinsoft.emsat.utils.ViewUtils.showToast;
 public class PracticeExam extends MasterActivity implements View.OnClickListener {
     ApiHandler apiHandler;
     Activity mActivity;
-    ArrayList<QuestionBean.Result> mArrayList;
+    ArrayList<QuestionBean.Result> mArrayList = new ArrayList<>();
     ActivityPracticeExamBinding mBinding;
     TagLayout tagLayout;
     ArrayList<String> wordsList;
@@ -136,7 +136,8 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                 mBinding.headerBar.setVisibility(View.GONE);
 
                 if (AppConstants.mQuestionList != null && AppConstants.mQuestionList.size() > 0)
-                    mArrayList = AppConstants.mQuestionList;
+                    mArrayList.clear();
+                    mArrayList.addAll(AppConstants.mQuestionList);
 
             } else {
                 is_view_only = false;
@@ -193,42 +194,47 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                         try {
                             mainArray = gson.fromJson(response.body().string(), collectionType);
                             if (mainArray.get(0).getCode() == 1) {
-
-//                                mTotalCount = mainArray.get(0).getTotalRecords();
-                                mArrayList = new ArrayList<>();
-                                mArrayList = mainArray.get(0).getResult();
+                                mArrayList.clear();
+                                mArrayList.addAll(mainArray.get(0).getResult()==null?new ArrayList<QuestionBean.Result>():mainArray.get(0).getResult());
                                 if(mArrayList!=null && mArrayList.size()>0) {
                                     setData();
                                     startCountDown();
                                 }
                                 else
                                 {
+                                    setNoneData();
                                     showToast(mActivity, mainArray.get(0).getMessage(), null);
                                 }
 
-                            } /*else if (mainArray.get(0).getCode() == 0) {
-                                showToast(mActivity, "No data found", null);
-                            } else if (mainArray.get(0).getCode() == -2) {
-                                showToast(mActivity, "something_went_wrong_please_login_again", null);
-                            } else if (mainArray.get(0).getCode() == -3) {//Account inactive
-                                showToast(mActivity, "your_account_inactive", null);
-                            }*/
+                            }
                             else
                             {
+                                setNoneData();
                                 showToast(mActivity, mainArray.get(0).getMessage(), null);
                             }
                         } catch (IOException e) {
+                            setNoneData();
                             e.printStackTrace();
                         }
                     } else if (errorObject != null) {
-
+                        setNoneData();
                     }
                 } else if (errorMsgSystem.equals(ApiErrorUtils.SOMETHING_WENT_WRONG) || errorMsgSystem.equals(ApiErrorUtils.ERROR_NETWORK)) {
                     showToast(mActivity, errorMsgSystem, null);
+                    mBinding.txtNext.setVisibility(View.VISIBLE);
+                    mBinding.txtPrev.setVisibility(View.VISIBLE);
+                    masterBinding.toolbar.txtRight.setVisibility(View.GONE);
+                    setNoneData();
                 }
 
             }
         });
+    }
+
+    private void setNoneData() {
+        mBinding.txtNext.setVisibility(View.GONE);
+        mBinding.txtPrev.setVisibility(View.GONE);
+        masterBinding.toolbar.txtRight.setVisibility(View.GONE);
     }
 
     @Override
@@ -387,7 +393,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
 
             mBinding.txtCount.setText(pos + 1 + "/" + mArrayList.size());
 
-            if (pos > 0) {
+            /*if (pos > 0) {
                 mBinding.txtPrev.setVisibility(View.VISIBLE);
                 if (pos == mArrayList.size() - 1) {
                     mBinding.txtNext.setVisibility(View.INVISIBLE);
@@ -396,8 +402,39 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                     mBinding.txtNext.setVisibility(View.VISIBLE);
                     masterBinding.toolbar.txtRight.setText(getString(R.string.quit));
                 }
-            } else {
+            }*/
+            if(pos == 0)
+            {
                 mBinding.txtPrev.setVisibility(View.INVISIBLE);
+                if(mArrayList.size()==1)
+                {
+                    mBinding.txtNext.setVisibility(View.INVISIBLE);
+                    masterBinding.toolbar.txtRight.setText(getString(R.string.done));
+                }
+                else
+                {
+                    mBinding.txtNext.setVisibility(View.VISIBLE);
+                    masterBinding.toolbar.txtRight.setText(getString(R.string.quit));
+                }
+            }
+            else if(pos == mArrayList.size() - 1)
+            {
+                mBinding.txtNext.setVisibility(View.INVISIBLE);
+                masterBinding.toolbar.txtRight.setText(getString(R.string.done));
+                if(mArrayList.size()==1)
+                {
+                    mBinding.txtPrev.setVisibility(View.INVISIBLE);
+                }
+                else
+                {
+                    mBinding.txtPrev.setVisibility(View.VISIBLE);
+                }
+            }
+            else
+            {
+                mBinding.txtNext.setVisibility(View.VISIBLE);
+                mBinding.txtPrev.setVisibility(View.VISIBLE);
+                masterBinding.toolbar.txtRight.setText(getString(R.string.quit));
             }
 
             String type = questionBean.getQuestionType();
@@ -660,11 +697,12 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                 }
             }
 
-            if (AppConstants.mQuestionList != null) {
+            /*if (AppConstants.mQuestionList != null) {
                 AppConstants.mQuestionList = null;
-            }
+            }*/
 
-            AppConstants.mQuestionList = mArrayList;
+            AppConstants.mQuestionList.clear();
+            AppConstants.mQuestionList.addAll(mArrayList);
 
         }
         startActivity(new Intent(mActivity, ExamResult.class)
@@ -772,26 +810,32 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     @Override
     public void onBackPressed() {
         if (is_view_only) {
-            AppConstants.mQuestionList = null;
+            AppConstants.mQuestionList.clear();
             super.onBackPressed();
         } else {
-            showDoubleBtnAlert(mActivity, "Quit Exam", "Are You sure you want to quit exam?",
-                    getString(android.R.string.yes), getString(android.R.string.no),
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            switch (i)
-                            {
-                                case DialogInterface.BUTTON_POSITIVE:
-                                    stopCountDown();
-                                    getFinalScore();
-                                    break;
-                                case DialogInterface.BUTTON_NEGATIVE:
-                                    dialogInterface.dismiss();
-                                    break;
+            if(mArrayList.size()==0)
+            {
+                NavigationUtils.finishCurrentActivity(mActivity);
+            }
+            else
+            {
+                showDoubleBtnAlert(mActivity, "Quit Exam", "Are You sure you want to quit exam?",
+                        getString(android.R.string.yes), getString(android.R.string.no),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                switch (i) {
+                                    case DialogInterface.BUTTON_POSITIVE:
+                                        stopCountDown();
+                                        getFinalScore();
+                                        break;
+                                    case DialogInterface.BUTTON_NEGATIVE:
+                                        dialogInterface.dismiss();
+                                        break;
+                                }
                             }
-                        }
-                    });
+                        });
+            }
         }
     }
 

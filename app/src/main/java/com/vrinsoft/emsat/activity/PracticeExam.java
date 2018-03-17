@@ -474,7 +474,6 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                     mBinding.llTrueFalse.setVisibility(View.GONE);
                     mBinding.llMCQ.setVisibility(View.VISIBLE);
 
-//                    btnReset.setVisibility(View.GONE);
                     mBinding.txtQuestion.setVisibility(View.VISIBLE);
                     mBinding.txtQuestion.setText(questionBean.getQuestionName());
 
@@ -517,7 +516,6 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                     mBinding.llTrueFalse.setVisibility(View.VISIBLE);
                     mBinding.llMCQ.setVisibility(View.GONE);
 
-//                    btnReset.setVisibility(View.GONE);
                     mBinding.txtQuestion.setVisibility(View.VISIBLE);
 
                     mBinding.txtQuestion.setText(questionBean.getQuestionName());
@@ -546,9 +544,6 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                     mBinding.llResetDraggableOptions.setVisibility(View.GONE);
                     mBinding.llTrueFalse.setVisibility(View.GONE);
                     mBinding.llMCQ.setVisibility(View.GONE);
-
-//                    btnReset.setVisibility(View.VISIBLE);
-
 
                     if (is_view_only) {
                         tagLayout.setVisibility(View.GONE);
@@ -725,13 +720,8 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                 }
             }
 
-            /*if (AppConstants.mQuestionList != null) {
-                AppConstants.mQuestionList = null;
-            }*/
-
             AppConstants.mQuestionList.clear();
             AppConstants.mQuestionList.addAll(mArrayList);
-
         }
         endDateTime = new Date();
         long diff = (endDateTime.getTime() - startDateTime.getTime());

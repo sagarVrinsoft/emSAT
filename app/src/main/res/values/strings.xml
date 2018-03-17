@@ -75,6 +75,10 @@
 
     <string name="practice_exam">Practice Exam</string>
     <string name="quit">Quit</string>
+    <string name="time_out">Time Out</string>
+    <string name="time_out_des">Your exam time has been finished</string>
+    <string name="quit_exam">Quit Exam</string>
+    <string name="quit_exam_des">Are You sure you want to quit exam?</string>
     <string name="next">Next</string>
     <string name="prev">Prev</string>
     <string name="hint">Hint</string>

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
@@ -42,9 +43,12 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -62,6 +66,7 @@ import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.OBTAINED_SCORE;
 import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.SKIPPED_ANS;
 import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.TOTAL_ANS;
 import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.TOTAL_SCORE;
+import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.TOTAL_TIME_SEC;
 import static com.vrinsoft.emsat.utils.AppConstants.BUNDLE_KEY.WRONG_ANS;
 import static com.vrinsoft.emsat.utils.AppConstants.QUESTION_TYPE.FILL_BLANK;
 import static com.vrinsoft.emsat.utils.AppConstants.QUESTION_TYPE.MCQ;
@@ -88,6 +93,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     GridLayoutManager layoutManager;
     Bundle mBundle;
     String mFrom = "";
+    Date startDateTime, endDateTime;
     boolean is_view_only = false;
     private int pos = 0;
     private String testID, testName, subCatId;
@@ -200,8 +206,8 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                                 mArrayList.clear();
                                 mArrayList.addAll(mainArray.get(0).getResult()==null?new ArrayList<QuestionBean.Result>():mainArray.get(0).getResult());
                                 if(mArrayList!=null && mArrayList.size()>0) {
-                                    setData();
                                     startCountDown();
+                                    setData();
                                 }
                                 else
                                 {
@@ -296,23 +302,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                     stopCountDown();
                     getFinalScore();
                 } else {
-                    showDoubleBtnAlert(mActivity, "Quit Exam", "Are You sure you want to quit exam?",
-                            getString(android.R.string.yes), getString(android.R.string.no),
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    switch (i)
-                                    {
-                                        case DialogInterface.BUTTON_POSITIVE:
-                                            stopCountDown();
-                                            getFinalScore();
-                                            break;
-                                        case DialogInterface.BUTTON_NEGATIVE:
-                                            dialogInterface.dismiss();
-                                            break;
-                                    }
-                                }
-                            });
+                    setQuitDialog();
                 }
                 break;
             case R.id.llHint:
@@ -327,6 +317,27 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                 reset();
                 break;
         }
+    }
+
+    private void setQuitDialog() {
+        showDoubleBtnAlert(mActivity, getString(R.string.quit_exam),
+                getString(R.string.quit_exam_des),
+                getString(android.R.string.yes), getString(android.R.string.no),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i)
+                        {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                stopCountDown();
+                                getFinalScore();
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                dialogInterface.dismiss();
+                                break;
+                        }
+                    }
+                });
     }
 
     private void showHintDialog(boolean isHint) {
@@ -375,7 +386,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     void startCountDown() {
         progress = 1;
         endTime = 30; // up to finish time
-
+        startDateTime = new Date();
         countDownTimer = new CountDownTimer(endTime * 1000 /*finishTime**/, 1000 /*interval**/) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -387,11 +398,10 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
             public void onFinish() {
                 mBinding.circleCountDownView.setProgress(progress, endTime);
                 countDownTimer.cancel();
-                showSingleBtnAlert(mActivity, "Time Out", "Your exam time has been finished.",
+                showSingleBtnAlert(mActivity, getString(R.string.time_out), getString(R.string.time_out_des),
                         getString(android.R.string.ok), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-//                                getFinalScore();
                             }
                         });
             }
@@ -723,6 +733,13 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
             AppConstants.mQuestionList.addAll(mArrayList);
 
         }
+        endDateTime = new Date();
+        long diff = (endDateTime.getTime() - startDateTime.getTime());
+
+        String mTimeExam = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(diff),
+                TimeUnit.MILLISECONDS.toMinutes(diff) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(diff)),
+                TimeUnit.MILLISECONDS.toSeconds(diff) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(diff)));
+        Log.e("TIME TAKEN", "FORMAT: "+mTimeExam);
         startActivity(new Intent(mActivity, ExamResult.class)
                 .putExtra(TOTAL_SCORE, total_score)
                 .putExtra(OBTAINED_SCORE, obtained_score)
@@ -730,6 +747,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                 .putExtra(SKIPPED_ANS, skipped_ans)
                 .putExtra(CORRECT_ANS, correct_ans)
                 .putExtra(WRONG_ANS, wrong_ans)
+                .putExtra(TOTAL_TIME_SEC, mTimeExam)
                 .putExtra(AppConstants.INTENT_TEST_ID, testID)
                 .putExtra(AppConstants.INTENT_TEST_NAME, testName)
                 .putExtra(AppConstants.INTENT_SUBCAT_ID, subCatId));
@@ -828,7 +846,6 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     @Override
     public void onBackPressed() {
         if (is_view_only) {
-//            AppConstants.mQuestionList.clear();
             super.onBackPressed();
         } else {
             if(mArrayList.size()==0)
@@ -837,22 +854,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
             }
             else
             {
-                showDoubleBtnAlert(mActivity, "Quit Exam", "Are You sure you want to quit exam?",
-                        getString(android.R.string.yes), getString(android.R.string.no),
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                switch (i) {
-                                    case DialogInterface.BUTTON_POSITIVE:
-                                        stopCountDown();
-                                        getFinalScore();
-                                        break;
-                                    case DialogInterface.BUTTON_NEGATIVE:
-                                        dialogInterface.dismiss();
-                                        break;
-                                }
-                            }
-                        });
+                setQuitDialog();
             }
         }
     }

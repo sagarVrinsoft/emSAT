@@ -51,6 +51,7 @@ public class AppConstants {
         public static String CORRECT_ANS = "correct_ans";
         public static String WRONG_ANS = "wrong_ans";
         public static String TOTAL_ANS = "total_ans";
+        public static String TOTAL_TIME_SEC = "total_time_sec";
     }
 
     public interface DEVICE_TYPE {

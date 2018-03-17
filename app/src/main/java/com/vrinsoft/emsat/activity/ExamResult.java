@@ -44,7 +44,7 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
     Activity mActivity;
     Bundle mBundle;
     int obtained_score = 0, total_score = 0, total_ans = 0, skipped_ans = 0, correct_ans = 0, wrong_ans = 0;
-    private String testID, testName, subCatId;
+    private String testID, testName, subCatId, timeTaken;
 
     @Override
     public Activity getActivity() {
@@ -80,6 +80,7 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
             testID = mBundle.getString(AppConstants.INTENT_TEST_ID);
             testName = mBundle.getString(AppConstants.INTENT_TEST_NAME);
             subCatId = mBundle.getString(AppConstants.INTENT_SUBCAT_ID);
+            timeTaken = mBundle.getString(AppConstants.BUNDLE_KEY.TOTAL_TIME_SEC);
 
             mBinding.circleProgressView.setProgress(obtained_score * 100/total_ans, 100);
             mBinding.txtSkip.setText(getString(R.string.skip_ans) + skipped_ans + "/" + total_ans);
@@ -151,7 +152,7 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
                         subCatId,
                         testID,
                         String.valueOf(obtained_score),
-                        "30",
+                        timeTaken,
                         Pref.getToken(mActivity));
         listCall.enqueue(new Callback<ArrayList<BinGeneralApiResp>>() {
             @Override

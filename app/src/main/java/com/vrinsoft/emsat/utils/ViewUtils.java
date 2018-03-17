@@ -454,4 +454,14 @@ public class ViewUtils {
             e.printStackTrace();
         }
     }
+
+    public static String getDoubleDigit(String dig)
+    {
+        if(Validator.isNullEmpty(dig))
+            return "00";
+        else if(dig.length()==1)
+            return "0"+dig;
+        else
+            return dig;
+    }
 }

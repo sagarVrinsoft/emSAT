@@ -1,6 +1,7 @@
 package com.vrinsoft.emsat.navigation_drawer;
 
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,9 @@ import com.vrinsoft.emsat.adapter.navigation_drawer_menu.NavDrawerMenuAdapter;
 import com.vrinsoft.emsat.databinding.NavMenuDrawerBinding;
 import com.vrinsoft.emsat.interfaces.OnItemClickListener;
 import com.vrinsoft.emsat.model.drawer_menu.BinDrawerMenu;
+import com.vrinsoft.emsat.utils.AppPreference;
+import com.vrinsoft.emsat.utils.ImageUtils;
+import com.vrinsoft.emsat.utils.Pref;
 
 import java.util.ArrayList;
 
@@ -60,6 +64,7 @@ public class FragmentDrawer extends Fragment implements View.OnClickListener, On
     }
 
     public void setRefreshMenu() {
+        setProfileImg();
 //        menuDrawerBinding.txtUserName.setText(Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_FIRST_NAME, "") + " " +
 //                Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_LAST_NAME, ""));
 //
@@ -67,8 +72,11 @@ public class FragmentDrawer extends Fragment implements View.OnClickListener, On
     }
 
     public void setProfileImg() {
-//        ImageUtils.loadProfileImage(mActivity, Pref.getValue(mActivity, AppPreference.USER_INFO.PREF_USER_PROFILE, "")
-//                , menuDrawerBinding.imgProfile, menuDrawerBinding.mProgressBar);
+        ImageUtils.loadProfileImageLive
+                (mActivity,
+                        Pref.getProfileImage(mActivity),
+                        menuDrawerBinding.imgProfile,
+                        menuDrawerBinding.mProgress);
     }
 
     @Override

@@ -82,7 +82,7 @@ public class BeanViewProfile {
         @SerializedName("age")
         @Expose
         private Integer age;
-        @SerializedName("user_image")
+        @SerializedName("image")
         @Expose
         private String userImage;
         @SerializedName("riding_companion_preferences")

@@ -87,7 +87,7 @@ public class BeanLogin {
         @SerializedName("profession")
         @Expose
         private String profession;
-        @SerializedName("user_image")
+        @SerializedName("image")
         @Expose
         private String userImage;
         @SerializedName("riding_companion_preferences")

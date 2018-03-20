@@ -285,6 +285,14 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
 
                 if (mArrayList!=null && pos < mArrayList.size() - 1) {
                     pos++;
+                    if(Validator.isNullEmpty(mArrayList.get(pos).getUser_ans()))
+                    {
+                        mBinding.txtOpt1.setSelected(false);
+                        mBinding.txtOpt2.setSelected(false);
+                        mBinding.txtOpt3.setSelected(false);
+                        mBinding.txtOpt4.setSelected(false);
+                        reset();
+                    }
                     setData();
                 }
                 break;
@@ -294,6 +302,14 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
 
                 if (pos > 0) {
                     pos--;
+                    if(Validator.isNullEmpty(mArrayList.get(pos).getUser_ans()))
+                    {
+                        mBinding.txtOpt1.setSelected(false);
+                        mBinding.txtOpt2.setSelected(false);
+                        mBinding.txtOpt3.setSelected(false);
+                        mBinding.txtOpt4.setSelected(false);
+                        reset();
+                    }
                     setData();
                 }
                 break;
@@ -622,23 +638,26 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
         mArrayList.get(pos).setUser_ans("");
         mArrayList.get(pos).setRemaining_options("");
 
-        String[] options = questionBean.getOption().split(",");
+        String mOptions = questionBean.getOption();
+        if(!Validator.isNullEmpty(mOptions)) {
+            String[] options = mOptions.split(",");
 
-        if (options != null && options.length > 0) {
-            wordsList = new ArrayList<>();
-            for (int i = 0; i < options.length; i++) {
-                wordsList.add(i, options[i]);
+            if (options != null && options.length > 0) {
+                wordsList = new ArrayList<>();
+                for (int i = 0; i < options.length; i++) {
+                    wordsList.add(i, options[i]);
+                }
+
+                if (wordsList != null && wordsList.size() > 0) {
+                    mBinding.rvWords.setVisibility(View.VISIBLE);
+                    mAdapter = new WordsAdapter(mActivity, wordsList);
+                    mBinding.rvWords.setAdapter(mAdapter);
+                } else {
+                    mBinding.rvWords.setVisibility(View.GONE);
+                }
+
+                makeDraggableTag(questionBean.getQuestionName());
             }
-
-            if (wordsList != null && wordsList.size() > 0) {
-                mBinding.rvWords.setVisibility(View.VISIBLE);
-                mAdapter = new WordsAdapter(mActivity, wordsList);
-                mBinding.rvWords.setAdapter(mAdapter);
-            } else {
-                mBinding.rvWords.setVisibility(View.GONE);
-            }
-
-            makeDraggableTag(questionBean.getQuestionName());
         }
     }
 

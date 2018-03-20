@@ -88,7 +88,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
     String QUESTION = "";
     QuestionBean.Result questionBean;
     int progress;
-    int endTime;
+    int endTime = 30;
     CountDownTimer countDownTimer;
     GridLayoutManager layoutManager;
     Bundle mBundle;
@@ -206,7 +206,7 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
                                 mArrayList.clear();
                                 mArrayList.addAll(mainArray.get(0).getResult()==null?new ArrayList<QuestionBean.Result>():mainArray.get(0).getResult());
                                 if(mArrayList!=null && mArrayList.size()>0) {
-                                    startCountDown();
+                                    startCountDown(20);
                                     setData();
                                 }
                                 else
@@ -399,9 +399,9 @@ public class PracticeExam extends MasterActivity implements View.OnClickListener
         dialog.show();
     }
 
-    void startCountDown() {
+    void startCountDown(int etTime) {
         progress = 1;
-        endTime = 30; // up to finish time
+        endTime = etTime; // up to finish time
         startDateTime = new Date();
         countDownTimer = new CountDownTimer(endTime * 1000 /*finishTime**/, 1000 /*interval**/) {
             @Override

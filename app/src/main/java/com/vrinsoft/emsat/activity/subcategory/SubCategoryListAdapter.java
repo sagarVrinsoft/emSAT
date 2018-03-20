@@ -19,6 +19,8 @@ import android.widget.RelativeLayout;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.apis.model.SubCategory.Result;
 import com.vrinsoft.emsat.databinding.CustomRowSubcategoryBinding;
+import com.vrinsoft.emsat.utils.AppConstants;
+import com.vrinsoft.emsat.utils.ViewUtils;
 
 import java.util.ArrayList;
 
@@ -54,7 +56,15 @@ public class SubCategoryListAdapter extends RecyclerView.Adapter<SubCategoryList
         holder.mBinding.txtName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickable.getPosition((Integer) v.getTag());
+                int position = (Integer) v.getTag();
+                if(getArrayList().get(position).getIs_lock_unlock().
+                        equalsIgnoreCase(AppConstants.LOCK_UNLOCK.UNLOCK)) {
+                    onClickable.getPosition(position);
+                }
+                else
+                {
+                    ViewUtils.showToast(mActivity, mActivity.getString(R.string.unlock_des), v);
+                }
             }
         });
     }

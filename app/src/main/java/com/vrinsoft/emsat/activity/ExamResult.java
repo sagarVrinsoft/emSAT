@@ -153,6 +153,9 @@ public class ExamResult extends MasterActivity implements View.OnClickListener {
                         testID,
                         String.valueOf(obtained_score),
                         timeTaken,
+                        skipped_ans,
+                        correct_ans,
+                        wrong_ans,
                         Pref.getToken(mActivity));
         listCall.enqueue(new Callback<ArrayList<BinGeneralApiResp>>() {
             @Override

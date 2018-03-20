@@ -12,7 +12,9 @@ import com.daimajia.swipe.SwipeLayout;
 import com.vrinsoft.emsat.R;
 import com.vrinsoft.emsat.apis.test_list.Result;
 import com.vrinsoft.emsat.databinding.CustomRowMytestBinding;
+import com.vrinsoft.emsat.utils.AppConstants;
 import com.vrinsoft.emsat.utils.Validator;
+import com.vrinsoft.emsat.utils.ViewUtils;
 
 import java.util.ArrayList;
 
@@ -80,8 +82,8 @@ public class MyTestListAdapter extends RecyclerView.Adapter<MyTestListAdapter.Vi
             @Override
             public void onClick(View v) {
                 SwipeLayout swipeLayout = ((SwipeLayout) v.getTag());
-                onClickable.getPosition((Integer) swipeLayout.getTag());
                 swipeLayout.toggle(true);
+                onClickable.getPosition((Integer) swipeLayout.getTag());
             }
         });
 
@@ -89,7 +91,15 @@ public class MyTestListAdapter extends RecyclerView.Adapter<MyTestListAdapter.Vi
             @Override
             public void onClick(View v) {
                 SwipeLayout swipeLayout = ((SwipeLayout) v.getTag());
-                swipeLayout.toggle(true);
+                int position = (Integer) swipeLayout.getTag();
+                if(getArrayList().get(position).getIs_lock_unlock().
+                        equalsIgnoreCase(AppConstants.LOCK_UNLOCK.UNLOCK)) {
+                    swipeLayout.toggle(true);
+                }
+                else
+                {
+                    ViewUtils.showToast(mActivity, mActivity.getString(R.string.unlock_des), v);
+                }
             }
         });
     }

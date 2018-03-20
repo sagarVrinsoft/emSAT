@@ -139,6 +139,9 @@ public interface ApiInterface {
                                                       @Field("test_id") String test_id,
                                                       @Field("test_score") String test_score,
                                                       @Field("taken_time") String taken_time,
+                                                      @Field("is_skip") int is_skip,
+                                                      @Field("is_correct") int is_correct,
+                                                      @Field("is_wrong") int is_wrong,
                                                       @Field("token") String token
                                                       );
 }

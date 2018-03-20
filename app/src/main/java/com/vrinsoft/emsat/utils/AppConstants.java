@@ -58,6 +58,11 @@ public class AppConstants {
         public static String ANDROID = "2";
     }
 
+    public interface LOCK_UNLOCK {
+        public static String LOCK = "0";
+        public static String UNLOCK = "1";
+    }
+
 
 //    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static DecimalFormat decimalFormat = new DecimalFormat("0.00");

@@ -20,6 +20,7 @@ import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -150,6 +151,8 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                         profileBinding.etMobileNo.setText(mArrayList.get(0).getMobileNo());
                         profileBinding.etEmail.setText(mArrayList.get(0).getEmail());
                         profileBinding.txtDOB.setText(mArrayList.get(0).getDob());
+                        Pref.setApiDateFormat(mActivity, AppConstants.getAppDateFormat(mArrayList.get(0).getDate_format()));
+                        Log.e("AppDateFormat", ""+Pref.getApiDateFormat(mActivity));
                         Pref.setValue(mActivity, AppPreference.USER_INFO.USER_PROFILE, mArrayList.get(0).getUserImage());
                         if(!Validator.isNullEmpty(mArrayList.get(0).getUserImage()))
                         {

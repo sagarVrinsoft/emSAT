@@ -3,7 +3,7 @@ package com.vrinsoft.emsat.utils;
 public class AppPreference {
 
     public static String DATE_FORMAT = "date_format";
-    public static String DEF_DATE_FORMAT = AppConstants.DATE_FORMAT.API_DD_MM_YYYY;
+    public static String DEF_DATE_FORMAT = AppConstants.DATE_FORMAT.DD_MM_YYYY;
     public static String DEFAULT_STR = "";
     public static int DEFAULT_INT = 0;
     public static String LOGIN = "login";

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -118,6 +119,8 @@ public class SignIn extends AppCompatActivity implements View.OnClickListener {
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.USER_ID, binLogin.getUserId());
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.DOB, binLogin.getDob());
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.GENDER, binLogin.getGender());
+                                Pref.setApiDateFormat(mActivity, AppConstants.getAppDateFormat(binLogin.getDate_format()));
+                                Log.e("AppDateFormat", ""+Pref.getApiDateFormat(mActivity));
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.TOKEN, binLogin.getToken());
                                 NavigationUtils.startActivityWithClearStack(mActivity, Home.class, null);
                             }

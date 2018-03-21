@@ -21,6 +21,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class AppConstants {
     public static final String INTENT_CAT_NAME = "cat_name";
@@ -189,8 +190,38 @@ public class AppConstants {
     }
 
     public interface DATE_FORMAT {
-        public static String API_DD_MM_YYYY = "yyyy-MM-dd";
+        public static String DD_MM_YYYY = "dd-MM-yyyy";
+        public static String MM_DD_YYYY = "MM-dd-yyyy";
+        public static String YYYY_MM_DD = "yyyy-MM-dd";
+        public static String API_DD_MM_YYYY = "d-m-Y";
+        public static String API_YYYY_MM_DD = "Y-m-d";
+        public static String API_MM_DD_YYYY = "m-d-Y";
     }
+
+    public static HashMap<String, String> mMapDateFormats = new HashMap<>();
+    static
+    {
+        mMapDateFormats.put(DATE_FORMAT.API_DD_MM_YYYY, DATE_FORMAT.DD_MM_YYYY);
+        mMapDateFormats.put(DATE_FORMAT.API_MM_DD_YYYY, DATE_FORMAT.MM_DD_YYYY);
+        mMapDateFormats.put(DATE_FORMAT.API_YYYY_MM_DD, DATE_FORMAT.YYYY_MM_DD);
+        Log.e("MapSize", ""+mMapDateFormats.size());
+    }
+
+    public static String getAppDateFormat(String api_format)
+    {
+        String df;
+        if(mMapDateFormats.size()>0 && mMapDateFormats.containsKey(api_format))
+        {
+            df = mMapDateFormats.get(api_format);
+        }
+        else
+        {
+            df = AppPreference.DEF_DATE_FORMAT;
+        }
+        return df;
+    }
+
+
 
     public interface MENU_ITEM {
         public static int MENU_ITEM_HOME = 0;

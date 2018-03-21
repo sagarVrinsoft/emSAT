@@ -407,6 +407,7 @@ public class ViewUtils {
 
     public static void showDOBDatePickerDialog(final Activity mActivity, final String strDate, final OnDateSelectedListener onDateSelectedListener) {
         try {
+            sdf = new SimpleDateFormat(Pref.getApiDateFormat(mActivity), Locale.US);
             final Calendar maxDate = Calendar.getInstance();
             final Calendar minDate = Calendar.getInstance();
             final Calendar calSelDate = Calendar.getInstance();
@@ -417,14 +418,14 @@ public class ViewUtils {
             if (strDate.equalsIgnoreCase("")) {
                 calSelDate.setTimeInMillis(maxDate.getTimeInMillis());
             } else {
-                String[] split = strDate.split("-");
-                int yearr = Integer.valueOf(split[0]);
-                int month = Integer.valueOf(split[1]);
-                int day = Integer.valueOf(split[2]);
-                calSelDate.set(yearr, month - 1, day);
+                Date dtPreselect = ViewUtils.convertStringToDate(strDate, Pref.getApiDateFormat(mActivity));
+//                String[] split = strDate.split("-");
+//                int yearr = Integer.valueOf(split[0]);
+//                int month = Integer.valueOf(split[1]);
+//                int day = Integer.valueOf(split[2]);
+//                calSelDate.set(yearr, month - 1, day);
+                calSelDate.setTime(dtPreselect);
             }
-
-            sdf = new SimpleDateFormat(Pref.getApiDateFormat(mActivity), Locale.US);
             datePickerDialog = new DatePickerDialog
                     (mActivity,
                             new DatePickerDialog.OnDateSetListener() {

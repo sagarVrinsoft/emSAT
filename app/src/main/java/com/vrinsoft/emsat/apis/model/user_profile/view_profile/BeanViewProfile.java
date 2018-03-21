@@ -124,6 +124,18 @@ public class BeanViewProfile {
         @SerializedName("when_fav_driver_riding")
         @Expose
         private Integer whenFavDriverRiding;
+        @SerializedName("date_format")
+        @Expose
+        private String date_format;
+
+        public String getDate_format() {
+            return date_format;
+        }
+
+        public void setDate_format(String date_format) {
+            this.date_format = date_format;
+        }
+
 
         public String getUserId() {
             return userId;

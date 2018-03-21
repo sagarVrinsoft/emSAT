@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -168,6 +169,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.USER_ID, binRegister.getUserId());
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.DOB, binRegister.getDob());
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.GENDER, binRegister.getGender());
+                                Pref.setApiDateFormat(mActivity, AppConstants.getAppDateFormat(binRegister.getDate_format()));
+                                Log.e("AppDateFormat", ""+Pref.getApiDateFormat(mActivity));
                                 Pref.setValue(mActivity, AppPreference.USER_INFO.TOKEN, binRegister.getToken());
                                 NavigationUtils.startActivityWithClearStack(mActivity, Home.class, null);
                             } else {

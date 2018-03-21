@@ -234,8 +234,8 @@ public class Pref {
     public static void setApiDateFormat(Context context, String dtFormat) {
         Pref.openPref(context);
         SharedPreferences.Editor prefsPrivateEditor = Pref.sharedPreferences.edit();
-        prefsPrivateEditor.commit();
         prefsPrivateEditor.putString(AppPreference.DATE_FORMAT, dtFormat);
+        prefsPrivateEditor.commit();
         prefsPrivateEditor = null;
         Pref.sharedPreferences = null;
     }

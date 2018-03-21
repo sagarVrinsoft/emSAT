@@ -1,6 +1,7 @@
 package com.vrinsoft.emsat.utils;
 
 import android.app.Activity;
+import android.graphics.ImageFormat;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -53,5 +54,19 @@ public class Validator {
             return true;
         }
         return false;
+    }
+
+    public static boolean checkImageUrlValidation(String url) {
+        if (!isNullEmpty(url) &&
+                url.contains(".jpg") || url.contains(".jpeg") ||
+                url.contains(".png") || url.contains(".gif") ||
+                url.contains(".bmp") || url.contains(".webp"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

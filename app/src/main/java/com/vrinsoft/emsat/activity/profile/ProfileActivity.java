@@ -168,9 +168,9 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                                             profileBinding.imgTop,
                                             profileBinding.mProgress);
 
-                            ImageUtils.loadBigBlurImage
+                            ImageUtils.loadBigBlurImageLive
                                     (mActivity, R.drawable.bg_profile_top_banner,
-                                            Uri.parse(mArrayList.get(0).getUserImage()),
+                                            mArrayList.get(0).getUserImage(),
                                             profileBinding.imgBlurred,
                                             profileBinding.mProgress);
                         }

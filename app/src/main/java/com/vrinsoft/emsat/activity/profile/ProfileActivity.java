@@ -19,6 +19,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -76,7 +77,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
     LinearLayout llPassword, llNewPassword, llConfirmPassword;
     View vPassword, vNewPassword, vConfirmPassword;
     EditText etPassword, etNewPassword, etConfirmPassword;
-    ImageView imgClose;
+    ImageView imgClose, imgEyePwd1,imgEyePwd2,imgEyePwd3;
     String selectedImagePath;
     Uri photoURI;
     int mGenderSel = AppConstants.GENDER.MALE;
@@ -224,6 +225,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         });
     }
 
+    boolean isEyePwd1 = false, isEyePwd2 = false, isEyePwd3 = false;
     public void showChangePasswordDialog() {
         final Dialog dialog = new Dialog(mActivity, android.R.style.Theme_DeviceDefault_Dialog);
         dialog.setContentView(R.layout.dialog_change_password);
@@ -238,6 +240,9 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         llConfirmPassword = (LinearLayout) dialog.findViewById(R.id.llCPassword);
 
         imgClose = (ImageView) dialog.findViewById(R.id.imgClose);
+        imgEyePwd1 = (ImageView) dialog.findViewById(R.id.imgEyePwd1);
+        imgEyePwd2 = (ImageView) dialog.findViewById(R.id.imgEyePwd2);
+        imgEyePwd3 = (ImageView) dialog.findViewById(R.id.imgEyePwd3);
 
         txtPassword = (TextView) dialog.findViewById(R.id.txtPassword);
         txtNewPassword = (TextView) dialog.findViewById(R.id.txtNewPassword);
@@ -272,6 +277,54 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
 
+        isEyePwd1 = false;
+        isEyePwd2 = false;
+        isEyePwd3 = false;
+        imgEyePwd1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isEyePwd1)
+                {
+                    isEyePwd1 = false;
+                    etPassword.setTransformationMethod(new PasswordTransformationMethod());
+                }
+                else
+                {
+                    isEyePwd1 = true;
+                    etPassword.setTransformationMethod(null);
+                }
+            }
+        });
+        imgEyePwd2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isEyePwd2)
+                {
+                    isEyePwd2 = false;
+                    etNewPassword.setTransformationMethod(new PasswordTransformationMethod());
+                }
+                else
+                {
+                    isEyePwd2 = true;
+                    etNewPassword.setTransformationMethod(null);
+                }
+            }
+        });
+        imgEyePwd3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isEyePwd3)
+                {
+                    isEyePwd3 = false;
+                    etConfirmPassword.setTransformationMethod(new PasswordTransformationMethod());
+                }
+                else
+                {
+                    isEyePwd3 = true;
+                    etConfirmPassword.setTransformationMethod(null);
+                }
+            }
+        });
 
         txtUpdate.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -133,6 +133,12 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                         profileBinding.imgTop,
                         profileBinding.mProgress);
 
+        ImageUtils.loadBigBlurImageLive
+                (mActivity, R.drawable.bg_profile_top_banner,
+                        Pref.getProfileImage(mActivity),
+                        profileBinding.imgBlurred,
+                        profileBinding.mProgress);
+
         ViewUtils.showDialog(mActivity, false);
         Call<ArrayList<BeanViewProfile>> listCall =
                 ApiClient.getApiInterface().viewProfile(
@@ -166,7 +172,7 @@ public class ProfileActivity extends MasterActivity implements View.OnClickListe
                                     (mActivity, R.drawable.bg_profile_top_banner,
                                             Uri.parse(mArrayList.get(0).getUserImage()),
                                             profileBinding.imgBlurred,
-                                            profileBinding.mProgress);;
+                                            profileBinding.mProgress);
                         }
                         boolean isMale = mArrayList.get(0).getGender().equalsIgnoreCase(AppConstants.GENDER.MALE_str);
                         setGender(isMale);

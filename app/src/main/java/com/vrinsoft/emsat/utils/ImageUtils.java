@@ -200,4 +200,55 @@ public class ImageUtils {
             e.printStackTrace();
         }
     }
+
+    public static void loadBigBlurImageLive(final Context context, int drawable_res, String url,
+                                        final ImageView imageView, final ProgressBar mProgress) {
+        try {
+
+            Bitmap bigPlaceHolder = BitmapFactory.decodeResource
+                    (context.getResources(), drawable_res);
+
+            mProgress.setVisibility(View.VISIBLE);
+            Glide.
+                    with(context).
+                    load(url).
+                    listener(new RequestListener<String, GlideDrawable>() {
+                        @Override
+                        public boolean onException(Exception e, String model,
+                                                   Target<GlideDrawable> target,
+                                                   boolean isFirstResource) {
+                            mProgress.setVisibility(View.GONE);
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(GlideDrawable resource,
+                                                       String model, Target<GlideDrawable> target,
+                                                       boolean isFromMemoryCache,
+                                                       boolean isFirstResource) {
+                            mProgress.setVisibility(View.GONE);
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Blurry.with(context)
+                                            .radius(8)
+                                            .sampling(2)
+                                            .async()
+                                            .capture(imageView)
+                                            .into(imageView);
+                                }
+                            },500);
+                            return false;
+                        }
+                    }).placeholder(R.drawable.ic_user_profile).
+                    crossFade().
+                    centerCrop().
+                    override(bigPlaceHolder.getWidth(),bigPlaceHolder.getHeight()).
+                    into(imageView);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
